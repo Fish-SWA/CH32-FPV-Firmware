@@ -51,18 +51,20 @@ void TIM9_PWMOut_Init( u16 arr, u16 psc, u16 ccp )
 void PWM_Init()
 {
     TIM9_PWMOut_Init(Max_duty, PWM_Prescaler-1, 1000);
-    TIM_SetCompare1(TIM9,0);    //防止上电就乱动
-    TIM_SetCompare2(TIM9,0);
-    TIM_SetCompare3(TIM9,0);
-    TIM_SetCompare4(TIM9,0);
+    TIM_SetCompare1(TIM9,PWM_THROTTLE_MIN);    //初始最低油门
+    TIM_SetCompare2(TIM9,PWM_THROTTLE_MIN);
+    TIM_SetCompare3(TIM9,PWM_THROTTLE_MIN);
+    TIM_SetCompare4(TIM9,PWM_THROTTLE_MIN);
 }
+
 void Motor_ctr(u16 pwm, u8 n)
 {
-    if(pwm<=0){  //限制输入幅度
-     pwm=0;
-    }
-    if(pwm>=Max_duty){  //限制输入幅度
-     pwm=Max_duty;
+    if(pwm<=PWM_THROTTLE_MIN){  //限制输入幅度
+     pwm=PWM_THROTTLE_MIN;
+    }else if(pwm>=PWM_THROTTLE_MAX){  //限制输入幅度
+     pwm=PWM_THROTTLE_MAX;
+    }else if(pwm<=PWM_THROTTLE_MIN_ROTATE){     //不让电机处于不能流畅转动的区间
+     pwm=PWM_THROTTLE_MIN;
     }
     switch (n)
     {

@@ -5,6 +5,10 @@
 #define PWM_MODE1   0
 #define PWM_MODE2   1
 
+#define PWM_THROTTLE_MAX 2880           //最大PWM占空比
+#define PWM_THROTTLE_MIN 1440           //最小PWM占空比 
+#define PWM_THROTTLE_MIN_ROTATE 1480    //让电机转动的最小油门
+
 // define mode1，就是向下计数，mode2是向上计数
 #define PWM_MODE PWM_MODE1
 //#define PWM_MODE PWM_MODE2

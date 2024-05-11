@@ -98,9 +98,9 @@ typedef struct
 	float yaw;
 	float pitch;
 	float roll;
-	uint16_t av_yaw;
-	uint16_t av_pitch;
-	uint16_t av_roll;
+	int16_t av_yaw;
+	int16_t av_pitch;
+	int16_t av_roll;
 }MPU6050_para_t;
 
 extern MPU6050_para_t MPU6050_para;

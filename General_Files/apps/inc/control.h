@@ -21,6 +21,14 @@
 //#define ELRS_XXX            CrsfChannels[5]
 //#define ELRX_XXX            CrsfChannels[7]
 
+//控制模式
+enum
+{
+    PID_CONTROL_MODE = 1,   //电机转速为PID输出
+    RAW_CONTROL_MODE        //电机转速直接为油门输入（debug模式）
+};
+#define CONTROL_MODE PID_CONTROL_MODE   //控制模式设定
+
 // 积分限幅
 #define Angle_I_Limit 5000
 #define Gyro_I_Limit  3000

@@ -154,6 +154,7 @@ void print_status()
     else{
         printf("Throttle Locked\r\n");
     }
+
 //        Delay_Ms(100);
 //        printf("ch1:%d\r\n",CrsfChannels[0]);
 //        printf("ch2:%d\r\n",CrsfChannels[1]);

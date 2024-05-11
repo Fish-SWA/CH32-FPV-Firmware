@@ -191,7 +191,7 @@ void Roll_outerloop_ctr()
 
 void Roll_innerloop_ctr()
 {
-    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, 65535-MPU6050_para.av_roll);
+    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, MPU6050_para.av_roll);
 }
 
 // Yaw¿ØÖÆ
@@ -203,19 +203,19 @@ void Yaw_outerloop_ctr()
 
 void Yaw_innerloop_ctr()
 {
-    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, 65535-MPU6050_para.av_yaw);
+    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, -MPU6050_para.av_yaw);
 }
 
 // Pitch¿ØÖÆ
 void Pitch_outerloop_ctr()
 {
     float angle_num=Pitch + Mech_zero_pitch;
-    pid_func.calc(&PID_pitch_outerloop, angle_num, MPU6050_para.pitch);
+    pid_func.calc(&PID_pitch_outerloop, angle_num, -MPU6050_para.pitch);
 }
 
 void Pitch_innerloop_ctr()
 {
-    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, 65535-MPU6050_para.av_pitch);
+    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, -MPU6050_para.av_pitch);
 }
 
 void Flight_control()
@@ -235,24 +235,33 @@ void Flight_control()
     PWM_Out2=Throttle+PID_pitch_innerloop.out-PID_roll_innerloop.out-PID_yaw_innerloop.out;
     PWM_Out3=Throttle-PID_pitch_innerloop.out+PID_roll_innerloop.out-PID_yaw_innerloop.out;
     PWM_Out4=Throttle-PID_pitch_innerloop.out-PID_roll_innerloop.out-PID_yaw_innerloop.out;
-    Limit(PWM_Out1, 2880, 1440);
-    Limit(PWM_Out2, 2880, 1440);
-    Limit(PWM_Out3, 2880, 1440);
-    Limit(PWM_Out4, 2880, 1440);
-
-    Motor_ctr(PWM_Out1,1);
-    Motor_ctr(PWM_Out2,2);
-    Motor_ctr(PWM_Out3,3);
-    Motor_ctr(PWM_Out4,4);
+    Limit(PWM_Out1, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+    Limit(PWM_Out2, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+    Limit(PWM_Out3, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+    Limit(PWM_Out4, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+    if(CONTROL_MODE == PID_CONTROL_MODE)
+    {
+        Motor_ctr(PWM_Out1,1);
+        Motor_ctr(PWM_Out2,2);
+        Motor_ctr(PWM_Out3,3);
+        Motor_ctr(PWM_Out4,4);
+    }
+    else if(CONTROL_MODE == RAW_CONTROL_MODE)
+    {
+        Motor_ctr(Throttle,1);
+        Motor_ctr(Throttle,2);
+        Motor_ctr(Throttle,3);
+        Motor_ctr(Throttle,4);
+    }
 
 }
 
 void Stop_motor()
 {
-    Motor_ctr(0,1);
-    Motor_ctr(0,2);
-    Motor_ctr(0,3);
-    Motor_ctr(0,4);
+    Motor_ctr(PWM_THROTTLE_MIN,1);
+    Motor_ctr(PWM_THROTTLE_MIN,2);
+    Motor_ctr(PWM_THROTTLE_MIN,3);
+    Motor_ctr(PWM_THROTTLE_MIN,4);
 }
 
 
