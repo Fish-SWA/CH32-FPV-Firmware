@@ -53,11 +53,15 @@ void TIM3_IRQHandler(void)
     Update_ELRS();
     if(MPU6050_MPU_DMP_GetData() == RESET)
     {
+        if(MOTOR_MODE == MOTOR_SOFT_STARTING){
+            return;       //如果电机正在缓启动，电机不执行控制
+        }
+
         if(is_locked==Unlocked){
-            if(Throttle>=1600){
+            if(Throttle>=PWM_CLOSE_LOOP_CONTROL_ENABLE){
                 Flight_control();
             }
-            else if(Throttle<1600){
+            else if(Throttle<PWM_CLOSE_LOOP_CONTROL_ENABLE){
                 Motor_ctr(Throttle,1);
                 Motor_ctr(Throttle,2);
                 Motor_ctr(Throttle,3);

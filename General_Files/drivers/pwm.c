@@ -1,5 +1,7 @@
 #include "debug.h"
 #include "pwm.h"
+#include "../apps/inc/Crsf.h"
+#include "../apps/inc/control.h"
 
 void TIM9_PWMOut_Init( u16 arr, u16 psc, u16 ccp )
 {
@@ -65,6 +67,44 @@ void Motor_ctr(u16 pwm, u8 n)
      pwm=PWM_THROTTLE_MAX;
     }else if(pwm<=PWM_THROTTLE_MIN_ROTATE){     //不让电机处于不能流畅转动的区间
      pwm=PWM_THROTTLE_MIN;
+    }
+
+    /*当解锁电机的时候，强制电机转速处于怠速以上*/
+    if(is_locked == Unlocked && pwm<PWM_THROTTLE_MIN_ROTATE){
+        pwm=PWM_THROTTLE_MIN_ROTATE;
+    }
+
+    /*缓启动时禁用*/
+    if(MOTOR_MODE == MOTOR_SOFT_STARTING){
+        return;
+    }
+
+    switch (n)
+    {
+        case 1:
+            TIM_SetCompare1(TIM9,pwm);  //1号电机
+            break;
+        case 2:
+            TIM_SetCompare2(TIM9,pwm);  //2号电机
+            break;
+        case 3:
+            TIM_SetCompare3(TIM9,pwm);  //3号电机
+            break;
+        case 4:
+            TIM_SetCompare4(TIM9,pwm);  //3号电机
+            break;
+        default:
+            break;
+    }
+}
+
+/*仅在缓启动模式使用*/
+void Motor_ctr_SOFT_START(u16 pwm, u8 n)
+{
+    if(pwm<=PWM_THROTTLE_MIN){  //限制输入幅度
+     pwm=PWM_THROTTLE_MIN;
+    }else if(pwm>=PWM_THROTTLE_MAX){  //限制输入幅度
+     pwm=PWM_THROTTLE_MAX;
     }
     switch (n)
     {

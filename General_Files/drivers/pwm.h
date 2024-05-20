@@ -7,7 +7,8 @@
 
 #define PWM_THROTTLE_MAX 2880           //最大PWM占空比
 #define PWM_THROTTLE_MIN 1440           //最小PWM占空比 
-#define PWM_THROTTLE_MIN_ROTATE 1480    //让电机转动的最小油门
+#define PWM_THROTTLE_MIN_ROTATE 1650    //让电机转动的最小油门
+#define PWM_CLOSE_LOOP_CONTROL_ENABLE   1700 //启用pid控制的油门
 
 // define mode1，就是向下计数，mode2是向上计数
 #define PWM_MODE PWM_MODE1
@@ -21,5 +22,6 @@
 void TIM9_PWMOut_Init( u16 arr, u16 psc, u16 ccp );
 void PWM_Init(void);
 void Motor_ctr(u16 pwm, u8 n);
+void Motor_ctr_SOFT_START(u16 pwm, u8 n);
 
 #endif

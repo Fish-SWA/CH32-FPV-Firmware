@@ -27,9 +27,19 @@ enum
     PID_CONTROL_MODE = 1,   //电机转速为PID输出
     RAW_CONTROL_MODE        //电机转速直接为油门输入（debug模式）
 };
-#define CONTROL_MODE PID_CONTROL_MODE   //控制模式设定
 
-// 积分限幅
+//电机模式
+enum
+{
+    MOTOR_NORMAL = 1,       //正常模式
+    MOTOR_SOFT_STARTING     //正在缓启动中
+};
+
+//电机缓启动相关
+#define SOFT_START_TIME 1000 //缓启动时间，ms
+
+
+// 积分
 #define Angle_I_Limit 5000
 #define Gyro_I_Limit  3000
 
@@ -37,6 +47,8 @@ enum
 #define ELRS2angle    0.037
 // ELRS数据转换到油门数据：ELRS_data*ELRS2throttle=throttle，1440/1711=0.8416
 #define ELRS2throttle 0.5  // 不是0.8419是因为留一点油门给飞机调整姿态
+//#define ELRS2throttle 0.92  // 不是0.8419是因为留一点油门给飞机调整姿态
+
 
 // 最大倾斜角度，还未换算
 #define MAX_ROLL_ANGLE  30
@@ -79,8 +91,11 @@ void Pitch_outerloop_ctr();
 void Pitch_innerloop_ctr();
 void Flight_control();
 void Stop_motor();
+void Check_control_mode();
 
-
+extern int CONTROL_MODE;
+extern u8 is_locked;
+extern int MOTOR_MODE;
 
 
 #endif

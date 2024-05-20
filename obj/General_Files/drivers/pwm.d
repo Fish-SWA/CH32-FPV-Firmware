@@ -28,7 +28,13 @@ General_Files/drivers/pwm.o: ../General_Files/drivers/pwm.c \
  E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Peripheral\inc/ch32v30x_wwdg.h \
  E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\User/ch32v30x_it.h \
  E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Peripheral\inc/ch32v30x_misc.h \
- ../General_Files/drivers/pwm.h
+ ../General_Files/drivers/pwm.h \
+ ../General_Files/drivers/../apps/inc/Crsf.h \
+ ../General_Files/drivers/../apps/inc/CRC.h \
+ ../General_Files/drivers/../apps/inc/CRSF_PROTOCOL.h \
+ ../General_Files/drivers/../apps/inc/control.h \
+ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\pid.h \
+ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\crsf.h
 
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Debug/debug.h:
 
@@ -89,3 +95,15 @@ E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Peripheral\inc/ch32v30x_misc.h:
 
 ../General_Files/drivers/pwm.h:
+
+../General_Files/drivers/../apps/inc/Crsf.h:
+
+../General_Files/drivers/../apps/inc/CRC.h:
+
+../General_Files/drivers/../apps/inc/CRSF_PROTOCOL.h:
+
+../General_Files/drivers/../apps/inc/control.h:
+
+e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\pid.h:
+
+e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\crsf.h:

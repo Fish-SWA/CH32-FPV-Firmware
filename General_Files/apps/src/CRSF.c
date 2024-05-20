@@ -93,7 +93,7 @@ void PacketChannelsPacked(const Crsf_Header_t *p)
     CrsfChannels[4] = ch->ch4;      // Throttle_Lock
     CrsfChannels[5] = ch->ch5;      // nc
     CrsfChannels[6] = ch->ch6;      // Stable_mode
-    CrsfChannels[7] = ch->ch7;      // nc
+    CrsfChannels[7] = ch->ch7;      // debug mode
     CrsfChannels[8] = ch->ch8;
     CrsfChannels[9] = ch->ch9;
     CrsfChannels[10] = ch->ch10;

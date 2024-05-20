@@ -34,6 +34,8 @@ float Yaw   = 0;
 float Pitch = 0;
 float Roll  = 0;
 uint16_t Throttle = 0;
+int CONTROL_MODE = PID_CONTROL_MODE;    //控制模式设定
+int MOTOR_MODE = MOTOR_NORMAL;  //电机模式设定
 
 void PIDSTRUCT_Init()
 {
@@ -46,7 +48,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_yaw_outerloop);
     PID_yaw_outerloop.Kp=-5.0f;
     PID_yaw_outerloop.Ki=-0.0f;
-    PID_yaw_outerloop.Kd=0.12f;
+    PID_yaw_outerloop.Kd=0.0f;
     PID_yaw_outerloop.max_iout=Angle_I_Limit;
     PID_yaw_outerloop.min_iout=-Angle_I_Limit;
     PID_yaw_outerloop.max_out=65535;
@@ -57,7 +59,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_yaw_innerloop);
     PID_yaw_innerloop.Kp=-0.45f;
     PID_yaw_innerloop.Ki=-0.0f;
-    PID_yaw_innerloop.Kd=-0.08f;
+    PID_yaw_innerloop.Kd=-0.0f;
     PID_yaw_innerloop.max_iout=Gyro_I_Limit;
     PID_yaw_innerloop.min_iout=-Gyro_I_Limit;
     PID_yaw_innerloop.max_out=65535;
@@ -69,7 +71,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_pitch_outerloop);
     PID_pitch_outerloop.Kp=10.0f;
     PID_pitch_outerloop.Ki=0.0f;
-    PID_pitch_outerloop.Kd=-0.8f;
+    PID_pitch_outerloop.Kd=0.0f;
     PID_pitch_outerloop.max_iout=Angle_I_Limit;
     PID_pitch_outerloop.min_iout=-Angle_I_Limit;
     PID_pitch_outerloop.max_out=65535;
@@ -80,7 +82,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_pitch_innerloop);
     PID_pitch_innerloop.Kp=0.45f;
     PID_pitch_innerloop.Ki=0.0f;
-    PID_pitch_innerloop.Kd=0.08f;
+    PID_pitch_innerloop.Kd=0.0f;
     PID_pitch_innerloop.max_iout=Gyro_I_Limit;
     PID_pitch_innerloop.min_iout=-Gyro_I_Limit;
     PID_pitch_innerloop.max_out=65535;
@@ -92,7 +94,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_roll_outerloop);
     PID_roll_outerloop.Kp=8.0f;
     PID_roll_outerloop.Ki=0.0f;
-    PID_roll_outerloop.Kd=-0.8f;
+    PID_roll_outerloop.Kd=0.0f;
     PID_roll_outerloop.max_iout=Angle_I_Limit;
     PID_roll_outerloop.min_iout=-Angle_I_Limit;
     PID_roll_outerloop.max_out=65535;
@@ -103,7 +105,7 @@ void PIDSTRUCT_Init()
     pid_func.reset(&PID_roll_innerloop);
     PID_roll_innerloop.Kp=0.45f;
     PID_roll_innerloop.Ki=0.0f;
-    PID_roll_innerloop.Kd=0.08f;
+    PID_roll_innerloop.Kd=0.0f;
     PID_roll_innerloop.max_iout=Gyro_I_Limit;
     PID_roll_innerloop.min_iout=-Gyro_I_Limit;
     PID_roll_innerloop.max_out=65535;
@@ -174,6 +176,7 @@ void Update_ELRS()
     Throttle = ELRS_Convert_throttle(ELRS_Throttle);
     ELRS_Convert_lock();
     ELRS_Convert_flight_mode();
+    Check_control_mode(); //同步控制模式
 }
 
 //***********************************************************************
@@ -218,6 +221,17 @@ void Pitch_innerloop_ctr()
     pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, -MPU6050_para.av_pitch);
 }
 
+// 从遥控器同步控制模式
+void Check_control_mode()
+{
+    if(CrsfChannels[7] == 191){     //拨杆向下
+        CONTROL_MODE = PID_CONTROL_MODE;
+    }else if(CrsfChannels[7] == 1792){  //拨杆向上
+        CONTROL_MODE = RAW_CONTROL_MODE;
+    }
+    
+}
+
 void Flight_control()
 {
     Roll_outerloop_ctr();
@@ -228,6 +242,7 @@ void Flight_control()
 
     Yaw_outerloop_ctr();
     Yaw_innerloop_ctr();
+
     Mech_zero_yaw = MPU6050_para.yaw;     // 防止转向后机头回0
 
 

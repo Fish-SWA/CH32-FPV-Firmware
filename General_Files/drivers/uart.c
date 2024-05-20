@@ -138,16 +138,17 @@ void print_status()
     printf("PWM1:%d\r\n",TIM_GetCapture1(TIM9));
     printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));
     printf("PWM3:%d\r\n",TIM_GetCapture3(TIM9));
-    printf("PWM4:%d\r\n\n",TIM_GetCapture4(TIM9));
+    printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));
     if(flight_mode==GPS){
         printf("flight_mode:GPS\r\n");
     }
     else if(flight_mode==Stable){
-        printf("flight_mode:Stable\r");
+        printf("flight_mode:Stable\r\n");
     }
     else{
         printf("flight_mode:Free\r\n");
     }
+
     if(is_locked == Unlocked){
         printf("Throttle Unlocked\r\n");
     }
@@ -155,19 +156,25 @@ void print_status()
         printf("Throttle Locked\r\n");
     }
 
+    if(CONTROL_MODE == PID_CONTROL_MODE){
+        printf("Control_mode:PID\r\n\n");
+    }else if(CONTROL_MODE == RAW_CONTROL_MODE){
+        printf("Control_mode:RAW\r\n\n");
+    }
+
 //        Delay_Ms(100);
-//        printf("ch1:%d\r\n",CrsfChannels[0]);
-//        printf("ch2:%d\r\n",CrsfChannels[1]);
-//        printf("ch3:%d\r\n",CrsfChannels[2]);
-//        printf("ch4:%d\r\n",CrsfChannels[3]);
-//        printf("ch5:%d\r\n",CrsfChannels[4]);
-//        printf("ch6:%d\r\n",CrsfChannels[5]);
-//        printf("ch7:%d\r\n",CrsfChannels[6]);
-//        printf("ch8:%d\r\n",CrsfChannels[7]);
-//        printf("ch9:%d\r\n",CrsfChannels[8]);
-//        printf("ch10:%d\r\n",CrsfChannels[9]);
-//        printf("ch11:%d\r\n",CrsfChannels[10]);
-//        printf("ch12:%d\r\n\n",CrsfChannels[11]);
+    //    printf("ch1:%d\r\n",CrsfChannels[0]);
+    //    printf("ch2:%d\r\n",CrsfChannels[1]);
+    //    printf("ch3:%d\r\n",CrsfChannels[2]);
+    //    printf("ch4:%d\r\n",CrsfChannels[3]);
+    //    printf("ch5:%d\r\n",CrsfChannels[4]);
+    //    printf("ch6:%d\r\n",CrsfChannels[5]);
+    //    printf("ch7:%d\r\n",CrsfChannels[6]);
+    //    printf("ch8:%d\r\n",CrsfChannels[7]);
+    //    printf("ch9:%d\r\n",CrsfChannels[8]);
+    //    printf("ch10:%d\r\n",CrsfChannels[9]);
+    //    printf("ch11:%d\r\n",CrsfChannels[10]);
+    //    printf("ch12:%d\r\n\n",CrsfChannels[11]);
 
 
 }
