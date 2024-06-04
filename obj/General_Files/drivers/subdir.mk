@@ -9,6 +9,7 @@ C_SRCS += \
 ../General_Files/drivers/MPU6050.c \
 ../General_Files/drivers/MyI2C.c \
 ../General_Files/drivers/adc.c \
+../General_Files/drivers/bsp_filter.c \
 ../General_Files/drivers/gpio.c \
 ../General_Files/drivers/mtf01.c \
 ../General_Files/drivers/pwm.c \
@@ -20,6 +21,7 @@ OBJS += \
 ./General_Files/drivers/MPU6050.o \
 ./General_Files/drivers/MyI2C.o \
 ./General_Files/drivers/adc.o \
+./General_Files/drivers/bsp_filter.o \
 ./General_Files/drivers/gpio.o \
 ./General_Files/drivers/mtf01.o \
 ./General_Files/drivers/pwm.o \
@@ -31,6 +33,7 @@ C_DEPS += \
 ./General_Files/drivers/MPU6050.d \
 ./General_Files/drivers/MyI2C.d \
 ./General_Files/drivers/adc.d \
+./General_Files/drivers/bsp_filter.d \
 ./General_Files/drivers/gpio.d \
 ./General_Files/drivers/mtf01.d \
 ./General_Files/drivers/pwm.d \

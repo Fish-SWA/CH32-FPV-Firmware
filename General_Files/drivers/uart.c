@@ -6,6 +6,7 @@
 #include "../General_Files/drivers/uart.h"
 #include "MPU6050.h"
 #include "../apps/inc/control.h"
+#include "tim.h"
 
 extern u8 is_locked;           // 电机锁
 extern u8 flight_mode;         //飞行模式
@@ -134,6 +135,12 @@ void print_status()
     printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
     printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
     printf("av_roll=%d\r\n",MPU6050_para.av_roll);
+    printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
+    printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
+    printf("roll_filted=%f\r\n",MPU6050_para_filted.roll);
+    printf("av_yaw_filted=%d\r\n",MPU6050_para_filted.av_yaw);
+    printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
+    printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
 //    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
     printf("PWM1:%d\r\n",TIM_GetCapture1(TIM9));
     printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));

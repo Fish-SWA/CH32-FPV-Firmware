@@ -34,7 +34,11 @@ General_Files/apps/src/control.o: ../General_Files/apps/src/control.c \
  e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\CRC.h \
  e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\CRSF_PROTOCOL.h \
  E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\General_Files\drivers/MPU6050.h \
- E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\General_Files\drivers/pwm.h
+ E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\General_Files\drivers/pwm.h \
+ ../General_Files/apps/src/../../drivers/tim.h \
+ ../General_Files/apps/src/../../drivers/../apps/inc/control.h \
+ ../General_Files/apps/src/../../drivers/uart.h \
+ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\mpu6050.h
 
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Debug/debug.h:
 
@@ -107,3 +111,11 @@ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\General_Files\drivers/MPU6050.h:
 
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\General_Files\drivers/pwm.h:
+
+../General_Files/apps/src/../../drivers/tim.h:
+
+../General_Files/apps/src/../../drivers/../apps/inc/control.h:
+
+../General_Files/apps/src/../../drivers/uart.h:
+
+e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\mpu6050.h:

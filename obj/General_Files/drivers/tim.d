@@ -36,7 +36,8 @@ General_Files/drivers/tim.o: ../General_Files/drivers/tim.c \
  e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\apps\inc\CRSF_PROTOCOL.h \
  ../General_Files/drivers/uart.h \
  e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\mpu6050.h \
- e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\pwm.h
+ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\pwm.h \
+ ../General_Files/drivers/bsp_filter.h
 
 E:\Document\WeChat\ Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Debug/debug.h:
 
@@ -113,3 +114,5 @@ e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\
 e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\mpu6050.h:
 
 e:\document\wechat\ files\wxid_15t014nog1r512\filestorage\file\2024-05\fpv_demo\general_files\drivers\pwm.h:
+
+../General_Files/drivers/bsp_filter.h:

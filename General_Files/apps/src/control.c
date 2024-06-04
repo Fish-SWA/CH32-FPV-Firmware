@@ -4,6 +4,7 @@
 #include "../apps/inc/Crsf.h"
 #include "../apps/inc/pid.h"
 #include "pwm.h"
+#include "../../drivers/tim.h"
 
 //飞机电机对应图
 //        1号    2号
@@ -189,36 +190,36 @@ void Update_ELRS()
 void Roll_outerloop_ctr()
 {
     float angle_num=Roll + Mech_zero_roll;
-    pid_func.calc(&PID_roll_outerloop, angle_num, MPU6050_para.roll);
+    pid_func.calc(&PID_roll_outerloop, angle_num, MPU6050_para_filted.roll);
 }
 
 void Roll_innerloop_ctr()
 {
-    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, MPU6050_para.av_roll);
+    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, MPU6050_para_filted.av_roll);
 }
 
 // Yaw控制
 void Yaw_outerloop_ctr()
 {
     float angle_num=Yaw + Mech_zero_yaw;
-    pid_func.calc(&PID_yaw_outerloop, angle_num, MPU6050_para.yaw);
+    pid_func.calc(&PID_yaw_outerloop, angle_num, MPU6050_para_filted.yaw);
 }
 
 void Yaw_innerloop_ctr()
 {
-    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, -MPU6050_para.av_yaw);
+    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, -MPU6050_para_filted.av_yaw);
 }
 
 // Pitch控制
 void Pitch_outerloop_ctr()
 {
     float angle_num=Pitch + Mech_zero_pitch;
-    pid_func.calc(&PID_pitch_outerloop, angle_num, -MPU6050_para.pitch);
+    pid_func.calc(&PID_pitch_outerloop, angle_num, -MPU6050_para_filted.pitch);
 }
 
 void Pitch_innerloop_ctr()
 {
-    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, -MPU6050_para.av_pitch);
+    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, -MPU6050_para_filted.av_pitch);
 }
 
 // 从遥控器同步控制模式
@@ -243,7 +244,7 @@ void Flight_control()
     Yaw_outerloop_ctr();
     Yaw_innerloop_ctr();
 
-    Mech_zero_yaw = MPU6050_para.yaw;     // 防止转向后机头回0
+    Mech_zero_yaw = MPU6050_para_filted.yaw;     // 防止转向后机头回0
 
 
     PWM_Out1=Throttle+PID_pitch_innerloop.out+PID_roll_innerloop.out+PID_yaw_innerloop.out;
