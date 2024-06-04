@@ -75,6 +75,7 @@ int main(void)
 	printf("This is printf example\r\n");
 
 	System_Init();
+# git test
 
 	while(1)
     {
