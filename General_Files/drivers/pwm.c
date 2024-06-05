@@ -3,6 +3,8 @@
 #include "../apps/inc/Crsf.h"
 #include "../apps/inc/control.h"
 
+int Motor_pos[4] = {2, 3, 1, 4}; //电机的ID映射
+
 void TIM9_PWMOut_Init( u16 arr, u16 psc, u16 ccp )
 {
     GPIO_InitTypeDef GPIO_InitStructure={0};
@@ -61,6 +63,7 @@ void PWM_Init()
 
 void Motor_ctr(u16 pwm, u8 n)
 {
+    int motor_id_fix = 0;
     if(pwm<=PWM_THROTTLE_MIN){  //限制输入幅度
      pwm=PWM_THROTTLE_MIN;
     }else if(pwm>=PWM_THROTTLE_MAX){  //限制输入幅度
@@ -74,16 +77,18 @@ void Motor_ctr(u16 pwm, u8 n)
         pwm=PWM_THROTTLE_MIN_ROTATE;
     }
 
+    /*!Debug 验证电机ID*/
+    //if(n != 4) pwm=PWM_THROTTLE_MIN;
+    /*修正电机ID*/
+    motor_id_fix = Motor_pos[n-1];
+
     /*缓启动时禁用*/
     if(MOTOR_MODE == MOTOR_SOFT_STARTING){
         return;
     }
 
-    /*!Debug 修正电机ID*/
-    n = n+1;
-    if(n>4) n=1;
 
-    switch (n)
+    switch (motor_id_fix)
     {
         case 1:
             TIM_SetCompare1(TIM9,pwm);  //1号电机

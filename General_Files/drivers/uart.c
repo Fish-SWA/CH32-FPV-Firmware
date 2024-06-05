@@ -142,10 +142,10 @@ void print_status()
     printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
     printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
 //    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
-    printf("PWM1:%d\r\n",TIM_GetCapture1(TIM9));
-    printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));
-    printf("PWM3:%d\r\n",TIM_GetCapture3(TIM9));
-    printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));
+    printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际的2号电机
+    printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
+    printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
+    printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4
     printf("ch2:%d", CrsfChannels[2]);
     if(flight_mode==GPS){
         printf("flight_mode:GPS\r\n");

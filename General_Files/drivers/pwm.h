@@ -24,4 +24,6 @@ void PWM_Init(void);
 void Motor_ctr(u16 pwm, u8 n);
 void Motor_ctr_SOFT_START(u16 pwm, u8 n);
 
+extern int Motor_pos[4];
+
 #endif
