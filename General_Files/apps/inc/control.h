@@ -38,7 +38,7 @@ enum
 //电机缓启动相关
 #define SOFT_START_TIME 1000 //缓启动时间，ms
 
-#define IMU_SAMPLE_SIZE 50 //IMU平均值滤波器大小
+#define IMU_SAMPLE_SIZE 10 //IMU平均值滤波器大小
 
 // 积分
 #define Angle_I_Limit 5000

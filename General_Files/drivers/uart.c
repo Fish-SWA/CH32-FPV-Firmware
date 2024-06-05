@@ -146,7 +146,6 @@ void print_status()
     printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));
     printf("PWM3:%d\r\n",TIM_GetCapture3(TIM9));
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));
-    printf("ch2:%d", CrsfChannels[2]);
     if(flight_mode==GPS){
         printf("flight_mode:GPS\r\n");
     }

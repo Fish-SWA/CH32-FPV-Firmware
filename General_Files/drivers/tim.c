@@ -58,12 +58,6 @@ void TIM3_IRQHandler(void)
     {
         load_filter_data();
         calc_IMU_filter();
-        // printf("%f, %f, %f, %d, %d, %d\n", MPU6050_para_filted.yaw,
-        //                                     MPU6050_para_filted.pitch,
-        //                                     MPU6050_para_filted.roll,
-        //                                     MPU6050_para_filted.av_yaw,
-        //                                     MPU6050_para_filted.av_pitch,
-        //                                     MPU6050_para_filted.av_roll);
 
         if(MOTOR_MODE == MOTOR_SOFT_STARTING){
             return;       //如果电机正在缓启动，电机不执行控制

@@ -66,6 +66,7 @@ void PIDSTRUCT_Init()
     PID_yaw_innerloop.min_iout=-Gyro_I_Limit;
     PID_yaw_innerloop.max_out=65535;
     PID_yaw_innerloop.min_out=-65535;
+    PID_yaw_outerloop.DeadBand = 0;    //PIDËÀÇø
     pid_func.init(&PID_yaw_innerloop);      // Çå¿Õ»º´æ
 
     ////////////////////////////////////////pitch////////////////////////////////////////
@@ -90,6 +91,7 @@ void PIDSTRUCT_Init()
     PID_pitch_innerloop.min_iout=-Gyro_I_Limit;
     PID_pitch_innerloop.max_out=65535;
     PID_pitch_innerloop.min_out=-65535;
+    PID_pitch_innerloop.DeadBand = 0;    //PIDËÀÇø
     pid_func.init(&PID_pitch_innerloop);    // Çå¿Õ»º´æ
 
     //////////////////////////////////////////roll////////////////////////////////////////
@@ -114,6 +116,7 @@ void PIDSTRUCT_Init()
     PID_roll_innerloop.min_iout=-Gyro_I_Limit;
     PID_roll_innerloop.max_out=65535;
     PID_roll_innerloop.min_out=-65535;
+    PID_roll_innerloop.DeadBand=0;
     pid_func.init(&PID_roll_innerloop);     // Çå¿Õ»º´æ
 }
 //***********************************************************************
