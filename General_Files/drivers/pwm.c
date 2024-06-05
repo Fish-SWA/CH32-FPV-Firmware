@@ -79,6 +79,10 @@ void Motor_ctr(u16 pwm, u8 n)
         return;
     }
 
+    /*!Debug ÐÞÕýµç»úID*/
+    n = n+1;
+    if(n>4) n=1;
+
     switch (n)
     {
         case 1:

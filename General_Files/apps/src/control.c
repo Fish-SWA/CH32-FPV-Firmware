@@ -47,20 +47,21 @@ void PIDSTRUCT_Init()
     //////////////////////////////////////////yaw////////////////////////////////////////
     // 航向角外环初始化（角度环）
     pid_func.reset(&PID_yaw_outerloop);
-    PID_yaw_outerloop.Kp=-5.0f;
-    PID_yaw_outerloop.Ki=-0.0f;
+    PID_yaw_outerloop.Kp=5.0f;
+    PID_yaw_outerloop.Ki=0.0f;
     PID_yaw_outerloop.Kd=0.0f;
     PID_yaw_outerloop.max_iout=Angle_I_Limit;
     PID_yaw_outerloop.min_iout=-Angle_I_Limit;
     PID_yaw_outerloop.max_out=65535;
     PID_yaw_outerloop.min_out=-65535;
+    PID_yaw_outerloop.DeadBand = 1;    //PID死区
     pid_func.init(&PID_yaw_outerloop);      // 清空缓存
 
     // 航向角内环初始化（角速度环）
     pid_func.reset(&PID_yaw_innerloop);
-    PID_yaw_innerloop.Kp=-0.45f;
-    PID_yaw_innerloop.Ki=-0.0f;
-    PID_yaw_innerloop.Kd=-0.0f;
+    PID_yaw_innerloop.Kp=0.45f;
+    PID_yaw_innerloop.Ki=0.0f;
+    PID_yaw_innerloop.Kd=0.0f;
     PID_yaw_innerloop.max_iout=Gyro_I_Limit;
     PID_yaw_innerloop.min_iout=-Gyro_I_Limit;
     PID_yaw_innerloop.max_out=65535;
@@ -70,13 +71,14 @@ void PIDSTRUCT_Init()
     ////////////////////////////////////////pitch////////////////////////////////////////
     // 俯仰角外环初始化（角度环）
     pid_func.reset(&PID_pitch_outerloop);
-    PID_pitch_outerloop.Kp=10.0f;
-    PID_pitch_outerloop.Ki=0.0f;
-    PID_pitch_outerloop.Kd=0.0f;
+    PID_pitch_outerloop.Kp=-10.0f;
+    PID_pitch_outerloop.Ki=-0.0f;
+    PID_pitch_outerloop.Kd=-0.0f;
     PID_pitch_outerloop.max_iout=Angle_I_Limit;
     PID_pitch_outerloop.min_iout=-Angle_I_Limit;
     PID_pitch_outerloop.max_out=65535;
     PID_pitch_outerloop.min_out=-65535;
+    PID_pitch_outerloop.DeadBand = 1;    //PID死区
     pid_func.init(&PID_pitch_outerloop);    // 清空缓存
 
     // 俯仰角内环初始化（角速度环）
@@ -100,6 +102,7 @@ void PIDSTRUCT_Init()
     PID_roll_outerloop.min_iout=-Angle_I_Limit;
     PID_roll_outerloop.max_out=65535;
     PID_roll_outerloop.min_out=-65535;
+    PID_roll_outerloop.DeadBand=1;
     pid_func.init(&PID_roll_outerloop);     // 清空缓存
 
     // 横滚角内环初始化（角速度环）

@@ -90,7 +90,7 @@ unsigned char MPU6050_Init()
 	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x80);//复位
 	Delay_Ms(100);
 	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x00);//解除休眠状态
-	MPU6050_SetRate(50);//设置采样率50Hz
+	MPU6050_SetRate(250);//设置采样率
 	MPU6050_WriteByte(MPU6050_REG_ACCEL_CONFIG, 0x00 << 3);//0x00 = 2g;0x01 = 4g;0x02 = 8g;0x03 = 16g
 	MPU6050_WriteByte(MPU6050_REG_GYRO_CONFIG, 0x03 << 3);//0x00 = ±250dps;0x01 = ±500dps;0x02 = ±1000dps;0x03 = ±2000dps
 	MPU6050_WriteByte(MPU6050_REG_INT_EN, 0X00);	//关闭所有中断

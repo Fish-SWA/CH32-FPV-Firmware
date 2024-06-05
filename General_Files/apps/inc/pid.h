@@ -32,6 +32,7 @@ typedef struct  _PID{
     float Pout;         //比例控制量
     float Iout;         //积分控制量
     float Dout;         //微分控制量
+    float DeadBand;
     float Dbuf[3];      //微分项 0最新 1上一次 2上上次
     float error[3];     //误差项 0最新 1上一次 2上上次
 }PID_STRUCT;

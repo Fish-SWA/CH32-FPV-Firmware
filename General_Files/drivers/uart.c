@@ -129,12 +129,12 @@ void UART_RxCpltCallback(USART_TypeDef *USARTx)
 
 void print_status()
 {
-    printf("yaw=%f\r\n",MPU6050_para.yaw);
-    printf("pitch=%f\r\n",MPU6050_para.pitch);
-    printf("roll=%f\r\n",MPU6050_para.roll);
-    printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
-    printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
-    printf("av_roll=%d\r\n",MPU6050_para.av_roll);
+    // printf("yaw=%f\r\n",MPU6050_para.yaw);
+    // printf("pitch=%f\r\n",MPU6050_para.pitch);
+    // printf("roll=%f\r\n",MPU6050_para.roll);
+    // printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
+    // printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
+    // printf("av_roll=%d\r\n",MPU6050_para.av_roll);
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
     printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
     printf("roll_filted=%f\r\n",MPU6050_para_filted.roll);
@@ -146,6 +146,7 @@ void print_status()
     printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));
     printf("PWM3:%d\r\n",TIM_GetCapture3(TIM9));
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));
+    printf("ch2:%d", CrsfChannels[2]);
     if(flight_mode==GPS){
         printf("flight_mode:GPS\r\n");
     }
