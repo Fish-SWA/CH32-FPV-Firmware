@@ -8,7 +8,7 @@
 extern uint8_t RxBuf[CRSF_MAX_PACKET_SIZE];
 extern uint8_t RxBuf_Index;
 
-int CrsfChannels[CRSF_NUM_CHANNELS];        //Crsf通道值
+extern int CrsfChannels[CRSF_NUM_CHANNELS];        //Crsf通道值
 
 #define PACKED __attribute__((packed))
 

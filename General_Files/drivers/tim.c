@@ -124,7 +124,7 @@ void TIM4_IRQHandler(void)   __attribute__((interrupt("WCH-Interrupt-fast")));
 void TIM4_IRQHandler(void)
 {
     TIM_ClearFlag(TIM4, TIM_FLAG_Update);//清除标志位
-    GPIO_TogglePin(GPIOA, GPIO_Pin_8);
+    //GPIO_TogglePin(GPIOA, GPIO_Pin_8);  //!Debug 暂时不适用GPIO_TogglePin
 //    printf("working!\r\n");
     print_status();
 }

@@ -98,13 +98,12 @@ extern int CONTROL_MODE;
 extern u8 is_locked;
 extern int MOTOR_MODE;
 
-
-PID_STRUCT PID_yaw_outerloop;
-PID_STRUCT PID_yaw_innerloop;
-PID_STRUCT PID_pitch_outerloop;
-PID_STRUCT PID_pitch_innerloop;
-PID_STRUCT PID_roll_outerloop;
-PID_STRUCT PID_roll_innerloop;
+extern PID_STRUCT PID_yaw_outerloop;
+extern PID_STRUCT PID_yaw_innerloop;
+extern PID_STRUCT PID_pitch_outerloop;
+extern PID_STRUCT PID_pitch_innerloop;
+extern PID_STRUCT PID_roll_outerloop;
+extern PID_STRUCT PID_roll_innerloop;
 #endif
 
 

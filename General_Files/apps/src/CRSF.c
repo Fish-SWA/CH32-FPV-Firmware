@@ -2,6 +2,8 @@
 #include "debug.h"
 uint8_t RxBuf[CRSF_MAX_PACKET_SIZE];		//Crsf数据包缓冲区
 uint8_t RxBuf_Index;										
+int CrsfChannels[CRSF_NUM_CHANNELS];        //Crsf通道值
+
 
 //uint16_t CRSF_CH[17];
 //uint16_t CRSF_CH_LAST[17];

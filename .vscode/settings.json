@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "tim.h": "c",
+        "uart.h": "c",
+        "control.h": "c"
+    }
+}

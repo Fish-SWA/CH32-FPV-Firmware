@@ -25,6 +25,9 @@ C_DEPS :=
 SUBDIRS := \
 Core \
 Debug \
+FreeRTOS \
+FreeRTOS/portable/GCC/RISC-V \
+FreeRTOS/portable/MemMang \
 General_Files/apps/src \
 General_Files/drivers \
 General_Files/eMPL \

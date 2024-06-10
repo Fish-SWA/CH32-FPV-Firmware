@@ -21,6 +21,12 @@ u8 is_locked = 1;           // 电机锁
 u8 flight_mode = 1;         //飞行模式
 u8 is_landing = 0;          //自动降落
 
+PID_STRUCT PID_yaw_outerloop;
+PID_STRUCT PID_yaw_innerloop;
+PID_STRUCT PID_pitch_outerloop;
+PID_STRUCT PID_pitch_innerloop;
+PID_STRUCT PID_roll_outerloop;
+PID_STRUCT PID_roll_innerloop;
 
 uint16_t PWM_Out1=0;         // 最终作用到电机1的PWM
 uint16_t PWM_Out2=0;         // 最终作用到电机2的PWM
