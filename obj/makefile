@@ -9,6 +9,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include User/RTOS_apps/subdir.mk
 -include User/subdir.mk
 -include Startup/subdir.mk
 -include Peripheral/src/subdir.mk
@@ -60,7 +61,7 @@ all: FreeRTOS.elf secondary-outputs
 
 # Tool invocations
 FreeRTOS.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs  -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
 	@	@
 FreeRTOS.hex: FreeRTOS.elf
 	@	riscv-none-embed-objcopy -O ihex "FreeRTOS.elf"  "FreeRTOS.hex"

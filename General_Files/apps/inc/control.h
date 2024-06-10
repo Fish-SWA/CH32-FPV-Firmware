@@ -104,6 +104,12 @@ extern PID_STRUCT PID_pitch_outerloop;
 extern PID_STRUCT PID_pitch_innerloop;
 extern PID_STRUCT PID_roll_outerloop;
 extern PID_STRUCT PID_roll_innerloop;
+
+extern u8 is_locked;           // 电机锁
+extern u8 flight_mode;         //飞行模式
+extern u8 is_landing;          //自动降落
+extern uint16_t Throttle;
+
 #endif
 
 

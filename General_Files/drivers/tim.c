@@ -14,8 +14,7 @@ extern float Yaw;
 extern float Pitch;
 extern float Roll;
 extern uint16_t Throttle;
-FilterBuf_STRUCT gyro_filter[6];    //陀螺仪滤波
-MPU6050_para_t MPU6050_para_filted;
+
 
 void TIM3_Interrupt_Init(void)
 {
@@ -127,27 +126,7 @@ void TIM4_IRQHandler(void)
 //    printf("working!\r\n");
 }
 
-/*IMU滤波相关*/
-void load_filter_data()
-{
-    FilterSample(&gyro_filter[0], MPU6050_para.yaw);
-    FilterSample(&gyro_filter[1], MPU6050_para.pitch);
-    FilterSample(&gyro_filter[2], MPU6050_para.roll);
-    FilterSample(&gyro_filter[3], (float)MPU6050_para.av_yaw);
-    FilterSample(&gyro_filter[4], (float)MPU6050_para.av_pitch);
-    FilterSample(&gyro_filter[5], (float)MPU6050_para.av_roll);
-}
 
-void calc_IMU_filter()
-{
-    /*!Debug 调换了Pitch和Roll*/
-    MPU6050_para_filted.yaw = FilterAverage(&gyro_filter[0]);
-    MPU6050_para_filted.pitch = FilterAverage(&gyro_filter[2]);
-    MPU6050_para_filted.roll = FilterAverage(&gyro_filter[1]);
-    MPU6050_para_filted.av_yaw = FilterAverage(&gyro_filter[3]);
-    MPU6050_para_filted.av_pitch = FilterAverage(&gyro_filter[4]);
-    MPU6050_para_filted.av_roll = FilterAverage(&gyro_filter[5]);
-}
 
 
 

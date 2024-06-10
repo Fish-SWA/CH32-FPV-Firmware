@@ -34,5 +34,6 @@ General_Files/eMPL \
 General_Files \
 Peripheral/src \
 Startup \
+User/RTOS_apps \
 User \
 

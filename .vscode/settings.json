@@ -4,6 +4,12 @@
         "uart.h": "c",
         "control.h": "c",
         "rtos_tasks.h": "c",
-        "freertos.h": "c"
-    }
+        "freertos.h": "c",
+        "soft_start.h": "c",
+        "task.h": "c",
+        "pwm.h": "c",
+        "print_status.h": "c",
+        "debug.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
