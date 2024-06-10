@@ -53,12 +53,12 @@ void RTOS_init()
                 (TaskHandle_t*  )&Motor_SoftStart_Handler);
 
     //飞机控制线程
-    // xTaskCreate((TaskFunction_t )control_handle_task,
-    //         (const char*    )"control",
-    //         (uint16_t       )ControlHandle_SIZE,
-    //         (void*          )NULL,
-    //         (UBaseType_t    )ControlHandle_PRIO,
-    //         (TaskHandle_t*  )&Control_task_Handler);
+    xTaskCreate((TaskFunction_t )control_handle_task,
+            (const char*    )"control",
+            (uint16_t       )ControlHandle_SIZE,
+            (void*          )NULL,
+            (UBaseType_t    )ControlHandle_PRIO,
+            (TaskHandle_t*  )&Control_task_Handler);
 
     //IMU线程
     xTaskCreate((TaskFunction_t )IMU_task,
@@ -76,10 +76,8 @@ void test_task(void *pvParameters)
 {
     while(1)
     {
-        printf("xPortGetFreeHeapSize = %d\r\n", xPortGetFreeHeapSize());
-        printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());
-        GPIO_SetBits(GPIOA, GPIO_Pin_8);
-        vTaskDelay(10);
+        printf("TEST_Called\n");
+        vTaskDelay(5);
     }
 }
 

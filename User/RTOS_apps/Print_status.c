@@ -6,12 +6,31 @@
 #include "Print_status.h"
 
 void Print_status_task(void *pvParameters);
+void Graph_print();
+void String_print();
 
 void Print_status_task(void *pvParameters)
 {
     while(1)
     {
-//    return;
+    
+    // Graph_print();
+    String_print();
+
+    vTaskDelay(5);
+
+    }
+}
+
+void Graph_print()
+{
+    printf("%f, %f, %f\n", MPU6050_para_filted.yaw,
+                MPU6050_para_filted.pitch,
+                MPU6050_para_filted.roll); //yaw, pitch, roll
+}
+
+void String_print()
+{
 //    printf("d: %d, %d, %d, %d, %f, %f, %f\r\n", TIM_GetCapture2(TIM9),
 //            TIM_GetCapture3(TIM9),
 //            TIM_GetCapture1(TIM9),
@@ -64,7 +83,6 @@ void Print_status_task(void *pvParameters)
         printf("Control_mode:RAW\r\n\n");
     }
 
-    vTaskDelay(PRINT_DELAY_TIME);
 
 //        Delay_Ms(100);
     //    printf("ch1:%d\r\n",CrsfChannels[0]);
@@ -80,5 +98,4 @@ void Print_status_task(void *pvParameters)
     //    printf("ch11:%d\r\n",CrsfChannels[10]);
     //    printf("ch12:%d\r\n\n",CrsfChannels[11]);
 
-    }
 }

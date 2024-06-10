@@ -13,7 +13,6 @@ void TIM4_Init( u16 arr, u16 psc);
 void TIM4_IRQHandler(void);
 
 
-extern MPU6050_para_t MPU6050_para_filted;
 extern int Motor_pos[4];
 
 

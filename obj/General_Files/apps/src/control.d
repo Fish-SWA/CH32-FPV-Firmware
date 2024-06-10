@@ -38,7 +38,19 @@ General_Files/apps/src/control.o: ../General_Files/apps/src/control.c \
  ../General_Files/apps/src/../../drivers/tim.h \
  ../General_Files/apps/src/../../drivers/../apps/inc/control.h \
  ../General_Files/apps/src/../../drivers/uart.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User\RTOS_apps/IMU_handle.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h
 
 E:\Download\CH32V307EVT\EVT\EXAM\SRC\Debug/debug.h:
 
@@ -119,3 +131,27 @@ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/pw
 ../General_Files/apps/src/../../drivers/uart.h:
 
 e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User\RTOS_apps/IMU_handle.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h:

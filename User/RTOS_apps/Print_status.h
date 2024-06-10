@@ -9,8 +9,9 @@
 #include "tim.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "IMU_handle.h"
 
-#define PRINT_DELAY_TIME 50 //两次输出的间隔
+#define PRINT_DELAY_TIME 10 //两次输出的间隔
 
 extern void Print_status_task(void *pvParameters);
 

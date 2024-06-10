@@ -5,6 +5,7 @@
 #include "../apps/inc/pid.h"
 #include "pwm.h"
 #include "../../drivers/tim.h"
+#include "IMU_handle.h"
 
 #define rate 0.6  //调试架子有阻尼，调试架测出来的参数需要给一个衰减
 

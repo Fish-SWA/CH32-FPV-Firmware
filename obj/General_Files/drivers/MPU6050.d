@@ -29,6 +29,23 @@ General_Files/drivers/MPU6050.o: ../General_Files/drivers/MPU6050.c \
  E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_wwdg.h \
  E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/ch32v30x_it.h \
  E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_misc.h \
+ ../General_Files/drivers/../../User/RTOS_apps/IMU_handle.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/MPU6050.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\crsf.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRC.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRSF_PROTOCOL.h \
  e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\empl\inv_mpu.h
 
 ../General_Files/drivers/MPU6050.h:
@@ -90,5 +107,39 @@ E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_wwdg.h:
 E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/ch32v30x_it.h:
 
 E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_misc.h:
+
+../General_Files/drivers/../../User/RTOS_apps/IMU_handle.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/MPU6050.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\crsf.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRC.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRSF_PROTOCOL.h:
 
 e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\empl\inv_mpu.h:

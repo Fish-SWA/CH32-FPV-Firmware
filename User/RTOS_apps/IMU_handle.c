@@ -1,7 +1,23 @@
+/****************************IMU_handle.c***************************************
+负责维护IMU
+
+读取IMU的数据，滤波之后将其存储在MPU6050_para_filted中
+
+*******************************************************************************/
 #include "IMU_handle.h"
 
 FilterBuf_STRUCT gyro_filter[6];    //IMU平均值滤波结构体
+MPU6050_para_t MPU6050_para =       //从IMU获取到的原始数据
+{
+	0,//yaw
+	0,//pitch
+	0,//row
+	0,//av_yaw 角速度
+	0,//av_pitch
+	0,//av_roll
+};
 MPU6050_para_t MPU6050_para_filted; //滤波之后的IMU数据
+int IMU_IO_STATUS = IMU_IO_IDLE;    //IMU的读写状态，在操作IMU时禁用中断操作
 
 void IMU_task(void *pvParameters);
 void load_filter_data();
@@ -11,12 +27,13 @@ void IMU_task(void *pvParameters)
 {
     while(1)
     {
-        Update_ELRS();
+        IMU_IO_STATUS = IMU_IO_BUSY;    //更新状态
         if(MPU6050_MPU_DMP_GetData() == RESET)
         {
             load_filter_data();
             calc_IMU_filter();
         }
+        IMU_IO_STATUS = IMU_IO_IDLE;    //更新状态
         vTaskDelay(IMU_READ_DELAY);
     }
 }

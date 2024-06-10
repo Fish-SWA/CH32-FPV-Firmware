@@ -1,17 +1,10 @@
 #include "MPU6050.h"  
 #include "debug.h"
-
+#include "../../User/RTOS_apps/IMU_handle.h"
 #include "../General_Files/eMPL/inv_mpu.h"
-
-MPU6050_para_t MPU6050_para =
-{
-	0,//yaw
-	0,//pitch
-	0,//row
-	0,//av_yaw ½ÇËÙ¶È
-	0,//av_pitch
-	0,//av_roll
-};
+/*RTOS*/
+#include "FreeRTOS.h"
+#include "task.h"
 
 static void I2C2_HARD_Init(u32 bound,u16 host_addr)
 {

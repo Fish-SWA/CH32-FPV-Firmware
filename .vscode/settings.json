@@ -9,7 +9,12 @@
         "task.h": "c",
         "pwm.h": "c",
         "print_status.h": "c",
-        "debug.h": "c"
+        "debug.h": "c",
+        "imu_handle.h": "c",
+        "mpu6050.h": "c",
+        "control_handle.h": "c",
+        "inv_mpu.h": "c",
+        "bsp_filter.h": "c"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }

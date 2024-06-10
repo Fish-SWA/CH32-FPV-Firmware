@@ -8,6 +8,7 @@
 #include "tim.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "IMU_handle.h"
 
 extern u8 is_locked;           // 电机锁
 extern u8 flight_mode;         //飞行模式
@@ -116,14 +117,13 @@ void USART2_IRQHandler(void)
 
 void UART_RxCpltCallback(USART_TypeDef *USARTx)
 {
-
     RxBuf[RxBuf_Index++] =USART_ReceiveData(USARTx);
 
     if (RxBuf_Index == (sizeof(RxBuf)/sizeof(RxBuf[0])))
     {
         RxBuf_Index = 0;
     }
-    HandleByteReceived();
+    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //仅在IMU不读写时解包
     USART_ClearFlag(USARTx, USART_IT_RXNE);
 //    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);
 }
