@@ -78,7 +78,7 @@ void Motor_ctr(u16 pwm, u8 n)
     }
 
     /*!Debug 验证电机ID*/
-    //if(n != 4) pwm=PWM_THROTTLE_MIN;
+    //if(n != 3) pwm=PWM_THROTTLE_MIN;
     /*修正电机ID*/
     motor_id_fix = Motor_pos[n-1];
 
@@ -110,12 +110,14 @@ void Motor_ctr(u16 pwm, u8 n)
 /*仅在缓启动模式使用*/
 void Motor_ctr_SOFT_START(u16 pwm, u8 n)
 {
+    int motor_id_fix;
     if(pwm<=PWM_THROTTLE_MIN){  //限制输入幅度
      pwm=PWM_THROTTLE_MIN;
     }else if(pwm>=PWM_THROTTLE_MAX){  //限制输入幅度
      pwm=PWM_THROTTLE_MAX;
     }
-    switch (n)
+    motor_id_fix = Motor_pos[n-1];
+    switch (motor_id_fix)
     {
         case 1:
             TIM_SetCompare1(TIM9,pwm);  //1号电机

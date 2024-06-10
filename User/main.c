@@ -14,6 +14,8 @@
 #include "apps/inc/Crsf.h"
 #include "apps/inc/control.h"
 #include "drivers/pwm.h"
+#include "drivers/MPU6050.h"
+#include "drivers/bsp_filter.h"
 
 int last_RC_lock_state = Locked;	//上一次锁定状态
 float Motor_speed_set = PWM_THROTTLE_MIN; //油门值设定

@@ -38,7 +38,7 @@ enum
 //电机缓启动相关
 #define SOFT_START_TIME 1000 //缓启动时间，ms
 
-#define IMU_SAMPLE_SIZE 50 //IMU平均值滤波器大小
+#define IMU_SAMPLE_SIZE 2 //IMU平均值滤波器大小
 
 // 积分
 #define Angle_I_Limit 5000
@@ -56,8 +56,8 @@ enum
 #define MAX_PITCH_ANGLE 30
 
 // 机械零点，需要调
-#define Mech_zero_pitch  -0.01
-#define Mech_zero_roll   -0.01
+#define Mech_zero_pitch  0
+#define Mech_zero_roll   0
 
 
 // 需要给飞机姿态调整预留PWM，所以油门为100时不能达到7200占空比
@@ -99,6 +99,12 @@ extern u8 is_locked;
 extern int MOTOR_MODE;
 
 
+PID_STRUCT PID_yaw_outerloop;
+PID_STRUCT PID_yaw_innerloop;
+PID_STRUCT PID_pitch_outerloop;
+PID_STRUCT PID_pitch_innerloop;
+PID_STRUCT PID_roll_outerloop;
+PID_STRUCT PID_roll_innerloop;
 #endif
 
 

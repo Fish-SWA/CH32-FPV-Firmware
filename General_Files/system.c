@@ -23,8 +23,8 @@ void System_Init()
     BAT_ADC_Init();
     PIDSTRUCT_Init();
     LED_Init();
-    TIM3_Init(20-1, 7200-1 ); //频率：10000/10 = 1KHz
-    TIM4_Init(500-1, 7200-1); //频率：10000/500 = 2Hz
+    TIM3_Init(50-1, 7200-1 ); //频率：10000/10 = 1KHz
+    TIM4_Init(1000-1, 7200-1); //频率：10000/500 = 2Hz
     printf("System_Init OK!\r\n");
 }
 

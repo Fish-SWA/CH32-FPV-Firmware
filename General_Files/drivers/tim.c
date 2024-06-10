@@ -58,13 +58,6 @@ void TIM3_IRQHandler(void)
     {
         load_filter_data();
         calc_IMU_filter();
-        // printf("%f, %f, %f, %d, %d, %d\n", MPU6050_para_filted.yaw,
-        //                                     MPU6050_para_filted.pitch,
-        //                                     MPU6050_para_filted.roll,
-        //                                     MPU6050_para_filted.av_yaw,
-        //                                     MPU6050_para_filted.av_pitch,
-        //                                     MPU6050_para_filted.av_roll);
-
         if(MOTOR_MODE == MOTOR_SOFT_STARTING){
             return;       //如果电机正在缓启动，电机不执行控制
         }
@@ -72,17 +65,23 @@ void TIM3_IRQHandler(void)
         if(is_locked==Unlocked){
             if(Throttle>=PWM_CLOSE_LOOP_CONTROL_ENABLE){
                 Flight_control();
+//                printf("a control loop!\r\n");
             }
-            else if(Throttle<PWM_CLOSE_LOOP_CONTROL_ENABLE){
-                Motor_ctr(Throttle,1);
+         else if(Throttle<PWM_CLOSE_LOOP_CONTROL_ENABLE){
+                   Motor_ctr(Throttle,1);
                 Motor_ctr(Throttle,2);
                 Motor_ctr(Throttle,3);
                 Motor_ctr(Throttle,4);
             }
-
         }
         else{
             Stop_motor();
+            pid_func.clc(&PID_roll_outerloop);
+            pid_func.clc(&PID_roll_innerloop);
+            pid_func.clc(&PID_pitch_outerloop);
+            pid_func.clc(&PID_pitch_innerloop);
+            pid_func.clc(&PID_yaw_outerloop);
+            pid_func.clc(&PID_yaw_innerloop);
         }
     }
 
@@ -126,6 +125,7 @@ void TIM4_IRQHandler(void)
 {
     TIM_ClearFlag(TIM4, TIM_FLAG_Update);//清除标志位
     GPIO_TogglePin(GPIOA, GPIO_Pin_8);
+//    printf("working!\r\n");
     print_status();
 }
 
@@ -146,9 +146,9 @@ void calc_IMU_filter()
     MPU6050_para_filted.yaw = FilterAverage(&gyro_filter[0]);
     MPU6050_para_filted.pitch = FilterAverage(&gyro_filter[2]);
     MPU6050_para_filted.roll = FilterAverage(&gyro_filter[1]);
-    MPU6050_para_filted.av_yaw = (int)FilterAverage(&gyro_filter[3]);
-    MPU6050_para_filted.av_pitch = (int)FilterAverage(&gyro_filter[5]);
-    MPU6050_para_filted.av_roll = (int)FilterAverage(&gyro_filter[4]);
+    MPU6050_para_filted.av_yaw = FilterAverage(&gyro_filter[3]);
+    MPU6050_para_filted.av_pitch = FilterAverage(&gyro_filter[4]);
+    MPU6050_para_filted.av_roll = FilterAverage(&gyro_filter[5]);
 }
 
 

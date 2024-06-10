@@ -57,7 +57,7 @@ all: FPV_demo.elf secondary-outputs
 
 # Tool invocations
 FPV_demo.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imafc -mabi=ilp32f -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fsingle-precision-constant -Wunused -Wuninitialized  -g -T "E:\Document\WeChat Files\wxid_15t014nog1r512\FileStorage\File\2024-05\FPV_demo\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -L../ -Wl,-Map,"FPV_demo.map" --specs=nano.specs --specs=nosys.specs  -o "FPV_demo.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
+	@	@	riscv-none-embed-gcc -march=rv32imafc -mabi=ilp32f -msmall-data-limit=8 -mno-save-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fsingle-precision-constant -Wunused -Wuninitialized  -g -T "C:\Users\86155\Desktop\ËÄÐýÒí\FPV_demo\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -L../ -Wl,-Map,"FPV_demo.map" --specs=nano.specs --specs=nosys.specs  -o "FPV_demo.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
 	@	@
 FPV_demo.hex: FPV_demo.elf
 	@	riscv-none-embed-objcopy -O ihex "FPV_demo.elf"  "FPV_demo.hex"

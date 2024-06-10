@@ -6,6 +6,8 @@
 #include "pwm.h"
 #include "../../drivers/tim.h"
 
+#define rate 0.6  //调试架子有阻尼，调试架测出来的参数需要给一个衰减
+
 //飞机电机对应图
 //        1号    2号
 //  机头↑   \  /
@@ -19,12 +21,6 @@ u8 is_locked = 1;           // 电机锁
 u8 flight_mode = 1;         //飞行模式
 u8 is_landing = 0;          //自动降落
 
-PID_STRUCT PID_yaw_outerloop;
-PID_STRUCT PID_yaw_innerloop;
-PID_STRUCT PID_pitch_outerloop;
-PID_STRUCT PID_pitch_innerloop;
-PID_STRUCT PID_roll_outerloop;
-PID_STRUCT PID_roll_innerloop;
 
 uint16_t PWM_Out1=0;         // 最终作用到电机1的PWM
 uint16_t PWM_Out2=0;         // 最终作用到电机2的PWM
@@ -54,66 +50,69 @@ void PIDSTRUCT_Init()
     PID_yaw_outerloop.min_iout=-Angle_I_Limit;
     PID_yaw_outerloop.max_out=65535;
     PID_yaw_outerloop.min_out=-65535;
-    PID_yaw_outerloop.DeadBand = 1;    //PID死区
+    PID_yaw_outerloop.DeadBand = 0.01;    //PID死区
     pid_func.init(&PID_yaw_outerloop);      // 清空缓存
 
     // 航向角内环初始化（角速度环）
     pid_func.reset(&PID_yaw_innerloop);
-    PID_yaw_innerloop.Kp=0.45f;
+    PID_yaw_innerloop.Kp=3.4f;
     PID_yaw_innerloop.Ki=0.0f;
     PID_yaw_innerloop.Kd=0.0f;
     PID_yaw_innerloop.max_iout=Gyro_I_Limit;
     PID_yaw_innerloop.min_iout=-Gyro_I_Limit;
     PID_yaw_innerloop.max_out=65535;
     PID_yaw_innerloop.min_out=-65535;
+    PID_yaw_innerloop.DeadBand=0.01;
     pid_func.init(&PID_yaw_innerloop);      // 清空缓存
 
     ////////////////////////////////////////pitch////////////////////////////////////////
     // 俯仰角外环初始化（角度环）
     pid_func.reset(&PID_pitch_outerloop);
-    PID_pitch_outerloop.Kp=-10.0f;
-    PID_pitch_outerloop.Ki=-0.0f;
-    PID_pitch_outerloop.Kd=-0.0f;
+    PID_pitch_outerloop.Kp=2.7*rate;
+    PID_pitch_outerloop.Ki=0.05*rate; //-0.12
+    PID_pitch_outerloop.Kd=5.0*rate;  //-5.3
     PID_pitch_outerloop.max_iout=Angle_I_Limit;
     PID_pitch_outerloop.min_iout=-Angle_I_Limit;
     PID_pitch_outerloop.max_out=65535;
     PID_pitch_outerloop.min_out=-65535;
-    PID_pitch_outerloop.DeadBand = 1;    //PID死区
+    PID_pitch_outerloop.DeadBand = 0.1;    //PID死区
     pid_func.init(&PID_pitch_outerloop);    // 清空缓存
 
     // 俯仰角内环初始化（角速度环）
     pid_func.reset(&PID_pitch_innerloop);
-    PID_pitch_innerloop.Kp=0.45f;
-    PID_pitch_innerloop.Ki=0.0f;
-    PID_pitch_innerloop.Kd=0.0f;
+    PID_pitch_innerloop.Kp=4.8*rate;    //2.2
+    PID_pitch_innerloop.Ki=0.0*rate;    //0.0
+    PID_pitch_innerloop.Kd=5.9*rate;    //5.7
     PID_pitch_innerloop.max_iout=Gyro_I_Limit;
     PID_pitch_innerloop.min_iout=-Gyro_I_Limit;
     PID_pitch_innerloop.max_out=65535;
     PID_pitch_innerloop.min_out=-65535;
+    PID_pitch_innerloop.DeadBand=1;
     pid_func.init(&PID_pitch_innerloop);    // 清空缓存
 
     //////////////////////////////////////////roll////////////////////////////////////////
     // 横滚角外环初始化（角度环）
     pid_func.reset(&PID_roll_outerloop);
-    PID_roll_outerloop.Kp=8.0f;
-    PID_roll_outerloop.Ki=0.0f;
-    PID_roll_outerloop.Kd=0.0f;
+    PID_roll_outerloop.Kp=2.7*rate;
+    PID_roll_outerloop.Ki=0.1*rate;
+    PID_roll_outerloop.Kd=5.3*rate;
     PID_roll_outerloop.max_iout=Angle_I_Limit;
     PID_roll_outerloop.min_iout=-Angle_I_Limit;
     PID_roll_outerloop.max_out=65535;
     PID_roll_outerloop.min_out=-65535;
-    PID_roll_outerloop.DeadBand=1;
+    PID_roll_outerloop.DeadBand=0.01;
     pid_func.init(&PID_roll_outerloop);     // 清空缓存
 
     // 横滚角内环初始化（角速度环）
     pid_func.reset(&PID_roll_innerloop);
-    PID_roll_innerloop.Kp=0.45f;
+    PID_roll_innerloop.Kp=4.9*rate;
     PID_roll_innerloop.Ki=0.0f;
-    PID_roll_innerloop.Kd=0.0f;
+    PID_roll_innerloop.Kd=5.7*rate;
     PID_roll_innerloop.max_iout=Gyro_I_Limit;
     PID_roll_innerloop.min_iout=-Gyro_I_Limit;
     PID_roll_innerloop.max_out=65535;
     PID_roll_innerloop.min_out=-65535;
+    PID_roll_innerloop.DeadBand=1;
     pid_func.init(&PID_roll_innerloop);     // 清空缓存
 }
 //***********************************************************************
@@ -198,31 +197,33 @@ void Roll_outerloop_ctr()
 
 void Roll_innerloop_ctr()
 {
-    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, MPU6050_para_filted.av_roll);
+    pid_func.calc(&PID_roll_innerloop, PID_roll_outerloop.out, MPU6050_para_filted.av_roll/50.0f);//Debug：除以50.0f是消除量纲，控制周期20ms，外环单位是度每秒
+//    printf("d: %f, %f", PID_roll_outerloop.out, MPU6050_para_filted.av_roll/1000.0f);
 }
 
 // Yaw控制
 void Yaw_outerloop_ctr()
 {
     float angle_num=Yaw + Mech_zero_yaw;
+//    printf("yaw_desired=%f\r\n",angle_num);
     pid_func.calc(&PID_yaw_outerloop, angle_num, MPU6050_para_filted.yaw);
 }
 
 void Yaw_innerloop_ctr()
 {
-    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, -MPU6050_para_filted.av_yaw);
+    pid_func.calc(&PID_yaw_innerloop, PID_yaw_outerloop.out, -MPU6050_para_filted.av_yaw/50.0f);
 }
 
 // Pitch控制
 void Pitch_outerloop_ctr()
 {
     float angle_num=Pitch + Mech_zero_pitch;
-    pid_func.calc(&PID_pitch_outerloop, angle_num, -MPU6050_para_filted.pitch);
+    pid_func.calc(&PID_pitch_outerloop, angle_num, MPU6050_para_filted.pitch);
 }
 
 void Pitch_innerloop_ctr()
 {
-    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, -MPU6050_para_filted.av_pitch);
+    pid_func.calc(&PID_pitch_innerloop, PID_pitch_outerloop.out, MPU6050_para_filted.av_pitch/50.0f);
 }
 
 // 从遥控器同步控制模式
@@ -249,11 +250,15 @@ void Flight_control()
 
     Mech_zero_yaw = MPU6050_para_filted.yaw;     // 防止转向后机头回0
 
-
     PWM_Out1=Throttle+PID_pitch_innerloop.out+PID_roll_innerloop.out+PID_yaw_innerloop.out;
     PWM_Out2=Throttle+PID_pitch_innerloop.out-PID_roll_innerloop.out-PID_yaw_innerloop.out;
-    PWM_Out3=Throttle-PID_pitch_innerloop.out+PID_roll_innerloop.out-PID_yaw_innerloop.out;
+    PWM_Out3=Throttle-PID_pitch_innerloop.out+PID_roll_innerloop.out+PID_yaw_innerloop.out;
     PWM_Out4=Throttle-PID_pitch_innerloop.out-PID_roll_innerloop.out-PID_yaw_innerloop.out;
+//    PWM_Out1=Throttle+PID_yaw_innerloop.out;
+//    PWM_Out2=Throttle-PID_yaw_innerloop.out;
+//    PWM_Out3=Throttle-PID_yaw_innerloop.out;
+//    PWM_Out4=Throttle+PID_yaw_innerloop.out;
+
     Limit(PWM_Out1, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
     Limit(PWM_Out2, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
     Limit(PWM_Out3, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
@@ -264,6 +269,8 @@ void Flight_control()
         Motor_ctr(PWM_Out2,2);
         Motor_ctr(PWM_Out3,3);
         Motor_ctr(PWM_Out4,4);
+//          Motor_ctr(PWM_THROTTLE_MIN,3);
+//          Motor_ctr(PWM_THROTTLE_MIN,4);
     }
     else if(CONTROL_MODE == RAW_CONTROL_MODE)
     {
