@@ -3,10 +3,12 @@
 #include "uart.h"
 #include "stdio.h"
 #include "../apps/inc/Crsf.h"
-#include "../General_Files/drivers/uart.h"
 #include "MPU6050.h"
 #include "../apps/inc/control.h"
 #include "tim.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "IMU_handle.h"
 
 extern u8 is_locked;           // 电机锁
 extern u8 flight_mode;         //飞行模式
@@ -115,75 +117,15 @@ void USART2_IRQHandler(void)
 
 void UART_RxCpltCallback(USART_TypeDef *USARTx)
 {
-
     RxBuf[RxBuf_Index++] =USART_ReceiveData(USARTx);
 
     if (RxBuf_Index == (sizeof(RxBuf)/sizeof(RxBuf[0])))
     {
         RxBuf_Index = 0;
     }
-    HandleByteReceived();
+    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //仅在IMU不读写时解包
     USART_ClearFlag(USARTx, USART_IT_RXNE);
 //    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);
-}
-
-void print_status()
-{
-    // printf("yaw=%f\r\n",MPU6050_para.yaw);
-    // printf("pitch=%f\r\n",MPU6050_para.pitch);
-    // printf("roll=%f\r\n",MPU6050_para.roll);
-    // printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
-    // printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
-    // printf("av_roll=%d\r\n",MPU6050_para.av_roll);
-    printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
-    printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
-    printf("roll_filted=%f\r\n",MPU6050_para_filted.roll);
-    printf("av_yaw_filted=%d\r\n",MPU6050_para_filted.av_yaw);
-    printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
-    printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
-//    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
-    printf("PWM1:%d\r\n",TIM_GetCapture1(TIM9));
-    printf("PWM2:%d\r\n",TIM_GetCapture2(TIM9));
-    printf("PWM3:%d\r\n",TIM_GetCapture3(TIM9));
-    printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));
-    if(flight_mode==GPS){
-        printf("flight_mode:GPS\r\n");
-    }
-    else if(flight_mode==Stable){
-        printf("flight_mode:Stable\r\n");
-    }
-    else{
-        printf("flight_mode:Free\r\n");
-    }
-
-    if(is_locked == Unlocked){
-        printf("Throttle Unlocked\r\n");
-    }
-    else{
-        printf("Throttle Locked\r\n");
-    }
-
-    if(CONTROL_MODE == PID_CONTROL_MODE){
-        printf("Control_mode:PID\r\n\n");
-    }else if(CONTROL_MODE == RAW_CONTROL_MODE){
-        printf("Control_mode:RAW\r\n\n");
-    }
-
-//        Delay_Ms(100);
-    //    printf("ch1:%d\r\n",CrsfChannels[0]);
-    //    printf("ch2:%d\r\n",CrsfChannels[1]);
-    //    printf("ch3:%d\r\n",CrsfChannels[2]);
-    //    printf("ch4:%d\r\n",CrsfChannels[3]);
-    //    printf("ch5:%d\r\n",CrsfChannels[4]);
-    //    printf("ch6:%d\r\n",CrsfChannels[5]);
-    //    printf("ch7:%d\r\n",CrsfChannels[6]);
-    //    printf("ch8:%d\r\n",CrsfChannels[7]);
-    //    printf("ch9:%d\r\n",CrsfChannels[8]);
-    //    printf("ch10:%d\r\n",CrsfChannels[9]);
-    //    printf("ch11:%d\r\n",CrsfChannels[10]);
-    //    printf("ch12:%d\r\n\n",CrsfChannels[11]);
-
-
 }
 
 

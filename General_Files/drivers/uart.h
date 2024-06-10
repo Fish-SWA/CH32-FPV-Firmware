@@ -4,5 +4,4 @@
 void USART2_IRQHandler(void);
 void USARTx_CFG(void);
 void UART_RxCpltCallback(USART_TypeDef *USARTx);
-void print_status();
 #endif

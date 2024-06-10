@@ -103,7 +103,6 @@ typedef struct
 	int16_t av_roll;
 }MPU6050_para_t;
 
-extern MPU6050_para_t MPU6050_para;
 
 #endif
 

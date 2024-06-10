@@ -23,8 +23,6 @@ void System_Init()
     BAT_ADC_Init();
     PIDSTRUCT_Init();
     LED_Init();
-    TIM3_Init(10-1, 7200-1 ); //ÆµÂÊ£º10000/10 = 1KHz
-    TIM4_Init(500-1, 7200-1); //ÆµÂÊ£º10000/500 = 2Hz
     printf("System_Init OK!\r\n");
 }
 

@@ -18,7 +18,7 @@
 #include "debug.h"
 #include "../apps/inc/control.h"
 
-#define FilterBuf_MaxLen IMU_SAMPLE_SIZE
+#define FilterBuf_MaxLen 3
 
 typedef struct{
 

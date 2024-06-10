@@ -86,9 +86,9 @@ void pid_calc( PID_STRUCT *pid, float set, float fdb)
 //    LimitMax(pid->out,pid->max_out);
 //    LimitMin(pid->out,pid->min_out);
     /*Êä³öËÀÇø*/
-    if( pid->error[0] <= pid->DeadBand &&  pid->error[0] >= -pid->DeadBand){
-        pid->out = 0.0;
-        pid->Iout = 0.0;
+    if(pid->error[0] <= pid->DeadBand && pid->error[0] >= -pid->DeadBand){
+        pid->out = 0;
+        pid->Iout = 0;
     }
 }
 
