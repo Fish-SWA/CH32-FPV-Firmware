@@ -28,17 +28,16 @@ User/main.o: ../User/main.c \
  E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_wwdg.h \
  E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/ch32v30x_it.h \
  E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_misc.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/system.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/Crsf.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/CRC.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/CRSF_PROTOCOL.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/control.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\crsf.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/pwm.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/MPU6050.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/bsp_filter.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h \
+ ../User/RTOS_tasks.h
 
 E:\Download\CH32V307EVT\EVT\EXAM\SRC\Debug/debug.h:
 
@@ -98,24 +97,22 @@ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/ch32v30x_it.h:
 
 E:\Download\CH32V307EVT\EVT\EXAM\SRC\Peripheral\inc/ch32v30x_misc.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/system.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/FreeRTOS.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/Crsf.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User/FreeRTOSConfig.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/CRC.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/projdefs.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/CRSF_PROTOCOL.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/portable.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/apps/inc/control.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/deprecated_definitions.h:
 
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\portable\GCC\RISC-V/portmacro.h:
 
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\crsf.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/mpu_wrappers.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/pwm.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/task.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/MPU6050.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\FreeRTOS\include/list.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files/drivers/bsp_filter.h:
-
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h:
+../User/RTOS_tasks.h:

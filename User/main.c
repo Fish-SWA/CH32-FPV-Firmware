@@ -4,27 +4,40 @@
 * Version            : V1.0.0
 * Date               : 2021/06/06
 * Description        : Main program body.
+*********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* SPDX-License-Identifier: Apache-2.0
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
 *******************************************************************************/
 
+/*
+ *@Note
+ task1 and task2 alternate printing
+*/
 
 #include "debug.h"
-#include "system.h"
-#include "apps/inc/Crsf.h"
-#include "apps/inc/control.h"
-#include "drivers/pwm.h"
-#include "drivers/MPU6050.h"
-#include "drivers/bsp_filter.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "RTOS_tasks.h"
 
-int last_RC_lock_state = Locked;	//上一次锁定状态
-float Motor_speed_set = PWM_THROTTLE_MIN; //油门值设定
 
-/* Global typedef */
+/*********************************************************************
+ * @fn      GPIO_Toggle_INIT
+ *
+ * @brief   Initializes GPIOA.0/1
+ *
+ * @return  none
+ */
+void GPIO_Toggle_INIT(void)
+{
+  GPIO_InitTypeDef  GPIO_InitStructure={0};
 
-/* Global define */
-
-/* Global Variable */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+  GPIO_InitStructure.GPIO_Speed=GPIO_Speed_50MHz;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+}
 
 
 
@@ -35,54 +48,23 @@ float Motor_speed_set = PWM_THROTTLE_MIN; //油门值设定
  *
  * @return  none
  */
-
-void Motor_sort_start()		//电机缓启动
-{
-	if(is_locked == Unlocked && last_RC_lock_state == Locked){	//当解锁电机时候
-		printf("MOTOR UNLOCKED!!!!\n");
-		last_RC_lock_state = Unlocked;
-		MOTOR_MODE = MOTOR_SOFT_STARTING;	//切换到缓启动模式
-
-		for(int i=0; i<SOFT_START_TIME; i++){	//缓启动逻辑
-			Motor_speed_set = ((((float)PWM_THROTTLE_MIN_ROTATE-(float)PWM_THROTTLE_MIN)/(float)SOFT_START_TIME))*i + PWM_THROTTLE_MIN;
-			//printf("Motor_set=%d\n", (int)Motor_speed_set);
-				Motor_ctr_SOFT_START(Motor_speed_set, 1);
-				Motor_ctr_SOFT_START(Motor_speed_set, 2);
-				Motor_ctr_SOFT_START(Motor_speed_set, 3);
-				Motor_ctr_SOFT_START(Motor_speed_set, 4);
-			Delay_Ms(1);
-		}
-
-		printf("MOTOR OK!!!!\n");
-		MOTOR_MODE = MOTOR_NORMAL; //切换回正常模式
-	}
-
-	if(is_locked == Locked){
-		last_RC_lock_state = Locked;
-		MOTOR_MODE = MOTOR_NORMAL;
-		Stop_motor();
-	}
-
-
-}
-
 int main(void)
 {
+
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+	SystemCoreClockUpdate();
 	Delay_Init();
-	Crc_init(0xD5);
 	USART_Printf_Init(115200);
+		
 	printf("SystemClk:%d\r\n",SystemCoreClock);
+	printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
+	printf("FreeRTOS Kernel Version:%s\r\n",tskKERNEL_VERSION_NUMBER);
+	GPIO_Toggle_INIT();
 
-	printf("This is printf example\r\n");
-
-	System_Init();
+    RTOS_init();
 
 	while(1)
-    {
-	    System_Loop();
-		Motor_sort_start();
+	{
+	    printf("shouldn't run at here!!\n");
 	}
 }
-
-

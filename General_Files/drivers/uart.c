@@ -3,10 +3,11 @@
 #include "uart.h"
 #include "stdio.h"
 #include "../apps/inc/Crsf.h"
-#include "../General_Files/drivers/uart.h"
 #include "MPU6050.h"
 #include "../apps/inc/control.h"
 #include "tim.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 extern u8 is_locked;           // 电机锁
 extern u8 flight_mode;         //飞行模式
@@ -180,6 +181,8 @@ void print_status()
     }else if(CONTROL_MODE == RAW_CONTROL_MODE){
         printf("Control_mode:RAW\r\n\n");
     }
+
+    vTaskDelay(10);
 
 //        Delay_Ms(100);
     //    printf("ch1:%d\r\n",CrsfChannels[0]);

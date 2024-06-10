@@ -2,6 +2,8 @@
     "files.associations": {
         "tim.h": "c",
         "uart.h": "c",
-        "control.h": "c"
+        "control.h": "c",
+        "rtos_tasks.h": "c",
+        "freertos.h": "c"
     }
 }

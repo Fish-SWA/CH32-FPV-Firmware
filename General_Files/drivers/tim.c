@@ -65,7 +65,6 @@ void TIM3_IRQHandler(void)
         if(is_locked==Unlocked){
             if(Throttle>=PWM_CLOSE_LOOP_CONTROL_ENABLE){
                 Flight_control();
-//                printf("a control loop!\r\n");
             }
          else if(Throttle<PWM_CLOSE_LOOP_CONTROL_ENABLE){
                    Motor_ctr(Throttle,1);
@@ -126,7 +125,6 @@ void TIM4_IRQHandler(void)
     TIM_ClearFlag(TIM4, TIM_FLAG_Update);//清除标志位
     //GPIO_TogglePin(GPIOA, GPIO_Pin_8);  //!Debug 暂时不适用GPIO_TogglePin
 //    printf("working!\r\n");
-    print_status();
 }
 
 /*IMU滤波相关*/
