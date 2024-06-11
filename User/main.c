@@ -60,7 +60,6 @@ int main(void)
 	Crc_init(0xD5);
     	
 	printf("SystemClk:%d\r\n",SystemCoreClock);
-	printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
 	printf("FreeRTOS Kernel Version:%s\r\n",tskKERNEL_VERSION_NUMBER);
 	GPIO_Toggle_INIT();
     System_Init();

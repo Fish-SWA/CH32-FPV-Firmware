@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>FreeRTOS</name>
-	<comment/>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -27,23 +27,23 @@
 		<link>
 			<name>Core</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/SRC/Core</locationURI>
+			<locationURI>PROJECT_LOC/Core</locationURI>
 		</link>
 		<link>
 			<name>Debug</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/SRC/Debug</locationURI>
+			<locationURI>PROJECT_LOC/Debug</locationURI>
 		</link>
 		<link>
 			<name>Peripheral</name>
 			<type>2</type>
-			<locationURI>PARENT-2-PROJECT_LOC/SRC/Peripheral</locationURI>
+			<locationURI>PROJECT_LOC/Peripheral</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>
 		<filter>
 			<id>1595986042669</id>
-			<name/>
+			<name></name>
 			<type>22</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
