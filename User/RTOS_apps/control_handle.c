@@ -18,6 +18,23 @@ n:   电机编号
 Control_TypeDef control;
 
 void control_handle_task(void *pvParameters); 
+void PIDSTRUCT_Init();
+float ELRS_Convert_angle(int ELRS_data);
+u16 ELRS_Convert_throttle(unsigned ELRS_data);
+void ELRS_Convert_flight_mode();
+void ELRS_Convert_lock();
+void Update_ELRS();
+void Roll_outerloop_ctr();
+void Roll_innerloop_ctr();
+void Yaw_outerloop_ctr();
+void Yaw_innerloop_ctr();
+void Pitch_outerloop_ctr();
+void Pitch_innerloop_ctr();
+void Flight_control();
+void Stop_motor();
+void Check_control_mode();
+void control_para_init();
+
 
 void control_handle_task(void *pvParameters)
 {
@@ -25,8 +42,8 @@ void control_handle_task(void *pvParameters)
 
     while(1)
     {
+        Update_ELRS();
         if(control.MOTOR_MODE != MOTOR_SOFT_STARTING){      //如果电机正在缓启动，电机不执行控制
-            Update_ELRS();
             if(control.is_locked==Unlocked){
                 if(control.Throttle>=PWM_CLOSE_LOOP_CONTROL_ENABLE){
                     Flight_control();

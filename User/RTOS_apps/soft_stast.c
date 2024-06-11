@@ -20,6 +20,7 @@ void Motor_sort_start(void *pvParameters);
 /*缓启动线程*/
 void Motor_sort_start(void *pvParameters)
 {
+    control.is_locked = Locked; //确保不会刚开机就缓启动
     while(1)
     {
         if(control.is_locked == Unlocked && last_RC_lock_state == Locked){	//当解锁电机时候
@@ -33,6 +34,12 @@ void Motor_sort_start(void *pvParameters)
                     Motor_ctr_SOFT_START(Motor_speed_set, 2);
                     Motor_ctr_SOFT_START(Motor_speed_set, 3);
                     Motor_ctr_SOFT_START(Motor_speed_set, 4);
+
+                    if(control.is_locked == Locked){    //处理缓启动中锁定电机
+                        control.MOTOR_MODE = MOTOR_NORMAL;
+                        break;
+                    }
+
                 vTaskDelay(1);
             }
 

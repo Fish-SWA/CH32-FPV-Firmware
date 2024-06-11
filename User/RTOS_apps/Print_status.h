@@ -1,4 +1,4 @@
-#ifndef  PRINT_STATUS>H
+#ifndef  PRINT_STATUS
 #define PRINT_STATUS
 #include "debug.h"
 #include "uart.h"

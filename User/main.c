@@ -16,6 +16,8 @@
 */
 
 #include "debug.h"
+#include "CRC.h"
+#include "system.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "RTOS_tasks.h"

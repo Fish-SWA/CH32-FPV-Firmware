@@ -15,6 +15,7 @@
 ### 6.11 bt fish
 - 把control.c全部移植到了User/RTOS_apps/control_handle.c中
 - 把控制相关的变量全部整理到了**结构体control**中
+- 修复了warning
 
 ### 6.11 by fish
 - 移植了RTOS调度，并且重新整理了代码

@@ -49,7 +49,7 @@ void PacketChannelsPacked(const Crsf_Header_t *p);
 void PacketLinkStatistics(const Crsf_Header_t *p);
 
 
-static void onPacketLinkStatistics(CrsfLinkStatistics_t *link);	//回传信号质量，电压...
+void onPacketLinkStatistics(CrsfLinkStatistics_t *link);	//回传信号质量，电压...
 
 
 #endif

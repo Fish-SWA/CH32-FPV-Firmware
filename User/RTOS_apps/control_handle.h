@@ -10,7 +10,7 @@
 #include "IMU_handle.h"
 
 /*调度参数*/
-#define CONRTOL_PERIOD  10  //控制周期，单位ms
+#define CONRTOL_PERIOD  20  //控制周期，单位ms
 extern void control_handle_task(void *pvParameters);
 
 /*控制参数*/
@@ -117,23 +117,9 @@ typedef struct
 #define landing      1
 #define not_landing  0
 
-
-void PIDSTRUCT_Init();
-float ELRS_Convert_angle(int ELRS_data);
-u16 ELRS_Convert_throttle(unsigned ELRS_data);
-void ELRS_Convert_flight_mode();
-void ELRS_Convert_lock();
-void Update_ELRS();
-void Roll_outerloop_ctr();
-void Roll_innerloop_ctr();
-void Yaw_outerloop_ctr();
-void Yaw_innerloop_ctr();
-void Pitch_outerloop_ctr();
-void Pitch_innerloop_ctr();
-void Flight_control();
-void Stop_motor();
-void Check_control_mode();
-
 extern Control_TypeDef control;
+
+extern void Stop_motor();
+
 
 #endif
