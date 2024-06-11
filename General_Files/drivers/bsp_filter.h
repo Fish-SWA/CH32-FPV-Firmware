@@ -16,7 +16,7 @@
 #ifndef _DP_FILTER_H
 #define _DP_FILTER_H
 #include "debug.h"
-#include "../apps/inc/control.h"
+#include "control_handle.h"
 
 #define FilterBuf_MaxLen 3
 

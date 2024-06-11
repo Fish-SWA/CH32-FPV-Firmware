@@ -9,9 +9,12 @@
 - PID参数细调
 - 增加与上位机（香橙派）的串口通讯
 - 增加光流与测距传感器
-- 把General_Files/apps中的相关代码移到User/RTOS_apps中
 
 ## 改动记录
+
+### 6.11 bt fish
+- 把control.c全部移植到了User/RTOS_apps/control_handle.c中
+- 把控制相关的变量全部整理到了**结构体control**中
 
 ### 6.11 by fish
 - 移植了RTOS调度，并且重新整理了代码

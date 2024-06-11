@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "../apps/inc/Crsf.h"
 #include "MPU6050.h"
-#include "../apps/inc/control.h"
+#include "control_handle.h"
 #include "tim.h"
 #include "FreeRTOS.h"
 #include "task.h"

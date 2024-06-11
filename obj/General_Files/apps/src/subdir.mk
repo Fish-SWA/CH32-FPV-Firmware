@@ -7,19 +7,16 @@
 C_SRCS += \
 ../General_Files/apps/src/CRC.c \
 ../General_Files/apps/src/CRSF.c \
-../General_Files/apps/src/control.c \
 ../General_Files/apps/src/pid.c 
 
 OBJS += \
 ./General_Files/apps/src/CRC.o \
 ./General_Files/apps/src/CRSF.o \
-./General_Files/apps/src/control.o \
 ./General_Files/apps/src/pid.o 
 
 C_DEPS += \
 ./General_Files/apps/src/CRC.d \
 ./General_Files/apps/src/CRSF.d \
-./General_Files/apps/src/control.d \
 ./General_Files/apps/src/pid.d 
 
 

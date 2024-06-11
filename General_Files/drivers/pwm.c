@@ -1,7 +1,7 @@
 #include "debug.h"
 #include "pwm.h"
 #include "../apps/inc/Crsf.h"
-#include "../apps/inc/control.h"
+#include "control_handle.h"
 
 int Motor_pos[4] = {2, 3, 1, 4}; //电机的ID映射
 
@@ -73,7 +73,7 @@ void Motor_ctr(u16 pwm, u8 n)
     }
 
     /*当解锁电机的时候，强制电机转速处于怠速以上*/
-    if(is_locked == Unlocked && pwm<PWM_THROTTLE_MIN_ROTATE){
+    if(control.is_locked == Unlocked && pwm<PWM_THROTTLE_MIN_ROTATE){
         pwm=PWM_THROTTLE_MIN_ROTATE;
     }
 
@@ -83,7 +83,7 @@ void Motor_ctr(u16 pwm, u8 n)
     motor_id_fix = Motor_pos[n-1];
 
     /*缓启动时禁用*/
-    if(MOTOR_MODE == MOTOR_SOFT_STARTING){
+    if(control.MOTOR_MODE == MOTOR_SOFT_STARTING){
         return;
     }
 

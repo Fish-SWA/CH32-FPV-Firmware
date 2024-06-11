@@ -16,7 +16,6 @@ enum{
 extern void IMU_task(void *pvParameters);
 extern MPU6050_para_t MPU6050_para;        //从IMU获取到的原始数据
 extern MPU6050_para_t MPU6050_para_filted; //滤波之后的IMU数据
-extern FilterBuf_STRUCT gyro_filter[6];    //IMU平均值滤波结构体
 extern int IMU_IO_STATUS;
 
 #endif

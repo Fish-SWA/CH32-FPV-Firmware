@@ -43,18 +43,17 @@ User/RTOS_tasks.o: ../User/RTOS_tasks.c ../User/RTOS_tasks.h \
  e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRC.h \
  e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\CRSF_PROTOCOL.h \
  E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/MPU6050.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/tim.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/uart.h \
- e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h \
+ ../User/RTOS_apps/control_handle.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/pwm.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/pid.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/Crsf.h \
  ../User/RTOS_apps/IMU_handle.h \
  E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h \
- ../User/RTOS_apps/control_handle.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/control.h \
- E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/pwm.h \
- ../User/RTOS_apps/IMU_handle.h
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User\RTOS_apps/control_handle.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/tim.h \
+ E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/uart.h \
+ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h \
+ ../User/RTOS_apps/control_handle.h ../User/RTOS_apps/IMU_handle.h
 
 ../User/RTOS_tasks.h:
 
@@ -148,26 +147,26 @@ e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\C
 
 E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/MPU6050.h:
 
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h:
+../User/RTOS_apps/control_handle.h:
 
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\pid.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/pwm.h:
 
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/tim.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/pid.h:
 
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\apps\inc\control.h:
-
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/uart.h:
-
-e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h:
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/Crsf.h:
 
 ../User/RTOS_apps/IMU_handle.h:
 
 E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/bsp_filter.h:
 
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\User\RTOS_apps/control_handle.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/tim.h:
+
+E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/uart.h:
+
+e:\download\ch32v307evt\evt\exam\freertos\freertos_core\general_files\drivers\mpu6050.h:
+
 ../User/RTOS_apps/control_handle.h:
-
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\apps\inc/control.h:
-
-E:\Download\CH32V307EVT\EVT\EXAM\FreeRTOS\FreeRTOS_Core\General_Files\drivers/pwm.h:
 
 ../User/RTOS_apps/IMU_handle.h:

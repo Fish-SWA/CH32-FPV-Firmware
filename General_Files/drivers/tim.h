@@ -1,7 +1,7 @@
 #ifndef  __TIM_H_
 #define __TIM_H_
 
-#include "../apps/inc/control.h"
+#include "control_handle.h"
 #include "uart.h"
 #include "../General_Files/drivers/MPU6050.h"
 

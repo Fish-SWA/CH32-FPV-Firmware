@@ -1,0 +1,6 @@
+.settings/
+.vscode/
+obj/
+*.d
+*.o
+*.hex

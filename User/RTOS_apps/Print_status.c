@@ -52,34 +52,34 @@ void String_print()
     printf("av_yaw_filted=%d\r\n",MPU6050_para_filted.av_yaw);
     printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
     printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
-    printf("yaw_outer=%f\r\n",PID_yaw_innerloop.out);
-    printf("roll_outer=%f\r\n",PID_roll_innerloop.out);
-    printf("pitch_outer=%f\r\n",PID_pitch_innerloop.out);
+    printf("yaw_outer=%f\r\n",control.PID_yaw_innerloop.out);
+    printf("roll_outer=%f\r\n",control.PID_roll_innerloop.out);
+    printf("pitch_outer=%f\r\n",control.PID_pitch_innerloop.out);
 //    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
     printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际的2号电机
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
     printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4
-    if(flight_mode==GPS){
+    if(control.flight_mode==GPS){
         printf("flight_mode:GPS\r\n");
     }
-    else if(flight_mode==Stable){
+    else if(control.flight_mode==Stable){
         printf("flight_mode:Stable\r\n");
     }
     else{
         printf("flight_mode:Free\r\n");
     }
 
-    if(is_locked == Unlocked){
+    if(control.is_locked == Unlocked){
         printf("Throttle Unlocked\r\n");
     }
     else{
         printf("Throttle Locked\r\n");
     }
 
-    if(CONTROL_MODE == PID_CONTROL_MODE){
+    if(control.CONTROL_MODE == PID_CONTROL_MODE){
         printf("Control_mode:PID\r\n\n");
-    }else if(CONTROL_MODE == RAW_CONTROL_MODE){
+    }else if(control.CONTROL_MODE == RAW_CONTROL_MODE){
         printf("Control_mode:RAW\r\n\n");
     }
 
