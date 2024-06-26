@@ -2,13 +2,13 @@
 #define __ST7789_H			
 
 #include "debug.h"
-//============================���������á�=================================
+//============================【参数设置】=================================
 
-//��ʾ����
-#define ST7789_DIR   1  //0��
-//#define ST7789_DIR   2  //90��
-//#define ST7789_DIR   3  //180��
-//#define ST7789_DIR   4  //270��
+//显示方向
+#define ST7789_DIR   1  //0°
+//#define ST7789_DIR   2  //90°
+//#define ST7789_DIR   3  //180°
+//#define ST7789_DIR   4  //270°
 
 #if ST7789_DIR == 2 || ST7789_DIR == 4
 	#define ST7789_WIDTH 172
@@ -18,10 +18,10 @@
 	#define ST7789_HEIGHT 172
 #endif
 
-#define ST7789_CMD  0       //д����
-#define ST7789_DATA 1       //д����
+#define ST7789_CMD  0       //写命令
+#define ST7789_DATA 1       //写数据
 
-//============================�����Ŷ��塿=================================
+//============================【引脚定义】=================================
 #define  ST7789_BL_PORT GPIOE
 #define  ST7789_BL_PIN GPIO_Pin_3
 #define  ST7789_BL_Ctrl(n)  GPIO_WriteBit(ST7789_BL_PORT, ST7789_BL_PIN, n);
@@ -46,29 +46,29 @@
 
 #define I8080_DC(n)         GPIO_WriteBit(I8080_DC_PORT, I8080_DC_PIN, n)
 
-//��ɫ
+//颜色
 typedef enum
 {
-    color_WHITE = 0xFFFF, //��ɫ
-    color_BLACK = 0x0000, //��ɫ
-    color_BLUE = 0x001F, //��ɫ
-    color_BRED = 0XF81F, //��ɫ
-    color_GRED = 0XFFE0, //����ɫ
-    color_GBLUE = 0X07FF, //����ɫ
-    color_RED = 0xF800, //��ɫ
-    color_GREEN = 0x07E0, //��ɫ
-    color_CYAN = 0x7FFF, //����ɫ
-    color_YELLOW = 0xFFE0, //��ɫ
-    color_BROWN = 0XBC40, //��ɫ
-    color_BRRED = 0XFC07, //�غ�ɫ
-    color_GRAY = 0X8430, //��ɫ
-    color_DARKBLUE = 0X01CF,//����ɫ
-    color_LIGHTBLUE = 0X7D7C, //ǳ��ɫ
-    color_GRAYBLUE = 0X5458, //����ɫ
-    color_LIGHTGREEN = 0X841F, //ǳ��ɫ
-    color_LGRAY = 0XC618, //ǳ��ɫ(PANNEL),���屳��ɫ
-    color_LGRAYBLUE = 0XA651, //ǳ����ɫ(�м����ɫ)
-    color_LBBLUE = 0X2B12, //ǳ����ɫ(ѡ����Ŀ�ķ�ɫ)
+    color_WHITE = 0xFFFF, //白色
+    color_BLACK = 0x0000, //黑色
+    color_BLUE = 0x001F, //蓝色
+    color_BRED = 0XF81F, //紫色
+    color_GRED = 0XFFE0, //黄绿色
+    color_GBLUE = 0X07FF, //天蓝色
+    color_RED = 0xF800, //红色
+    color_GREEN = 0x07E0, //绿色
+    color_CYAN = 0x7FFF, //天蓝色
+    color_YELLOW = 0xFFE0, //黄色
+    color_BROWN = 0XBC40, //棕色
+    color_BRRED = 0XFC07, //棕红色
+    color_GRAY = 0X8430, //灰色
+    color_DARKBLUE = 0X01CF,//深蓝色
+    color_LIGHTBLUE = 0X7D7C, //浅蓝色
+    color_GRAYBLUE = 0X5458, //灰蓝色
+    color_LIGHTGREEN = 0X841F, //浅绿色
+    color_LGRAY = 0XC618, //浅灰色(PANNEL),窗体背景色
+    color_LGRAYBLUE = 0XA651, //浅灰蓝色(中间层颜色)
+    color_LBBLUE = 0X2B12, //浅棕蓝色(选择条目的反色)
 }color_t;//RGB565
 
 

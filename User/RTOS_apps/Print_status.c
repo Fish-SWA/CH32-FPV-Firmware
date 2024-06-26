@@ -1,5 +1,5 @@
 /****************************Print_status.c***************************************
-´Óµ÷ÊÔ´®¿ÚÊä³öÎŞÈË»úµÄĞÅÏ¢
+ä»è°ƒè¯•ä¸²å£è¾“å‡ºæ— äººæœºçš„ä¿¡æ¯
 
 
 *******************************************************************************/
@@ -45,7 +45,7 @@ void String_print()
     // printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
     // printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
     // printf("av_roll=%d\r\n",MPU6050_para.av_roll);
-    printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //Ê£Óà¶Ñ¿Õ¼ä
+    printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //å‰©ä½™å †ç©ºé—´
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
     printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
     printf("roll_filted=%f\r\n",MPU6050_para_filted.roll);
@@ -56,7 +56,7 @@ void String_print()
     printf("roll_outer=%f\r\n",control.PID_roll_innerloop.out);
     printf("pitch_outer=%f\r\n",control.PID_pitch_innerloop.out);
 //    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
-    printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //¶ÔÓ¦Êµ¼ÊµÄ2ºÅµç»ú
+    printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //å¯¹åº”å®é™…çš„2å·ç”µæœº
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
     printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4

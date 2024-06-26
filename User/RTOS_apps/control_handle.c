@@ -1,19 +1,19 @@
 /****************************control_handle.c***************************************
-¸ºÔðÎÞÈË»úµÄ¿ØÖÆ
+è´Ÿè´£æ— äººæœºçš„æŽ§åˆ¶
 
-·É»úµç»ú¶ÔÓ¦Í¼
-       1ºÅ    2ºÅ
- »úÍ·¡ü   \  /
+é£žæœºç”µæœºå¯¹åº”å›¾
+       1å·    2å·
+ æœºå¤´â†‘   \  /
         /  \
-       3ºÅ    4ºÅ
-pwm: µç»úpwm
-n:   µç»ú±àºÅ
+       3å·    4å·
+pwm: ç”µæœºpwm
+n:   ç”µæœºç¼–å·
 *******************************************************************************/
 
 #include "control_handle.h"
 
-/*È«¾Ö±äÁ¿*/
-#define rate 0.9  //µ÷ÊÔ¼Ü×ÓÓÐ×èÄá£¬µ÷ÊÔ¼Ü²â³öÀ´µÄ²ÎÊýÐèÒª¸øÒ»¸öË¥¼õ
+/*å…¨å±€å˜é‡*/
+#define rate 0.9  //è°ƒè¯•æž¶å­æœ‰é˜»å°¼ï¼Œè°ƒè¯•æž¶æµ‹å‡ºæ¥çš„å‚æ•°éœ€è¦ç»™ä¸€ä¸ªè¡°å‡
 
 Control_TypeDef control;
 
@@ -38,12 +38,12 @@ void control_para_init();
 
 void control_handle_task(void *pvParameters)
 {
-    control_para_init();    //³õÊ¼»¯È«¾Ö±äÁ¿
+    control_para_init();    //åˆå§‹åŒ–å…¨å±€å˜é‡
 
     while(1)
     {
         Update_ELRS();
-        if(control.MOTOR_MODE != MOTOR_SOFT_STARTING){      //Èç¹ûµç»úÕýÔÚ»ºÆô¶¯£¬µç»ú²»Ö´ÐÐ¿ØÖÆ
+        if(control.MOTOR_MODE != MOTOR_SOFT_STARTING){      //å¦‚æžœç”µæœºæ­£åœ¨ç¼“å¯åŠ¨ï¼Œç”µæœºä¸æ‰§è¡ŒæŽ§åˆ¶
             if(control.is_locked==Unlocked){
                 if(control.Throttle>=PWM_CLOSE_LOOP_CONTROL_ENABLE){
                     Flight_control();
@@ -72,11 +72,11 @@ void control_handle_task(void *pvParameters)
 void PIDSTRUCT_Init()
 {
     /*
-     * ÍÓÂÝÒÇµÄ½ÇËÙ¶ÈÊÇ½ÇËÙ¶ÈÔ½´ó£¬¼Ä´æÆ÷ÖµÔ½Ð¡£¬ËùÒÔÄÚ»·µÄPID²ÎÊýÊÇ¸ºÊý
-     * º½Ïò½ÇÓÉÓÚÓÒÊÖ¶¨Ôò£¬Í¨³£È¡·´£¬ËùÒÔPID²ÎÊýÊÇ¸º
+     * é™€èžºä»ªçš„è§’é€Ÿåº¦æ˜¯è§’é€Ÿåº¦è¶Šå¤§ï¼Œå¯„å­˜å™¨å€¼è¶Šå°ï¼Œæ‰€ä»¥å†…çŽ¯çš„PIDå‚æ•°æ˜¯è´Ÿæ•°
+     * èˆªå‘è§’ç”±äºŽå³æ‰‹å®šåˆ™ï¼Œé€šå¸¸å–åï¼Œæ‰€ä»¥PIDå‚æ•°æ˜¯è´Ÿ
      */
     //////////////////////////////////////////yaw////////////////////////////////////////
-    // º½Ïò½ÇÍâ»·³õÊ¼»¯£¨½Ç¶È»·£©
+    // èˆªå‘è§’å¤–çŽ¯åˆå§‹åŒ–ï¼ˆè§’åº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_yaw_outerloop);
     control.PID_yaw_outerloop.Kp=2.0f;
     control.PID_yaw_outerloop.Ki=0.05f;
@@ -85,10 +85,10 @@ void PIDSTRUCT_Init()
     control.PID_yaw_outerloop.min_iout=-Angle_I_Limit;
     control.PID_yaw_outerloop.max_out=65535;
     control.PID_yaw_outerloop.min_out=-65535;
-    control.PID_yaw_outerloop.DeadBand = 0.01;    //PIDËÀÇø
-    pid_func.init(&control.PID_yaw_outerloop);      // Çå¿Õ»º´æ
+    control.PID_yaw_outerloop.DeadBand = 0.01;    //PIDæ­»åŒº
+    pid_func.init(&control.PID_yaw_outerloop);      // æ¸…ç©ºç¼“å­˜
 
-    // º½Ïò½ÇÄÚ»·³õÊ¼»¯£¨½ÇËÙ¶È»·£©
+    // èˆªå‘è§’å†…çŽ¯åˆå§‹åŒ–ï¼ˆè§’é€Ÿåº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_yaw_innerloop);
     control.PID_yaw_innerloop.Kp=3.4f;
     control.PID_yaw_innerloop.Ki=0.0f;
@@ -98,10 +98,10 @@ void PIDSTRUCT_Init()
     control.PID_yaw_innerloop.max_out=65535;
     control.PID_yaw_innerloop.min_out=-65535;
     control.PID_yaw_innerloop.DeadBand=0.01;
-    pid_func.init(&control.PID_yaw_innerloop);      // Çå¿Õ»º´æ
+    pid_func.init(&control.PID_yaw_innerloop);      // æ¸…ç©ºç¼“å­˜
 
     ////////////////////////////////////////pitch////////////////////////////////////////
-    // ¸©Ñö½ÇÍâ»·³õÊ¼»¯£¨½Ç¶È»·£©
+    // ä¿¯ä»°è§’å¤–çŽ¯åˆå§‹åŒ–ï¼ˆè§’åº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_pitch_outerloop);
     control.PID_pitch_outerloop.Kp=1.5*rate;
     control.PID_pitch_outerloop.Ki=0.05*rate; //-0.12
@@ -110,10 +110,10 @@ void PIDSTRUCT_Init()
     control.PID_pitch_outerloop.min_iout=-Angle_I_Limit;
     control.PID_pitch_outerloop.max_out=65535;
     control.PID_pitch_outerloop.min_out=-65535;
-    control.PID_pitch_outerloop.DeadBand = 0.1;    //PIDËÀÇø
-    pid_func.init(&control.PID_pitch_outerloop);    // Çå¿Õ»º´æ
+    control.PID_pitch_outerloop.DeadBand = 0.1;    //PIDæ­»åŒº
+    pid_func.init(&control.PID_pitch_outerloop);    // æ¸…ç©ºç¼“å­˜
 
-    // ¸©Ñö½ÇÄÚ»·³õÊ¼»¯£¨½ÇËÙ¶È»·£©
+    // ä¿¯ä»°è§’å†…çŽ¯åˆå§‹åŒ–ï¼ˆè§’é€Ÿåº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_pitch_innerloop);
     control.PID_pitch_innerloop.Kp=3.2*rate;    //2.2
     control.PID_pitch_innerloop.Ki=0.0*rate;    //0.0
@@ -123,10 +123,10 @@ void PIDSTRUCT_Init()
     control.PID_pitch_innerloop.max_out=65535;
     control.PID_pitch_innerloop.min_out=-65535;
     control.PID_pitch_innerloop.DeadBand=1;
-    pid_func.init(&control.PID_pitch_innerloop);    // Çå¿Õ»º´æ
+    pid_func.init(&control.PID_pitch_innerloop);    // æ¸…ç©ºç¼“å­˜
 
     //////////////////////////////////////////roll////////////////////////////////////////
-    // ºá¹ö½ÇÍâ»·³õÊ¼»¯£¨½Ç¶È»·£©
+    // æ¨ªæ»šè§’å¤–çŽ¯åˆå§‹åŒ–ï¼ˆè§’åº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_roll_outerloop);
     control.PID_roll_outerloop.Kp=1.5*rate;
     control.PID_roll_outerloop.Ki=0.05*rate;
@@ -136,9 +136,9 @@ void PIDSTRUCT_Init()
     control.PID_roll_outerloop.max_out=65535;
     control.PID_roll_outerloop.min_out=-65535;
     control.PID_roll_outerloop.DeadBand=0.01;
-    pid_func.init(&control.PID_roll_outerloop);     // Çå¿Õ»º´æ
+    pid_func.init(&control.PID_roll_outerloop);     // æ¸…ç©ºç¼“å­˜
 
-    // ºá¹ö½ÇÄÚ»·³õÊ¼»¯£¨½ÇËÙ¶È»·£©
+    // æ¨ªæ»šè§’å†…çŽ¯åˆå§‹åŒ–ï¼ˆè§’é€Ÿåº¦çŽ¯ï¼‰
     pid_func.reset(&control.PID_roll_innerloop);
     control.PID_roll_innerloop.Kp=3.1*rate;
     control.PID_roll_innerloop.Ki=0.0f;
@@ -148,10 +148,10 @@ void PIDSTRUCT_Init()
     control.PID_roll_innerloop.max_out=65535;
     control.PID_roll_innerloop.min_out=-65535;
     control.PID_roll_innerloop.DeadBand=1;
-    pid_func.init(&control.PID_roll_innerloop);     // Çå¿Õ»º´æ
+    pid_func.init(&control.PID_roll_innerloop);     // æ¸…ç©ºç¼“å­˜
 }
 //***********************************************************************
-// ½«Ò¡¸ËÖµ×ª»¯Îª½Ç¶È£¬Ó³ÉäÎª¡À30¡ã
+// å°†æ‘‡æ†å€¼è½¬åŒ–ä¸ºè§’åº¦ï¼Œæ˜ å°„ä¸ºÂ±30Â°
 float ELRS_Convert_angle(int ELRS_data)
 {
     float angle;
@@ -167,7 +167,7 @@ float ELRS_Convert_angle(int ELRS_data)
     return angle;
 }
 
-// ½«Ò¡¸ËÖµ×ª»¯ÎªÓÍÃÅ£¬Ó³ÉäÎª0~100
+// å°†æ‘‡æ†å€¼è½¬åŒ–ä¸ºæ²¹é—¨ï¼Œæ˜ å°„ä¸º0~100
 u16 ELRS_Convert_throttle(unsigned ELRS_data)
 {
     u16 throttle;
@@ -180,7 +180,7 @@ u16 ELRS_Convert_throttle(unsigned ELRS_data)
     return throttle;
 }
 
-// ½«Ò¡¸ËÖµ×ª»¯Îªµç»úËø
+// å°†æ‘‡æ†å€¼è½¬åŒ–ä¸ºç”µæœºé”
 void ELRS_Convert_lock()
 {
     if (ELRS_Throttle_lock>=1785 && ELRS_Throttle_lock<=1800){
@@ -191,7 +191,7 @@ void ELRS_Convert_lock()
     }
 }
 
-// ½«Ò¡¸ËÖµ×ª»¯Îª·ÉÐÐÄ£Ê½
+// å°†æ‘‡æ†å€¼è½¬åŒ–ä¸ºé£žè¡Œæ¨¡å¼
 void ELRS_Convert_flight_mode()
 {
     if (ELRS_mode>=1785 && ELRS_mode<=1800){
@@ -205,7 +205,7 @@ void ELRS_Convert_flight_mode()
     }
 }
 
-// ¸üÐÂ¸÷¸öELRSÖµ
+// æ›´æ–°å„ä¸ªELRSå€¼
 void Update_ELRS()
 {
     control.Yaw=ELRS_Convert_angle(ELRS_Yaw);
@@ -214,16 +214,16 @@ void Update_ELRS()
     control.Throttle = ELRS_Convert_throttle(ELRS_Throttle);
     ELRS_Convert_lock();
     ELRS_Convert_flight_mode();
-    Check_control_mode(); //Í¬²½¿ØÖÆÄ£Ê½
+    Check_control_mode(); //åŒæ­¥æŽ§åˆ¶æ¨¡å¼
 }
 
 //***********************************************************************
-// »ñÈ¡·É»úµ±Ç°×´Ì¬£¬ÒÔ½øÐÐ¸÷ÖÖ¶¯×÷
+// èŽ·å–é£žæœºå½“å‰çŠ¶æ€ï¼Œä»¥è¿›è¡Œå„ç§åŠ¨ä½œ
 
 
 
 //***********************************************************************
-// Roll¿ØÖÆ
+// RollæŽ§åˆ¶
 void Roll_outerloop_ctr()
 {
     float angle_num=control.Roll + Mech_zero_roll;
@@ -232,11 +232,11 @@ void Roll_outerloop_ctr()
 
 void Roll_innerloop_ctr()
 {
-    pid_func.calc(&control.PID_roll_innerloop, control.PID_roll_outerloop.out, MPU6050_para_filted.av_roll/50.0f);//Debug£º³ýÒÔ50.0fÊÇÏû³ýÁ¿¸Ù£¬¿ØÖÆÖÜÆÚ20ms£¬Íâ»·µ¥Î»ÊÇ¶ÈÃ¿Ãë
+    pid_func.calc(&control.PID_roll_innerloop, control.PID_roll_outerloop.out, MPU6050_para_filted.av_roll/50.0f);//Debugï¼šé™¤ä»¥50.0fæ˜¯æ¶ˆé™¤é‡çº²ï¼ŒæŽ§åˆ¶å‘¨æœŸ20msï¼Œå¤–çŽ¯å•ä½æ˜¯åº¦æ¯ç§’
 //    printf("d: %f, %f", PID_roll_outerloop.out, MPU6050_para_filted.av_roll/1000.0f);
 }
 
-// Yaw¿ØÖÆ
+// YawæŽ§åˆ¶
 void Yaw_outerloop_ctr()
 {
     float angle_num=control.Yaw + control.Mech_zero_yaw;
@@ -249,7 +249,7 @@ void Yaw_innerloop_ctr()
     pid_func.calc(&control.PID_yaw_innerloop, control.PID_yaw_outerloop.out, -MPU6050_para_filted.av_yaw/50.0f);
 }
 
-// Pitch¿ØÖÆ
+// PitchæŽ§åˆ¶
 void Pitch_outerloop_ctr()
 {
     float angle_num=control.Pitch + Mech_zero_pitch;
@@ -261,12 +261,12 @@ void Pitch_innerloop_ctr()
     pid_func.calc(&control.PID_pitch_innerloop, control.PID_pitch_outerloop.out, MPU6050_para_filted.av_pitch/50.0f);
 }
 
-// ´ÓÒ£¿ØÆ÷Í¬²½¿ØÖÆÄ£Ê½
+// ä»Žé¥æŽ§å™¨åŒæ­¥æŽ§åˆ¶æ¨¡å¼
 void Check_control_mode()
 {
-    if(CrsfChannels[7] == 191){     //²¦¸ËÏòÏÂ
+    if(CrsfChannels[7] == 191){     //æ‹¨æ†å‘ä¸‹
         control.CONTROL_MODE = PID_CONTROL_MODE;
-    }else if(CrsfChannels[7] == 1792){  //²¦¸ËÏòÉÏ
+    }else if(CrsfChannels[7] == 1792){  //æ‹¨æ†å‘ä¸Š
         control.CONTROL_MODE = RAW_CONTROL_MODE;
     }
     
@@ -283,7 +283,7 @@ void Flight_control()
     Yaw_outerloop_ctr();
     Yaw_innerloop_ctr();
 
-    control.Mech_zero_yaw = MPU6050_para_filted.yaw;     // ·ÀÖ¹×ªÏòºó»úÍ·»Ø0
+    control.Mech_zero_yaw = MPU6050_para_filted.yaw;     // é˜²æ­¢è½¬å‘åŽæœºå¤´å›ž0
 
         control.PWM_Out1=control.Throttle+control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
         control.PWM_Out2=control.Throttle+control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
@@ -317,25 +317,25 @@ void Flight_control()
     printf("1111111\r\n\n");
 }
 
-//³õÊ¼»¯È«¾Ö±äÁ¿
+//åˆå§‹åŒ–å…¨å±€å˜é‡
 void control_para_init()
 {
-    control.Mech_zero_yaw = 0;  // yawÖá»úÐµÁãµã£¬ÒòÎªÐèÒª¸üÐÂËùÒÔÊÇ±äÁ¿
-    control.is_locked = 1;      // µç»úËø
-    control.flight_mode = 1;    //·ÉÐÐÄ£Ê½
-    control.is_landing = 0;     //×Ô¶¯½µÂä
+    control.Mech_zero_yaw = 0;  // yawè½´æœºæ¢°é›¶ç‚¹ï¼Œå› ä¸ºéœ€è¦æ›´æ–°æ‰€ä»¥æ˜¯å˜é‡
+    control.is_locked = 1;      // ç”µæœºé”
+    control.flight_mode = 1;    //é£žè¡Œæ¨¡å¼
+    control.is_landing = 0;     //è‡ªåŠ¨é™è½
 
-    control.PWM_Out1=0;     // ×îÖÕ×÷ÓÃµ½µç»ú1µÄPWM
-    control.PWM_Out2=0;     // ×îÖÕ×÷ÓÃµ½µç»ú2µÄPWM
-    control.PWM_Out3=0;     // ×îÖÕ×÷ÓÃµ½µç»ú3µÄPWM
-    control.PWM_Out4=0;     // ×îÖÕ×÷ÓÃµ½µç»ú4µÄPWM
+    control.PWM_Out1=0;     // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº1çš„PWM
+    control.PWM_Out2=0;     // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº2çš„PWM
+    control.PWM_Out3=0;     // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº3çš„PWM
+    control.PWM_Out4=0;     // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº4çš„PWM
 
     control.Yaw   = 0;
     control.Pitch = 0;
     control.Roll  = 0;
     control.Throttle = 0;
-    control.CONTROL_MODE = PID_CONTROL_MODE;    //¿ØÖÆÄ£Ê½Éè¶¨
-    control.MOTOR_MODE = MOTOR_NORMAL;          //µç»úÄ£Ê½Éè¶¨
+    control.CONTROL_MODE = PID_CONTROL_MODE;    //æŽ§åˆ¶æ¨¡å¼è®¾å®š
+    control.MOTOR_MODE = MOTOR_NORMAL;          //ç”µæœºæ¨¡å¼è®¾å®š
 }
 
 void Stop_motor()

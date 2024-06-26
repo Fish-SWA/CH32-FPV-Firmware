@@ -1,39 +1,39 @@
-# °æ±¾ËµÃ÷
-- ÓÃÓÚÇ¶ÈûÎÞÈË»úµÄ·É¿Ø¹Ì¼þ
+# ç‰ˆæœ¬è¯´æ˜Ž
+- ç”¨äºŽåµŒèµ›æ— äººæœºçš„é£žæŽ§å›ºä»¶
 - CH32V307 & MPU6050
 
-## ÏîÄ¿½á¹¹
-//´ýÍêÉÆ
+## é¡¹ç›®ç»“æž„
+//å¾…å®Œå–„
 
 ## TODO
-- PID²ÎÊýÏ¸µ÷
-- Ôö¼ÓÓëÉÏÎ»»ú£¨Ïã³ÈÅÉ£©µÄ´®¿ÚÍ¨Ñ¶
-- Ôö¼Ó¹âÁ÷Óë²â¾à´«¸ÐÆ÷
+- PIDå‚æ•°ç»†è°ƒ
+- å¢žåŠ ä¸Žä¸Šä½æœºï¼ˆé¦™æ©™æ´¾ï¼‰çš„ä¸²å£é€šè®¯
+- å¢žåŠ å…‰æµä¸Žæµ‹è·ä¼ æ„Ÿå™¨
 
-## ¸Ä¶¯¼ÇÂ¼
+## æ”¹åŠ¨è®°å½•
 
 ### 6.11 bt fish
-- °Ñcontrol.cÈ«²¿ÒÆÖ²µ½ÁËUser/RTOS_apps/control_handle.cÖÐ
-- °Ñ¿ØÖÆÏà¹ØµÄ±äÁ¿È«²¿ÕûÀíµ½ÁË**½á¹¹Ìåcontrol**ÖÐ
-- ÐÞ¸´ÁËwarning
+- æŠŠcontrol.cå…¨éƒ¨ç§»æ¤åˆ°äº†User/RTOS_apps/control_handle.cä¸­
+- æŠŠæŽ§åˆ¶ç›¸å…³çš„å˜é‡å…¨éƒ¨æ•´ç†åˆ°äº†**ç»“æž„ä½“control**ä¸­
+- ä¿®å¤äº†warning
 
 ### 6.11 by fish
-- ÒÆÖ²ÁËRTOSµ÷¶È£¬²¢ÇÒÖØÐÂÕûÀíÁË´úÂë
-- Ïß³ÌÔÚ/User/RTOS_appÖÐ´´½¨£¬ÓÐÒÔÏÂÏß³Ì£º
+- ç§»æ¤äº†RTOSè°ƒåº¦ï¼Œå¹¶ä¸”é‡æ–°æ•´ç†äº†ä»£ç 
+- çº¿ç¨‹åœ¨/User/RTOS_appä¸­åˆ›å»ºï¼Œæœ‰ä»¥ä¸‹çº¿ç¨‹ï¼š
   - Print_status_task
-    - Í¨¹ýµ÷ÊÔ´®¿ÚÊä³ö×´Ì¬ÐÅÏ¢
+    - é€šè¿‡è°ƒè¯•ä¸²å£è¾“å‡ºçŠ¶æ€ä¿¡æ¯
   - IMU_task
-    - ¸ºÔðÎ¬»¤Óë¶ÁÈ¡IMUÊý¾Ý£¬²¢ÇÒ×öÆ½¾ùÖµÂË²¨
-    - ÂË²¨Ö®ºóµÃµ½µÄÊý¾Ý´æ´¢ÔÚMPU6050_para_filted½á¹¹ÌåÖÐ
+    - è´Ÿè´£ç»´æŠ¤ä¸Žè¯»å–IMUæ•°æ®ï¼Œå¹¶ä¸”åšå¹³å‡å€¼æ»¤æ³¢
+    - æ»¤æ³¢ä¹‹åŽå¾—åˆ°çš„æ•°æ®å­˜å‚¨åœ¨MPU6050_para_filtedç»“æž„ä½“ä¸­
   - Motor_sort_start
-    - µç»úÈíÆô¶¯Ïß³Ì£¬·ÀÖ¹Æô¶¯¹ý¿ìµçµ÷¹Òµô
-    - µ±¼ì²âµ½µç»ú½âËøÊ±£¬ÇÀÕ¼µç»úµÄ¿ØÖÆÈ¨£¬È»ºó»ºÂý½«µç»ú×ªËÙÌá¸ßµ½µ¡ËÙ
-    - »ºÆô¶¯ºóÊÍ·Åµç»úµÄ¿ØÖÆÈ¨£¬Ëæºó½«µç»úµÄ×ªËÙÏÞÖÆÔÚµ¡ËÙÒÔÉÏ
+    - ç”µæœºè½¯å¯åŠ¨çº¿ç¨‹ï¼Œé˜²æ­¢å¯åŠ¨è¿‡å¿«ç”µè°ƒæŒ‚æŽ‰
+    - å½“æ£€æµ‹åˆ°ç”µæœºè§£é”æ—¶ï¼ŒæŠ¢å ç”µæœºçš„æŽ§åˆ¶æƒï¼Œç„¶åŽç¼“æ…¢å°†ç”µæœºè½¬é€Ÿæé«˜åˆ°æ€ é€Ÿ
+    - ç¼“å¯åŠ¨åŽé‡Šæ”¾ç”µæœºçš„æŽ§åˆ¶æƒï¼ŒéšåŽå°†ç”µæœºçš„è½¬é€Ÿé™åˆ¶åœ¨æ€ é€Ÿä»¥ä¸Š
   - control_handle_task
-    - ¸ºÔðÎÞÈË»ú×ËÌ¬¿ØÖÆ
-    - Ö÷Òª³ÌÐò»¹ÔÚcontrol.cÖÐ£¬¼Æ»®È«²¿ÒÆÖ²µ½RTOS_apps/control_handle.cÖÐ
-- ´ËÍâ£¬ÒÔÏÂ½ø³ÌÊ¹ÓÃÍâ²¿ÖÐ¶Ïµ÷¶È£º
+    - è´Ÿè´£æ— äººæœºå§¿æ€æŽ§åˆ¶
+    - ä¸»è¦ç¨‹åºè¿˜åœ¨control.cä¸­ï¼Œè®¡åˆ’å…¨éƒ¨ç§»æ¤åˆ°RTOS_apps/control_handle.cä¸­
+- æ­¤å¤–ï¼Œä»¥ä¸‹è¿›ç¨‹ä½¿ç”¨å¤–éƒ¨ä¸­æ–­è°ƒåº¦ï¼š
   - HandleByteReceived
-    - ÓÃÓÚ½ÓÊÕ»ú½â°ü£¬ÔÚuart.cÖÐ
-    - µ±½ø³ÌIMU_taskÕýÔÚ¶ÁÈ¡IMUÊ±±»µ÷ÓÃ»áÊ¹µ¥Æ¬»ú¿¨ËÀ£¬Òò´ËÒýÈëÁËIMU_IO_STATUSÀ´·ÀÖ¹ÕâÖÖÇé¿öµÄ·¢Éú
-      - ²âÊÔ½á¹û->Ìí¼ÓºóÔËÐÐ15·ÖÖÓÈÔÈ»Ã»ÓÐ¿¨ËÀ£¬Èç¹û²»Ìí¼Ó»áÔÚ1-2·ÖÖÓÄÚ¿¨ËÀ
+    - ç”¨äºŽæŽ¥æ”¶æœºè§£åŒ…ï¼Œåœ¨uart.cä¸­
+    - å½“è¿›ç¨‹IMU_taskæ­£åœ¨è¯»å–IMUæ—¶è¢«è°ƒç”¨ä¼šä½¿å•ç‰‡æœºå¡æ­»ï¼Œå› æ­¤å¼•å…¥äº†IMU_IO_STATUSæ¥é˜²æ­¢è¿™ç§æƒ…å†µçš„å‘ç”Ÿ
+      - æµ‹è¯•ç»“æžœ->æ·»åŠ åŽè¿è¡Œ15åˆ†é’Ÿä»ç„¶æ²¡æœ‰å¡æ­»ï¼Œå¦‚æžœä¸æ·»åŠ ä¼šåœ¨1-2åˆ†é’Ÿå†…å¡æ­»

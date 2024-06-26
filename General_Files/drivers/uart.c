@@ -10,9 +10,9 @@
 #include "task.h"
 #include "IMU_handle.h"
 
-extern u8 is_locked;           // µç»úËø
-extern u8 flight_mode;         //·ÉĞĞÄ£Ê½
-extern u8 is_landing;          //×Ô¶¯½µÂä
+extern u8 is_locked;           // ç”µæœºé”
+extern u8 flight_mode;         //é£è¡Œæ¨¡å¼
+extern u8 is_landing;          //è‡ªåŠ¨é™è½
 
 void USART2_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
@@ -26,7 +26,7 @@ void USARTx_CFG(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2 , ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 
-    // ´®¿Ú2
+    // ä¸²å£2
     /* USART2 TX-->A.2   RX-->A.3 */
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -36,7 +36,7 @@ void USARTx_CFG(void)
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-//    // ´®¿Ú3
+//    // ä¸²å£3
 //    /* USART3 TX-->B.10  RX-->B.11 */
 //    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
 //    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -123,7 +123,7 @@ void UART_RxCpltCallback(USART_TypeDef *USARTx)
     {
         RxBuf_Index = 0;
     }
-    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //½öÔÚIMU²»¶ÁĞ´Ê±½â°ü
+    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //ä»…åœ¨IMUä¸è¯»å†™æ—¶è§£åŒ…
     USART_ClearFlag(USARTx, USART_IT_RXNE);
 //    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);
 }

@@ -11,7 +11,7 @@
 #include "task.h"
 #include "IMU_handle.h"
 
-#define PRINT_DELAY_TIME 10 //Á½´ÎÊä³öµÄ¼ä¸ô
+#define PRINT_DELAY_TIME 10 //ä¸¤æ¬¡è¾“å‡ºçš„é—´éš”
 
 extern void Print_status_task(void *pvParameters);
 

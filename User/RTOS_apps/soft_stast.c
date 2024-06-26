@@ -1,7 +1,7 @@
 /****************************Print_status.c***************************************
-¸ºÔğµç»úµÄ»ºÆô¶¯£¬·ÀÖ¹µç»úÆô¶¯¹ı¿ì¹Òµô
+è´Ÿè´£ç”µæœºçš„ç¼“å¯åŠ¨ï¼Œé˜²æ­¢ç”µæœºå¯åŠ¨è¿‡å¿«æŒ‚æ‰
 
-µ±¼ì²âµ½µç»ú½âËøÊ±£¬»áÇÀÕ¼µç»úµÄ¿ØÖÆÈ¨£¬°Ñµç»úµÄ×ªËÙ»ºÂıÌáÉıµ½µ¡ËÙºóÔÙÊÍ·Å¿ØÖÆÈ¨
+å½“æ£€æµ‹åˆ°ç”µæœºè§£é”æ—¶ï¼Œä¼šæŠ¢å ç”µæœºçš„æ§åˆ¶æƒï¼ŒæŠŠç”µæœºçš„è½¬é€Ÿç¼“æ…¢æå‡åˆ°æ€ é€Ÿåå†é‡Šæ”¾æ§åˆ¶æƒ
 
 
 *******************************************************************************/
@@ -12,30 +12,30 @@
 #include "drivers/pwm.h"
 #include "control_handle.h"
 
-int last_RC_lock_state = Locked;	//ÉÏÒ»´ÎËø¶¨×´Ì¬
-float Motor_speed_set = PWM_THROTTLE_MIN; //ÓÍÃÅÖµÉè¶¨
+int last_RC_lock_state = Locked;	//ä¸Šä¸€æ¬¡é”å®šçŠ¶æ€
+float Motor_speed_set = PWM_THROTTLE_MIN; //æ²¹é—¨å€¼è®¾å®š
 
 void Motor_sort_start(void *pvParameters);
 
-/*»ºÆô¶¯Ïß³Ì*/
+/*ç¼“å¯åŠ¨çº¿ç¨‹*/
 void Motor_sort_start(void *pvParameters)
 {
-    control.is_locked = Locked; //È·±£²»»á¸Õ¿ª»ú¾Í»ºÆô¶¯
+    control.is_locked = Locked; //ç¡®ä¿ä¸ä¼šåˆšå¼€æœºå°±ç¼“å¯åŠ¨
     while(1)
     {
-        if(control.is_locked == Unlocked && last_RC_lock_state == Locked){	//µ±½âËøµç»úÊ±ºò
+        if(control.is_locked == Unlocked && last_RC_lock_state == Locked){	//å½“è§£é”ç”µæœºæ—¶å€™
             printf("MOTOR UNLOCKED!!!!\n");
             last_RC_lock_state = Unlocked;
-            control.MOTOR_MODE = MOTOR_SOFT_STARTING;	//ÇĞ»»µ½»ºÆô¶¯Ä£Ê½
+            control.MOTOR_MODE = MOTOR_SOFT_STARTING;	//åˆ‡æ¢åˆ°ç¼“å¯åŠ¨æ¨¡å¼
 //            control.Mech_zero_yaw = MPU6050_para_filted.yaw;
-            for(int i=0; i<SOFT_START_TIME; i++){	//»ºÆô¶¯Âß¼­
+            for(int i=0; i<SOFT_START_TIME; i++){	//ç¼“å¯åŠ¨é€»è¾‘
                 Motor_speed_set = ((((float)PWM_THROTTLE_MIN_ROTATE-(float)PWM_THROTTLE_MIN)/(float)SOFT_START_TIME))*i + PWM_THROTTLE_MIN;
                     Motor_ctr_SOFT_START(Motor_speed_set, 1);
                     Motor_ctr_SOFT_START(Motor_speed_set, 2);
                     Motor_ctr_SOFT_START(Motor_speed_set, 3);
                     Motor_ctr_SOFT_START(Motor_speed_set, 4);
 
-                    if(control.is_locked == Locked){    //´¦Àí»ºÆô¶¯ÖĞËø¶¨µç»ú
+                    if(control.is_locked == Locked){    //å¤„ç†ç¼“å¯åŠ¨ä¸­é”å®šç”µæœº
                         control.MOTOR_MODE = MOTOR_NORMAL;
                         break;
                     }
@@ -44,7 +44,7 @@ void Motor_sort_start(void *pvParameters)
             }
 
             printf("MOTOR OK!!!!\n");
-            control.MOTOR_MODE = MOTOR_NORMAL; //ÇĞ»»»ØÕı³£Ä£Ê½
+            control.MOTOR_MODE = MOTOR_NORMAL; //åˆ‡æ¢å›æ­£å¸¸æ¨¡å¼
         }
 
         if(control.is_locked == Locked){
@@ -54,7 +54,7 @@ void Motor_sort_start(void *pvParameters)
 //            control.Mech_zero_yaw = MPU6050_para_filted.yaw;
         }
 
-        vTaskDelay(10);    //10ms¼àÌıÒ»´Î
+        vTaskDelay(10);    //10msç›‘å¬ä¸€æ¬¡
     }
 
 }
