@@ -38,11 +38,11 @@ void RTOS_init()
 
     //串口调试线程
     xTaskCreate((TaskFunction_t )Print_status_task,
-                    (const char*    )"uart",
-                    (uint16_t       )PRINT_STK_SIZE,
-                    (void*          )NULL,
-                    (UBaseType_t    )PRINT_TASK_PRIO,
-                    (TaskHandle_t*  )&PrintTask_Handler);
+                (const char*    )"uart",
+                (uint16_t       )PRINT_STK_SIZE,
+                (void*          )NULL,
+                (UBaseType_t    )PRINT_TASK_PRIO,
+                (TaskHandle_t*  )&PrintTask_Handler);
     
     // 电机软启动线程
     xTaskCreate((TaskFunction_t )Motor_sort_start,
@@ -54,11 +54,11 @@ void RTOS_init()
 
     //飞机控制线程
     xTaskCreate((TaskFunction_t )control_handle_task,
-            (const char*    )"control",
-            (uint16_t       )ControlHandle_SIZE,
-            (void*          )NULL,
-            (UBaseType_t    )ControlHandle_PRIO,
-            (TaskHandle_t*  )&Control_task_Handler);
+                (const char*    )"control",
+                (uint16_t       )ControlHandle_SIZE,
+                (void*          )NULL,
+                (UBaseType_t    )ControlHandle_PRIO,
+                (TaskHandle_t*  )&Control_task_Handler);
 
     //IMU线程
     xTaskCreate((TaskFunction_t )IMU_task,

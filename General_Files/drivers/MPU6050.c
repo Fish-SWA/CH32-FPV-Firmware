@@ -60,11 +60,11 @@ static void MPU6050_WriteByte(unsigned char REG_ADDR,unsigned char _data)
     MPU6050_I2C_Mem_Write(MPU6050_ADDR, REG_ADDR, 1, &_data);
 }
 
-static void MPU6050_SetRate(unsigned char rate)
+static void MPU6050_SetRate(int rate)
 {
     MPU6050_WriteByte(MPU6050_REG_SMPLRT_DIV, 1000/rate-1);//设置数字低通滤波器
 
-    if(rate/2>=188)MPU6050_WriteByte(MPU6050_REG_CONFIG, 1);
+    if(rate/2>=188)MPU6050_WriteByte(MPU6050_REG_CONFIG, 0);
     else if(rate/2>=98)MPU6050_WriteByte(MPU6050_REG_CONFIG, 2);
     else if(rate/2>=42)MPU6050_WriteByte(MPU6050_REG_CONFIG, 3);
     else if(rate/2>=20)MPU6050_WriteByte(MPU6050_REG_CONFIG, 4);
@@ -83,7 +83,7 @@ unsigned char MPU6050_Init()
 	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x80);//复位
 	Delay_Ms(100);
 	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x00);//解除休眠状态
-	MPU6050_SetRate(250);//设置采样率
+	MPU6050_SetRate(400);//设置采样率
 	MPU6050_WriteByte(MPU6050_REG_ACCEL_CONFIG, 0x00 << 3);//0x00 = 2g;0x01 = 4g;0x02 = 8g;0x03 = 16g
 	MPU6050_WriteByte(MPU6050_REG_GYRO_CONFIG, 0x03 << 3);//0x00 = ±250dps;0x01 = ±500dps;0x02 = ±1000dps;0x03 = ±2000dps
 	MPU6050_WriteByte(MPU6050_REG_INT_EN, 0X00);	//关闭所有中断

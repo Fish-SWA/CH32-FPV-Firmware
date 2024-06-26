@@ -6,7 +6,7 @@
 #include "MPU6050.h"
 #include "bsp_filter.h"
 
-#define IMU_READ_DELAY 10   //IMU轮询周期 ms
+#define IMU_READ_DELAY 5   //IMU轮询周期 ms
 
 enum{
     IMU_IO_BUSY = 0,

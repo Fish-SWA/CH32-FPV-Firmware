@@ -1,16 +1,3 @@
-/**
-  ******************************************************************************
-  * @author  何。小P
-  * @version V1.0
-  * @date    2018-08-22
-  * @brief   桂林安合科技有限公司 版权所有（C）All rights reserved.
-  ******************************************************************************
-	* 
-	*	文件名：dp_filter_lib.h
-	*	功  能：数字滤波算法
-    *
-  ******************************************************************************
-**/ 
 
 
 #ifndef _DP_FILTER_H
@@ -18,7 +5,7 @@
 #include "debug.h"
 #include "control_handle.h"
 
-#define FilterBuf_MaxLen 3
+#define FilterBuf_MaxLen 2
 
 typedef struct{
 
