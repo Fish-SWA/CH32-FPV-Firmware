@@ -1,6 +1,6 @@
 ################################################################################
 # MRS Version: 1.9.1
-# 自动生成的文件。不要编辑！
+# Automatically-generated file. Do not edit!
 ################################################################################
 
 -include ../makefile.init
@@ -56,12 +56,12 @@ SECONDARY_SIZE += \
 FreeRTOS.siz \
 
 
-# 所有目标
+# All Target
 all: FreeRTOS.elf secondary-outputs
 
-# 工具调用
+# Tool invocations
 FreeRTOS.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "E:\Document\GKD\CH32-FPV\CH32-FPV-Firmware\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs  -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
+	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\Users\86155\Desktop\四旋翼\CH32-FPV-Firmware - 副本\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs  -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
 	@	@
 FreeRTOS.hex: FreeRTOS.elf
 	@	riscv-none-embed-objcopy -O ihex "FreeRTOS.elf"  "FreeRTOS.hex"
@@ -72,7 +72,7 @@ FreeRTOS.lst: FreeRTOS.elf
 FreeRTOS.siz: FreeRTOS.elf
 	@	riscv-none-embed-size --format=berkeley "FreeRTOS.elf"
 	@	@
-# 其他目标
+# Other Targets
 clean:
 	-$(RM) $(ASM_UPPER_DEPS)$(OBJS)$(SECONDARY_FLASH)$(SECONDARY_LIST)$(SECONDARY_SIZE)$(ASM_DEPS)$(S_DEPS)$(S_UPPER_DEPS)$(C_DEPS) FreeRTOS.elf
 	-@

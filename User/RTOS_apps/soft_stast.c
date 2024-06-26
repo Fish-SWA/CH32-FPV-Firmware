@@ -1,5 +1,5 @@
 /****************************Print_status.c***************************************
-负责电机的缓其中，防止电机启动过快挂掉
+负责电机的缓启动，防止电机启动过快挂掉
 
 当检测到电机解锁时，会抢占电机的控制权，把电机的转速缓慢提升到怠速后再释放控制权
 
@@ -27,7 +27,7 @@ void Motor_sort_start(void *pvParameters)
             printf("MOTOR UNLOCKED!!!!\n");
             last_RC_lock_state = Unlocked;
             control.MOTOR_MODE = MOTOR_SOFT_STARTING;	//切换到缓启动模式
-
+//            control.Mech_zero_yaw = MPU6050_para_filted.yaw;
             for(int i=0; i<SOFT_START_TIME; i++){	//缓启动逻辑
                 Motor_speed_set = ((((float)PWM_THROTTLE_MIN_ROTATE-(float)PWM_THROTTLE_MIN)/(float)SOFT_START_TIME))*i + PWM_THROTTLE_MIN;
                     Motor_ctr_SOFT_START(Motor_speed_set, 1);
@@ -51,6 +51,7 @@ void Motor_sort_start(void *pvParameters)
             last_RC_lock_state = Locked;
             control.MOTOR_MODE = MOTOR_NORMAL;
             Stop_motor();
+//            control.Mech_zero_yaw = MPU6050_para_filted.yaw;
         }
 
         vTaskDelay(10);    //10ms监听一次

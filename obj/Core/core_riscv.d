@@ -1,1 +1,2 @@
-Core/core_riscv.o: E:/Download/CH32V307EVT/EVT/EXAM/SRC/Core/core_riscv.c
+Core/core_riscv.o: \
+ C:/Users/86155/Desktop/ËÄÐýÒí/CH32-FPV-Firmware/Core/core_riscv.c

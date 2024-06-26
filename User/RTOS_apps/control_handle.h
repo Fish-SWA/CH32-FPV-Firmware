@@ -10,14 +10,14 @@
 #include "IMU_handle.h"
 
 /*调度参数*/
-#define CONRTOL_PERIOD  20  //控制周期，单位ms
+#define CONRTOL_PERIOD  5  //控制周期，单位ms
 extern void control_handle_task(void *pvParameters);
 
 /*控制参数*/
 
 
-#define single_Fly_Pitch_Zero  10.0f
-#define single_Fly_Roll_Zero   3.0f
+#define single_Fly_Pitch_Zero  0.0f
+#define single_Fly_Roll_Zero   0.0f
 #define single_Fly_Yaw_Zero    0.0f
 
 
@@ -76,7 +76,7 @@ typedef struct
 
 
 //电机缓启动相关
-#define SOFT_START_TIME 1000 //缓启动时间，ms
+#define SOFT_START_TIME 500 //缓启动时间，ms
 
 #define IMU_SAMPLE_SIZE 2 //IMU平均值滤波器大小
 
@@ -92,8 +92,8 @@ typedef struct
 
 
 // 最大倾斜角度，还未换算
-#define MAX_ROLL_ANGLE  30
-#define MAX_PITCH_ANGLE 30
+#define MAX_ROLL_ANGLE  20
+#define MAX_PITCH_ANGLE 20
 
 // 机械零点，需要调
 #define Mech_zero_pitch  0
