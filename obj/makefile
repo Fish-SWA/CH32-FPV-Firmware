@@ -61,7 +61,7 @@ all: FreeRTOS.elf secondary-outputs
 
 # Tool invocations
 FreeRTOS.elf: $(OBJS) $(USER_OBJS)
-	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\Users\86155\Desktop\四旋翼\CH32-FPV-Firmware - 副本\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs  -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
+	@	@	riscv-none-embed-gcc -march=rv32imacxw -mabi=ilp32 -msmall-data-limit=8 -msave-restore -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -fno-common -Wunused -Wuninitialized  -g -T "C:\Users\86155\Desktop\四旋翼\FPV-Master-git\CH32-FPV-Firmware\Ld\Link.ld" -nostartfiles -Xlinker --gc-sections -Wl,-Map,"FreeRTOS.map" --specs=nano.specs --specs=nosys.specs  -o "FreeRTOS.elf" $(OBJS) $(USER_OBJS) $(LIBS) -lprintfloat
 	@	@
 FreeRTOS.hex: FreeRTOS.elf
 	@	riscv-none-embed-objcopy -O ihex "FreeRTOS.elf"  "FreeRTOS.hex"
