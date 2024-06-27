@@ -52,7 +52,8 @@ User/RTOS_apps/Print_status.o: ../User/RTOS_apps/Print_status.c \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/control_handle.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/tim.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/uart.h \
- c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mpu6050.h
+ c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mpu6050.h \
+ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/MTF01.h
 
 ../User/RTOS_apps/Print_status.h:
 
@@ -161,3 +162,5 @@ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\dri
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/uart.h:
 
 c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mpu6050.h:
+
+C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/MTF01.h:

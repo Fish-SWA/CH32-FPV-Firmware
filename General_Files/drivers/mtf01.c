@@ -1,4 +1,4 @@
-#include "mtf01.h"
+#include <MTF01.h>
 
 /*
 说明： 用户使用micolink_decode作为串口数据处理函数即可
@@ -9,6 +9,7 @@
 */
 
 bool micolink_parse_char(MICOLINK_MSG_t* msg, uint8_t data);
+MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;  // 光流计和雷达的数据都存在这里
 
 void micolink_decode(uint8_t data)
 {
@@ -21,7 +22,6 @@ void micolink_decode(uint8_t data)
     {
         case MICOLINK_MSG_ID_RANGE_SENSOR:
         {
-            MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
             memcpy(&payload, msg.payload, msg.len);
 
             /*

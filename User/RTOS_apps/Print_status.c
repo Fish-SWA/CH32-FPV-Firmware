@@ -76,7 +76,7 @@ void String_print()
     else{
         printf("Throttle Locked\r\n");
     }
-
+    printf("distance:%d\r\n",payload.distance);
     if(control.CONTROL_MODE == PID_CONTROL_MODE){
         printf("Control_mode:PID\r\n\n");
     }else if(control.CONTROL_MODE == RAW_CONTROL_MODE){

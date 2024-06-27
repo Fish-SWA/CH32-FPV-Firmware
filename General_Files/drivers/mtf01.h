@@ -8,6 +8,9 @@
 #define MICOLINK_MAX_PAYLOAD_LEN     64
 #define MICOLINK_MAX_LEN             MICOLINK_MAX_PAYLOAD_LEN + 7
 
+
+void micolink_decode(uint8_t data);
+
 /*
     消息ID定义
 */

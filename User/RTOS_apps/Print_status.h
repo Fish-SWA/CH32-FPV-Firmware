@@ -10,9 +10,10 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "IMU_handle.h"
+#include "MTF01.h"
 
 #define PRINT_DELAY_TIME 10 //两次输出的间隔
 
 extern void Print_status_task(void *pvParameters);
-
+extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
 #endif

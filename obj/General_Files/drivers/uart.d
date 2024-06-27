@@ -28,7 +28,7 @@ General_Files/drivers/uart.o: ../General_Files/drivers/uart.c \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\Peripheral\inc/ch32v30x_wwdg.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User/ch32v30x_it.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\Peripheral\inc/ch32v30x_misc.h \
- ../General_Files/drivers/uart.h \
+ ../General_Files/drivers/uart.h ../General_Files/drivers/MTF01.h \
  ../General_Files/drivers/../apps/inc/Crsf.h \
  ../General_Files/drivers/../apps/inc/CRC.h \
  ../General_Files/drivers/../apps/inc/CRSF_PROTOCOL.h \
@@ -113,6 +113,8 @@ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User/ch32v30x_it.
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\Peripheral\inc/ch32v30x_misc.h:
 
 ../General_Files/drivers/uart.h:
+
+../General_Files/drivers/MTF01.h:
 
 ../General_Files/drivers/../apps/inc/Crsf.h:
 
