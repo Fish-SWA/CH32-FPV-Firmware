@@ -6,7 +6,7 @@
 #include "../General_Files/drivers/uart.h"
 #include "../General_Files/drivers/MPU6050.h"
 #include "../General_Files/drivers/BMP280.h"
-#include "../General_Files/drivers/PWM.h"
+#include "../General_Files/drivers/pwm.h"
 #include "../General_Files/drivers/adc.h"
 #include "../General_Files/drivers/tim.h"
 #include "../General_Files/drivers/gpio.h"
