@@ -6,13 +6,16 @@
 //待完善
 
 ## TODO
-- PID参数细调
+- 新电池PID参数细调
 - 增加与上位机（香橙派）的串口通讯
+- 磁力计QMC7983的驱动和融合IMU数据程序编写
 - 增加光流与测距传感器
 
 ## 改动记录
+### 6.27 by NYF
+- 3s电池的PID参数基本完成，可以进行飞行，但需要细调
 
-### 6.11 bt fish
+### 6.11 by fish
 - 把control.c全部移植到了User/RTOS_apps/control_handle.c中
 - 把控制相关的变量全部整理到了**结构体control**中
 - 修复了warning
