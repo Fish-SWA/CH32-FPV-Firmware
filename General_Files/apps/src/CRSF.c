@@ -1,8 +1,8 @@
 #include "../apps/inc/Crsf.h"
 #include "debug.h"
-uint8_t RxBuf[CRSF_MAX_PACKET_SIZE];		//CrsfÊý¾Ý°ü»º³åÇø
+uint8_t RxBuf[CRSF_MAX_PACKET_SIZE];		//Crsfæ•°æ®åŒ…ç¼“å†²åŒº
 uint8_t RxBuf_Index;										
-int CrsfChannels[CRSF_NUM_CHANNELS];        //CrsfÍ¨µÀÖµ
+int CrsfChannels[CRSF_NUM_CHANNELS];        //Crsfé€šé“å€¼
 
 
 //uint16_t CRSF_CH[17];
@@ -65,20 +65,20 @@ void ShiftRxBuffer(uint8_t cnt)
 }
 
 
-void ProcessPacketIn(void)													//Êý¾Ý°ü·ÖÀà´¦Àí
+void ProcessPacketIn(void)													//æ•°æ®åŒ…åˆ†ç±»å¤„ç†
 {
     const Crsf_Header_t *hdr = (Crsf_Header_t *)RxBuf;
     if (hdr->device_addr == CRSF_ADDRESS_FLIGHT_CONTROLLER)
     {
         switch (hdr->type)
         {
-//        case CRSF_FRAMETYPE_GPS:									//GPSÊý¾Ý
+//        case CRSF_FRAMETYPE_GPS:									//GPSæ•°æ®
 //            packetGps(hdr);
 //            break;
-        case CRSF_FRAMETYPE_RC_CHANNELS_PACKED:			//Ò£¿ØÆ÷Í¨µÀÖµÊý¾Ý
+        case CRSF_FRAMETYPE_RC_CHANNELS_PACKED:			//é¥æŽ§å™¨é€šé“å€¼æ•°æ®
             PacketChannelsPacked(hdr);
             break;
-        case CRSF_FRAMETYPE_LINK_STATISTICS:				//Á¬½ÓÐÅÏ¢
+        case CRSF_FRAMETYPE_LINK_STATISTICS:				//è¿žæŽ¥ä¿¡æ¯
             PacketLinkStatistics(hdr);
             break;
         }
@@ -141,18 +141,7 @@ void PacketLinkStatistics(const Crsf_Header_t *p)
 //		}
 //}
 
-void onPacketLinkStatistics(CrsfLinkStatistics_t *link)	//»Ø´«ÐÅºÅÖÊÁ¿£¬µçÑ¹...
+void onPacketLinkStatistics(CrsfLinkStatistics_t *link)	//å›žä¼ ä¿¡å·è´¨é‡ï¼Œç”µåŽ‹...
 {
 //		printf("Link_quality:%d\n",link->uplink_Link_quality);
 }
-
-
-
-
-
-
-
-
-
-
-

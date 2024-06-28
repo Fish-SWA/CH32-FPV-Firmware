@@ -10,13 +10,13 @@
 #include "IMU_handle.h"
 #include "../General_Files/drivers/MTF01.h"
 
-/*µ÷¶È²ÎÊı*/
-#define CONRTOL_PERIOD  8  //¿ØÖÆÖÜÆÚ£¬µ¥Î»ms
+/*è°ƒåº¦å‚æ•°*/
+#define CONRTOL_PERIOD  8  //æ§åˆ¶å‘¨æœŸï¼Œå•ä½ms
 
 extern void control_handle_task(void *pvParameters);
 
 
-/*¿ØÖÆ²ÎÊı*/
+/*æ§åˆ¶å‚æ•°*/
 
 #define single_Fly_Pitch_Zero  0.0f
 #define single_Fly_Roll_Zero   0.0f
@@ -35,28 +35,28 @@ extern void control_handle_task(void *pvParameters);
 //#define ELRS_XXX            CrsfChannels[5]
 //#define ELRX_XXX            CrsfChannels[7]
 
-//¿ØÖÆÄ£Ê½
+//æ§åˆ¶æ¨¡å¼
 enum
 {
-    PID_CONTROL_MODE = 1,   //µç»ú×ªËÙÎªPIDÊä³ö
-    RAW_CONTROL_MODE,       //µç»ú×ªËÙÖ±½ÓÎªÓÍÃÅÊäÈë£¨debugÄ£Ê½£©
-    STABLE_CONTROL_MODE     //²»¿É¿Ø£¬×ÔÎÈÄ£Ê½
+    PID_CONTROL_MODE = 1,   //ç”µæœºè½¬é€Ÿä¸ºPIDè¾“å‡º
+    RAW_CONTROL_MODE,       //ç”µæœºè½¬é€Ÿç›´æ¥ä¸ºæ²¹é—¨è¾“å…¥ï¼ˆdebugæ¨¡å¼ï¼‰
+    STABLE_CONTROL_MODE     //ä¸å¯æ§ï¼Œè‡ªç¨³æ¨¡å¼
 };
 
-//µç»úÄ£Ê½
+//ç”µæœºæ¨¡å¼
 enum
 {
-    MOTOR_NORMAL = 1,       //Õı³£Ä£Ê½
-    MOTOR_SOFT_STARTING     //ÕıÔÚ»ºÆô¶¯ÖĞ
+    MOTOR_NORMAL = 1,       //æ­£å¸¸æ¨¡å¼
+    MOTOR_SOFT_STARTING     //æ­£åœ¨ç¼“å¯åŠ¨ä¸­
 };
 
-//È«¾Ö±äÁ¿
+//å…¨å±€å˜é‡
 typedef struct
 {
-    float Mech_zero_yaw;    // yawÖá»úĞµÁãµã£¬ÒòÎªĞèÒª¸üĞÂËùÒÔÊÇ±äÁ¿
-    u8 is_locked;           // µç»úËø
-    u8 flight_mode;         //·ÉĞĞÄ£Ê½
-    u8 is_landing;          //×Ô¶¯½µÂä
+    float Mech_zero_yaw;    // yawè½´æœºæ¢°é›¶ç‚¹ï¼Œå› ä¸ºéœ€è¦æ›´æ–°æ‰€ä»¥æ˜¯å˜é‡
+    u8 is_locked;           // ç”µæœºé”
+    u8 flight_mode;         //é£è¡Œæ¨¡å¼
+    u8 is_landing;          //è‡ªåŠ¨é™è½
 
     PID_STRUCT PID_yaw_outerloop;
     PID_STRUCT PID_yaw_innerloop;
@@ -70,10 +70,10 @@ typedef struct
     PID_STRUCT MTF01_pitch_innerloop;
     PID_STRUCT MTF01_height_positionloop;
 
-    uint16_t PWM_Out1;         // ×îÖÕ×÷ÓÃµ½µç»ú1µÄPWM
-    uint16_t PWM_Out2;         // ×îÖÕ×÷ÓÃµ½µç»ú2µÄPWM
-    uint16_t PWM_Out3;         // ×îÖÕ×÷ÓÃµ½µç»ú3µÄPWM
-    uint16_t PWM_Out4;         // ×îÖÕ×÷ÓÃµ½µç»ú4µÄPWM
+    uint16_t PWM_Out1;         // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº1çš„PWM
+    uint16_t PWM_Out2;         // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº2çš„PWM
+    uint16_t PWM_Out3;         // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº3çš„PWM
+    uint16_t PWM_Out4;         // æœ€ç»ˆä½œç”¨åˆ°ç”µæœº4çš„PWM
 
     float Yaw;
     float Pitch;
@@ -81,50 +81,50 @@ typedef struct
     float MTF01_roll_agnle;
     float MTF01_pitch_agnle;
     uint16_t Throttle;
-    int CONTROL_MODE;    //¿ØÖÆÄ£Ê½Éè¶¨
-    int MOTOR_MODE;      //µç»úÄ£Ê½Éè¶¨
+    int CONTROL_MODE;    //æ§åˆ¶æ¨¡å¼è®¾å®š
+    int MOTOR_MODE;      //ç”µæœºæ¨¡å¼è®¾å®š
 }Control_TypeDef;
 
 
-//µç»ú»ºÆô¶¯Ïà¹Ø
-#define SOFT_START_TIME 500 //»ºÆô¶¯Ê±¼ä£¬ms
+//ç”µæœºç¼“å¯åŠ¨ç›¸å…³
+#define SOFT_START_TIME 500 //ç¼“å¯åŠ¨æ—¶é—´ï¼Œms
 
-#define IMU_SAMPLE_SIZE 2 //IMUÆ½¾ùÖµÂË²¨Æ÷´óĞ¡
+#define IMU_SAMPLE_SIZE 2 //IMUå¹³å‡å€¼æ»¤æ³¢å™¨å¤§å°
 
-// »ı·Ö
+// ç§¯åˆ†
 #define Angle_I_Limit 5000
 #define Gyro_I_Limit  3000
 
-// ELRSÊı¾İ×ª»»µ½½Ç¶ÈÊı¾İ£ºELRS_data*ELRS2angle=angle£¬30/(1811-1000)=0.037
+// ELRSæ•°æ®è½¬æ¢åˆ°è§’åº¦æ•°æ®ï¼šELRS_data*ELRS2angle=angleï¼Œ30/(1811-1000)=0.037
 #define ELRS2angle    0.037
-// ELRSÊı¾İ×ª»»µ½ÓÍÃÅÊı¾İ£ºELRS_data*ELRS2throttle=throttle£¬1440/1711=0.8416
-#define ELRS2throttle 0.5  // ²»ÊÇ0.8419ÊÇÒòÎªÁôÒ»µãÓÍÃÅ¸ø·É»úµ÷Õû×ËÌ¬
-//#define ELRS2throttle 0.92  // ²»ÊÇ0.8419ÊÇÒòÎªÁôÒ»µãÓÍÃÅ¸ø·É»úµ÷Õû×ËÌ¬
+// ELRSæ•°æ®è½¬æ¢åˆ°æ²¹é—¨æ•°æ®ï¼šELRS_data*ELRS2throttle=throttleï¼Œ1440/1711=0.8416
+#define ELRS2throttle 0.5  // ä¸æ˜¯0.8419æ˜¯å› ä¸ºç•™ä¸€ç‚¹æ²¹é—¨ç»™é£æœºè°ƒæ•´å§¿æ€
+//#define ELRS2throttle 0.92  // ä¸æ˜¯0.8419æ˜¯å› ä¸ºç•™ä¸€ç‚¹æ²¹é—¨ç»™é£æœºè°ƒæ•´å§¿æ€
 
 
-// ×î´óÇãĞ±½Ç¶È£¬»¹Î´»»Ëã
+// æœ€å¤§å€¾æ–œè§’åº¦ï¼Œè¿˜æœªæ¢ç®—
 #define MAX_ROLL_ANGLE  20
 #define MAX_PITCH_ANGLE 20
 
-// »úĞµÁãµã£¬ĞèÒªµ÷
+// æœºæ¢°é›¶ç‚¹ï¼Œéœ€è¦è°ƒ
 #define Mech_zero_pitch  0
 #define Mech_zero_roll   0
 
 
-// ĞèÒª¸ø·É»ú×ËÌ¬µ÷ÕûÔ¤ÁôPWM£¬ËùÒÔÓÍÃÅÎª100Ê±²»ÄÜ´ïµ½7200Õ¼¿Õ±È
-// ÓÍÃÅ´ïµ½100Ê±£¬PWMÎª 100*PWM_OIL
+// éœ€è¦ç»™é£æœºå§¿æ€è°ƒæ•´é¢„ç•™PWMï¼Œæ‰€ä»¥æ²¹é—¨ä¸º100æ—¶ä¸èƒ½è¾¾åˆ°7200å ç©ºæ¯”
+// æ²¹é—¨è¾¾åˆ°100æ—¶ï¼ŒPWMä¸º 100*PWM_OIL
 #define PWM_OIL 45
 
-// ´¦ÓÚLocked×´Ì¬Ê±£¬ÓÍÃÅºÍpid±»½ûÓÃ
+// å¤„äºLockedçŠ¶æ€æ—¶ï¼Œæ²¹é—¨å’Œpidè¢«ç¦ç”¨
 #define Locked    1
 #define Unlocked  0
 
-// ·ÉĞĞÄ£Ê½£¬ÎŞ¿ØÖÆ£¬×ÔÎÈ£¬GPSÄ£Ê½
+// é£è¡Œæ¨¡å¼ï¼Œæ— æ§åˆ¶ï¼Œè‡ªç¨³ï¼ŒGPSæ¨¡å¼
 #define Free    0
 #define Stable  1
 #define GPS     2
 
-// »ú¶¯£¬½µÂä
+// æœºåŠ¨ï¼Œé™è½
 #define landing      1
 #define not_landing  0
 

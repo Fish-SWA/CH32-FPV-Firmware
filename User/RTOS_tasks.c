@@ -1,16 +1,16 @@
 /****************************RTOS_tasks.c***************************************
-ÓÃÓÚ´´½¨ºÍ¹ÜÀíRTOSÏß³Ì
+ç”¨äºåˆ›å»ºå’Œç®¡ç†RTOSçº¿ç¨‹
 
-Ìí¼ÓĞÂÏß³ÌµÄ·½·¨£º
-1.ÔÚRTOS_appsÖĞÌí¼Ó¶ÔÓ¦µÄ.cºÍ.hÎÄ¼ş£¬²¢ÇÒĞ´ºÃÏß³ÌÖ÷º¯Êı
-2.ÔÚRTOS_tasks.cÖĞÉùÃ÷Ò»¸öTaskHandle_t½á¹¹Ìå£¬²¢ÇÒÔÚRTOS_tasks.hÖĞ¹æ¶¨ºÃÏß³ÌµÄÓÅÏÈ¼¶ºÍÕ»¿Õ¼ä
-3.ÔÚRTOS_tasks.cÖĞincludeÏß³Ì¶ÔÓ¦µÄ.hÎÄ¼ş
-4.ÔÚRTOS_init()ÖĞÌí¼ÓÏß³ÌµÄ³õÊ¼»¯º¯Êı
+æ·»åŠ æ–°çº¿ç¨‹çš„æ–¹æ³•ï¼š
+1.åœ¨RTOS_appsä¸­æ·»åŠ å¯¹åº”çš„.cå’Œ.hæ–‡ä»¶ï¼Œå¹¶ä¸”å†™å¥½çº¿ç¨‹ä¸»å‡½æ•°
+2.åœ¨RTOS_tasks.cä¸­å£°æ˜ä¸€ä¸ªTaskHandle_tç»“æ„ä½“ï¼Œå¹¶ä¸”åœ¨RTOS_tasks.hä¸­è§„å®šå¥½çº¿ç¨‹çš„ä¼˜å…ˆçº§å’Œæ ˆç©ºé—´
+3.åœ¨RTOS_tasks.cä¸­includeçº¿ç¨‹å¯¹åº”çš„.hæ–‡ä»¶
+4.åœ¨RTOS_init()ä¸­æ·»åŠ çº¿ç¨‹çš„åˆå§‹åŒ–å‡½æ•°
 
 *******************************************************************************/
 
 #include "RTOS_tasks.h"
-/*Ïß³ÌÎÄ¼ş*/
+/*çº¿ç¨‹æ–‡ä»¶*/
 #include "RTOS_apps/soft_start.h"
 #include "RTOS_apps/Print_status.h"
 #include "RTOS_apps/control_handle.h"
@@ -28,7 +28,7 @@ void test_task(void *pvParameters);
 
 void RTOS_init()
 {
-    //²âÊÔÏß³Ì
+    //æµ‹è¯•çº¿ç¨‹
     // xTaskCreate((TaskFunction_t )test_task,
     //                 (const char*    )"test",
     //                 (uint16_t       )TEST_STK_SIZE,
@@ -36,7 +36,7 @@ void RTOS_init()
     //                 (UBaseType_t    )TEST_TASK_PRIO,
     //                 (TaskHandle_t*  )&TESTTask_Handler);
 
-    //´®¿Úµ÷ÊÔÏß³Ì
+    //ä¸²å£è°ƒè¯•çº¿ç¨‹
     xTaskCreate((TaskFunction_t )Print_status_task,
                 (const char*    )"uart",
                 (uint16_t       )PRINT_STK_SIZE,
@@ -44,7 +44,7 @@ void RTOS_init()
                 (UBaseType_t    )PRINT_TASK_PRIO,
                 (TaskHandle_t*  )&PrintTask_Handler);
     
-    // µç»úÈíÆô¶¯Ïß³Ì
+    // ç”µæœºè½¯å¯åŠ¨çº¿ç¨‹
     xTaskCreate((TaskFunction_t )Motor_sort_start,
                 (const char*    )"Soft",
                 (uint16_t       )SoftStart_SIZE,
@@ -52,7 +52,7 @@ void RTOS_init()
                 (UBaseType_t    )SoftStart_PRIO,
                 (TaskHandle_t*  )&Motor_SoftStart_Handler);
 
-    //·É»ú¿ØÖÆÏß³Ì
+    //é£æœºæ§åˆ¶çº¿ç¨‹
     xTaskCreate((TaskFunction_t )control_handle_task,
                 (const char*    )"control",
                 (uint16_t       )ControlHandle_SIZE,
@@ -60,7 +60,7 @@ void RTOS_init()
                 (UBaseType_t    )ControlHandle_PRIO,
                 (TaskHandle_t*  )&Control_task_Handler);
 
-    //IMUÏß³Ì
+    //IMUçº¿ç¨‹
     xTaskCreate((TaskFunction_t )IMU_task,
                 (const char*    )"imu",
                 (uint16_t       )IMU_SIZE,
@@ -70,7 +70,7 @@ void RTOS_init()
     vTaskStartScheduler();
 }
 
-/*²âÊÔº¯Êı*/
+/*æµ‹è¯•å‡½æ•°*/
 void test_task(void *pvParameters)
 {
     while(1)

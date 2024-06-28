@@ -13,8 +13,8 @@ void TIM3_Interrupt_Init(void)
 {
    NVIC_InitTypeDef NVIC_InitStructure={0};
    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn ;
-   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //ÇÀÕ¼ÓÅÏÈ¼¶
-   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;        //×ÓÓÅÏÈ¼¶
+   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1; //æŠ¢å ä¼˜å…ˆçº§
+   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;        //å­ä¼˜å…ˆçº§
    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
    NVIC_Init(&NVIC_InitStructure);
 }
@@ -44,9 +44,9 @@ void TIM3_IRQHandler(void)   __attribute__((interrupt("WCH-Interrupt-fast")));
 //volatile uint16_t LED_Status = 0;
 void TIM3_IRQHandler(void)
 {
-    TIM_ClearFlag(TIM3, TIM_FLAG_Update);  //Çå³ı±êÖ¾Î»
+    TIM_ClearFlag(TIM3, TIM_FLAG_Update);  //æ¸…é™¤æ ‡å¿—ä½
 
-    //Ôø¾­¿ØÖÆµÄµ÷¶È£¬ÒÑÇå¿Õ
+    //æ›¾ç»æ§åˆ¶çš„è°ƒåº¦ï¼Œå·²æ¸…ç©º
 
 }
 
@@ -55,8 +55,8 @@ void TIM4_Interrupt_Init(void)
 {
    NVIC_InitTypeDef NVIC_InitStructure={0};
    NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn ;
-   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2; //ÇÀÕ¼ÓÅÏÈ¼¶
-   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;        //×ÓÓÅÏÈ¼¶
+   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2; //æŠ¢å ä¼˜å…ˆçº§
+   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;        //å­ä¼˜å…ˆçº§
    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
    NVIC_Init(&NVIC_InitStructure);
 }
@@ -86,9 +86,9 @@ void TIM4_IRQHandler(void)   __attribute__((interrupt("WCH-Interrupt-fast")));
 //volatile uint16_t LED_Status = 0;
 void TIM4_IRQHandler(void)
 {
-    TIM_ClearFlag(TIM4, TIM_FLAG_Update);//Çå³ı±êÖ¾Î»
+    TIM_ClearFlag(TIM4, TIM_FLAG_Update);//æ¸…é™¤æ ‡å¿—ä½
 
-    //Ôø¾­Print_stateµÄµ÷¶È£¬ÒÑÇå¿Õ
+    //æ›¾ç»Print_stateçš„è°ƒåº¦ï¼Œå·²æ¸…ç©º
 }
 
 

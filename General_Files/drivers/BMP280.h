@@ -2,8 +2,8 @@
 #ifndef __BMP280_H
 #define __BMP280_H
 
-#define BMP280_ADDRESS											 0x76		//´ÓÉè±¸µØÖ·	
-#define BMP280_RESET_VALUE									 0xB6		//¸´Î»¼Ä´æÆ÷Ð´ÈëÖµ
+#define BMP280_ADDRESS											 0x76		//ä»Žè®¾å¤‡åœ°å€	
+#define BMP280_RESET_VALUE									 0xB6		//å¤ä½å¯„å­˜å™¨å†™å…¥å€¼
 
 #define BMP280_CHIPID_REG                    0xD0  /*Chip ID Register */
 #define BMP280_RESET_REG                     0xE0  /*Softreset Register */
@@ -16,7 +16,7 @@
 #define BMP280_TEMPERATURE_MSB_REG           0xFA  /*Temperature MSB Reg */
 #define BMP280_TEMPERATURE_LSB_REG           0xFB  /*Temperature LSB Reg */
 #define BMP280_TEMPERATURE_XLSB_REG          0xFC  /*Temperature XLSB Reg */
-//×´Ì¬¼Ä´æÆ÷×ª»»±êÖ¾
+//çŠ¶æ€å¯„å­˜å™¨è½¬æ¢æ ‡å¿—
 #define	BMP280_MEASURING					0x01
 #define	BMP280_IM_UPDATE					0x08
 
@@ -65,14 +65,14 @@ void BMP_I2C1_Init(u32 bound,u16 host_addr);
 
 
 
-//½á¹¹Ìå²ÎÊý
+//ç»“æž„ä½“å‚æ•°
 typedef enum {
 	BMP280_SLEEP_MODE = 0x0,
-	BMP280_FORCED_MODE = 0x1,	//¿ÉÒÔËµ0x2
+	BMP280_FORCED_MODE = 0x1,	//å¯ä»¥è¯´0x2
 	BMP280_NORMAL_MODE = 0x3
 } BMP280_WORK_MODE;
 
-//BMPÑ¹Á¦¹ý²ÉÑùÒò×Ó
+//BMPåŽ‹åŠ›è¿‡é‡‡æ ·å› å­
 typedef enum 
 {
 	BMP280_P_MODE_SKIP = 0x0,	/*skipped*/
@@ -83,7 +83,7 @@ typedef enum
 	BMP280_P_MODE_5			    /*x16*/
 } BMP280_P_OVERSAMPLING;	
 
-//BMPÎÂ¶È¹ý²ÉÑùÒò×Ó
+//BMPæ¸©åº¦è¿‡é‡‡æ ·å› å­
 typedef enum {
 	BMP280_T_MODE_SKIP = 0x0,	/*skipped*/
 	BMP280_T_MODE_1,			/*x1*/
@@ -93,7 +93,7 @@ typedef enum {
 	BMP280_T_MODE_5			    /*x16*/
 } BMP280_T_OVERSAMPLING;
 									
-//IIRÂË²¨Æ÷Ê±¼ä³£Êý
+//IIRæ»¤æ³¢å™¨æ—¶é—´å¸¸æ•°
 typedef enum {
 	BMP280_FILTER_OFF = 0x0,	/*filter off*/
 	BMP280_FILTER_MODE_1,		/*0.223*ODR*/	/*x2*/
@@ -102,7 +102,7 @@ typedef enum {
 	BMP280_FILTER_MODE_4		/*0.021*ODR*/	/*x16*/
 } BMP280_FILTER_COEFFICIENT;
 
-//±£³ÖÊ±¼ä
+//ä¿æŒæ—¶é—´
 typedef enum {
 	BMP280_T_SB1 = 0x0,	    /*0.5ms*/
 	BMP280_T_SB2,			/*62.5ms*/
@@ -117,7 +117,7 @@ typedef enum {
 
 typedef struct  
 {
-	/* T1~P9 Îª²¹³¥ÏµÊý */
+	/* T1~P9 ä¸ºè¡¥å¿ç³»æ•° */
 	uint16_t T1;
 	int16_t	T2;
 	int16_t	T3;
@@ -152,14 +152,14 @@ extern BMP280* bmp280;
 void BMP280_Set_TemOversamp(BMP_OVERSAMPLE_MODE * Oversample_Mode);
 void BMP280_Set_Standby_FILTER(BMP_CONFIG * BMP_Config);
 u8  BMP280_GetStatus(u8 status_flag);
-//´óÆøÑ¹Öµ-Pa
+//å¤§æ°”åŽ‹å€¼-Pa
 double BMP280_Get_Pressure(void);
 double BMP280_Get_Temperature(void);
 
 
-/*******************************ÏÂÃæÊÇÓÃÀ´¼ÆËã²¹³¥ÖµÏà¹Ø**********************************/
-typedef			long signed int				BMP280_S32_t;	//ÓÐ·ûºÅ 64Î»£¡
-typedef			long unsigned int			BMP280_U32_t;	//ÎÞ·ûºÅ 32Î»£¡
+/*******************************ä¸‹é¢æ˜¯ç”¨æ¥è®¡ç®—è¡¥å¿å€¼ç›¸å…³**********************************/
+typedef			long signed int				BMP280_S32_t;	//æœ‰ç¬¦å· 64ä½ï¼
+typedef			long unsigned int			BMP280_U32_t;	//æ— ç¬¦å· 32ä½ï¼
 typedef			long long signed int		BMP280_S64_t;
 
 #define	dig_T1			bmp280->T1	

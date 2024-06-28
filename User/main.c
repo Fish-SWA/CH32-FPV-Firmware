@@ -64,7 +64,7 @@ int main(void)
 	GPIO_Toggle_INIT();
     System_Init();
 
-	Delay_Ms(200);	//等待一段时间之后再启动
+	Delay_Ms(200);	//绛夊緟涓�娈垫椂闂翠箣鍚庡啀鍚姩
     RTOS_init();
 
 	while(1)

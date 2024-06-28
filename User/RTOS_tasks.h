@@ -1,7 +1,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* 线程参数 */
+/* 绾跨▼鍙傛暟 */
 #define TEST_TASK_PRIO       4
 #define TEST_TASK_SIZE       256
 #define PRINT_TASK_PRIO      3

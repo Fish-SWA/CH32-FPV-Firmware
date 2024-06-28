@@ -20,24 +20,24 @@ typedef struct  _PID{
     float Ki;
     float Kd;
 
-    float max_out;      //×î´óÊä³ö
-    float min_out;      //×îĞ¡Êä³ö
-    float max_iout;     //×î´ó»ı·ÖÊä³ö
-    float min_iout;     //×î´ó»ı·ÖÊä³ö
+    float max_out;      //æœ€å¤§è¾“å‡º
+    float min_out;      //æœ€å°è¾“å‡º
+    float max_iout;     //æœ€å¤§ç§¯åˆ†è¾“å‡º
+    float min_iout;     //æœ€å¤§ç§¯åˆ†è¾“å‡º
 
-    float set;          //Ä¿±êÖµ
-    float fdb;          //µ±Ç°Öµ
+    float set;          //ç›®æ ‡å€¼
+    float fdb;          //å½“å‰å€¼
 
-    float out;          //pidÊä³ö
-    float Pout;         //±ÈÀı¿ØÖÆÁ¿
-    float Iout;         //»ı·Ö¿ØÖÆÁ¿
-    float Dout;         //Î¢·Ö¿ØÖÆÁ¿
+    float out;          //pidè¾“å‡º
+    float Pout;         //æ¯”ä¾‹æ§åˆ¶é‡
+    float Iout;         //ç§¯åˆ†æ§åˆ¶é‡
+    float Dout;         //å¾®åˆ†æ§åˆ¶é‡
     float DeadBand;
-    float Dbuf[3];      //Î¢·ÖÏî 0×îĞÂ 1ÉÏÒ»´Î 2ÉÏÉÏ´Î
-    float error[3];     //Îó²îÏî 0×îĞÂ 1ÉÏÒ»´Î 2ÉÏÉÏ´Î
+    float Dbuf[3];      //å¾®åˆ†é¡¹ 0æœ€æ–° 1ä¸Šä¸€æ¬¡ 2ä¸Šä¸Šæ¬¡
+    float error[3];     //è¯¯å·®é¡¹ 0æœ€æ–° 1ä¸Šä¸€æ¬¡ 2ä¸Šä¸Šæ¬¡
 }PID_STRUCT;
 
-// pidº¯Êı½á¹¹Ìå
+// pidå‡½æ•°ç»“æ„ä½“
 typedef struct _PID_FUNC{
 
     void (*reset) ( PID_STRUCT *pid);

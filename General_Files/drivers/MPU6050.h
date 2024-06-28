@@ -1,54 +1,54 @@
 #ifndef __MPU6050_H_
 #define __MPU6050_H_
 #include "stdint.h"
-//ÊÇ·ñÆôÓÃDMP
+//æ˜¯å¦å¯ç”¨DMP
 #define DMP
 
-//MPU6050µØÖ·
+//MPU6050åœ°å€
 #define MPU6050_ADDR  (0x68<<1)
 
-//MPU6050¶Ë¿Ú
+//MPU6050ç«¯å£
 #define I2C_PORT   GPIOB
 #define I2C_SCL_PIN    GPIO_Pin_10
 #define I2C_SDA_PIN    GPIO_Pin_11
 
-#define MPU6050_REG_ACCEL_OFFS		0X06	//accel_offs¼Ä´æÆ÷,¿É¶ÁÈ¡°æ±¾ºÅ,¼Ä´æÆ÷ÊÖ²áÎ´Ìáµ½
-#define MPU6050_REG_PROD_ID			0X0C	//prod id¼Ä´æÆ÷,ÔÚ¼Ä´æÆ÷ÊÖ²áÎ´Ìáµ½
-#define MPU6050_REG_SELF_TESTX		0X0D	//×Ô¼ì¼Ä´æÆ÷X
-#define MPU6050_REG_SELF_TESTY		0X0E	//×Ô¼ì¼Ä´æÆ÷Y
-#define MPU6050_REG_SELF_TESTZ		0X0F	//×Ô¼ì¼Ä´æÆ÷Z
-#define MPU6050_REG_SELF_TESTA		0X10	//×Ô¼ì¼Ä´æÆ÷A
-#define MPU6050_REG_SMPLRT_DIV		0X19	//²ÉÑùÆµÂÊ·ÖÆµÆ÷
-#define MPU6050_REG_CONFIG			0X1A	//ÅäÖÃ¼Ä´æÆ÷
-#define MPU6050_REG_GYRO_CONFIG 	0X1B	//ÍÓÂİÒÇÅäÖÃ¼Ä´æÆ÷
-#define MPU6050_REG_ACCEL_CONFIG	0X1C	//¼ÓËÙ¶È¼ÆÅäÖÃ¼Ä´æÆ÷
-#define MPU6050_REG_MOTION_DET		0X1F	//ÔË¶¯¼ì²â·§ÖµÉèÖÃ¼Ä´æÆ÷
-#define MPU6050_REG_FIFO_EN			0X23	//FIFOÊ¹ÄÜ¼Ä´æÆ÷
-#define MPU6050_REG_I2CMST_CTRL		0X24	//IICÖ÷»ú¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV0_ADDR	0X25	//IIC´Ó»ú0Æ÷¼şµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV0			0X26	//IIC´Ó»ú0Êı¾İµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV0_CTRL	0X27	//IIC´Ó»ú0¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV1_ADDR	0X28	//IIC´Ó»ú1Æ÷¼şµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV1			0X29	//IIC´Ó»ú1Êı¾İµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV1_CTRL	0X2A	//IIC´Ó»ú1¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV2_ADDR	0X2B	//IIC´Ó»ú2Æ÷¼şµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV2			0X2C	//IIC´Ó»ú2Êı¾İµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV2_CTRL	0X2D	//IIC´Ó»ú2¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV3_ADDR	0X2E	//IIC´Ó»ú3Æ÷¼şµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV3		  	0X2F	//IIC´Ó»ú3Êı¾İµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV3_CTRL	0X30	//IIC´Ó»ú3¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV4_ADDR	0X31	//IIC´Ó»ú4Æ÷¼şµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV4_	  	0X32	//IIC´Ó»ú4Êı¾İµØÖ·¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV4_DO		0X33	//IIC´Ó»ú4Ğ´Êı¾İ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV4_CTRL	0X34	//IIC´Ó»ú4¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV4_DI		0X35	//IIC´Ó»ú4¶ÁÊı¾İ¼Ä´æÆ÷
+#define MPU6050_REG_ACCEL_OFFS		0X06	//accel_offså¯„å­˜å™¨,å¯è¯»å–ç‰ˆæœ¬å·,å¯„å­˜å™¨æ‰‹å†Œæœªæåˆ°
+#define MPU6050_REG_PROD_ID			0X0C	//prod idå¯„å­˜å™¨,åœ¨å¯„å­˜å™¨æ‰‹å†Œæœªæåˆ°
+#define MPU6050_REG_SELF_TESTX		0X0D	//è‡ªæ£€å¯„å­˜å™¨X
+#define MPU6050_REG_SELF_TESTY		0X0E	//è‡ªæ£€å¯„å­˜å™¨Y
+#define MPU6050_REG_SELF_TESTZ		0X0F	//è‡ªæ£€å¯„å­˜å™¨Z
+#define MPU6050_REG_SELF_TESTA		0X10	//è‡ªæ£€å¯„å­˜å™¨A
+#define MPU6050_REG_SMPLRT_DIV		0X19	//é‡‡æ ·é¢‘ç‡åˆ†é¢‘å™¨
+#define MPU6050_REG_CONFIG			0X1A	//é…ç½®å¯„å­˜å™¨
+#define MPU6050_REG_GYRO_CONFIG 	0X1B	//é™€èºä»ªé…ç½®å¯„å­˜å™¨
+#define MPU6050_REG_ACCEL_CONFIG	0X1C	//åŠ é€Ÿåº¦è®¡é…ç½®å¯„å­˜å™¨
+#define MPU6050_REG_MOTION_DET		0X1F	//è¿åŠ¨æ£€æµ‹é˜€å€¼è®¾ç½®å¯„å­˜å™¨
+#define MPU6050_REG_FIFO_EN			0X23	//FIFOä½¿èƒ½å¯„å­˜å™¨
+#define MPU6050_REG_I2CMST_CTRL		0X24	//IICä¸»æœºæ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV0_ADDR	0X25	//IICä»æœº0å™¨ä»¶åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV0			0X26	//IICä»æœº0æ•°æ®åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV0_CTRL	0X27	//IICä»æœº0æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV1_ADDR	0X28	//IICä»æœº1å™¨ä»¶åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV1			0X29	//IICä»æœº1æ•°æ®åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV1_CTRL	0X2A	//IICä»æœº1æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV2_ADDR	0X2B	//IICä»æœº2å™¨ä»¶åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV2			0X2C	//IICä»æœº2æ•°æ®åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV2_CTRL	0X2D	//IICä»æœº2æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV3_ADDR	0X2E	//IICä»æœº3å™¨ä»¶åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV3		  	0X2F	//IICä»æœº3æ•°æ®åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV3_CTRL	0X30	//IICä»æœº3æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV4_ADDR	0X31	//IICä»æœº4å™¨ä»¶åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV4_	  	0X32	//IICä»æœº4æ•°æ®åœ°å€å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV4_DO		0X33	//IICä»æœº4å†™æ•°æ®å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV4_CTRL	0X34	//IICä»æœº4æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV4_DI		0X35	//IICä»æœº4è¯»æ•°æ®å¯„å­˜å™¨
 
-#define MPU6050_REG_I2CMST_STA		0X36	//IICÖ÷»ú×´Ì¬¼Ä´æÆ÷
-#define MPU6050_REG_INTBP_CFG		0X37	//ÖĞ¶Ï/ÅÔÂ·ÉèÖÃ¼Ä´æÆ÷
-#define MPU6050_REG_INT_EN    		0X38	//ÖĞ¶ÏÊ¹ÄÜ¼Ä´æÆ÷
-#define MPU6050_REG_INT_STA		 	0X3A	//ÖĞ¶Ï×´Ì¬¼Ä´æÆ÷
+#define MPU6050_REG_I2CMST_STA		0X36	//IICä¸»æœºçŠ¶æ€å¯„å­˜å™¨
+#define MPU6050_REG_INTBP_CFG		0X37	//ä¸­æ–­/æ—è·¯è®¾ç½®å¯„å­˜å™¨
+#define MPU6050_REG_INT_EN    		0X38	//ä¸­æ–­ä½¿èƒ½å¯„å­˜å™¨
+#define MPU6050_REG_INT_STA		 	0X3A	//ä¸­æ–­çŠ¶æ€å¯„å­˜å™¨
 
-//¼ÓËÙ¶È¼Ä´æÆ÷
+//åŠ é€Ÿåº¦å¯„å­˜å™¨
 #define	MPU6050_REG_ACCEL_XOUT_H	0x3B
 #define	MPU6050_REG_ACCEL_XOUT_L	0x3C
 #define	MPU6050_REG_ACCEL_YOUT_H	0x3D
@@ -56,11 +56,11 @@
 #define	MPU6050_REG_ACCEL_ZOUT_H	0x3F
 #define	MPU6050_REG_ACCEL_ZOUT_L	0x40
 
-//ÎÂ¶È¼Ä´æÆ÷
+//æ¸©åº¦å¯„å­˜å™¨
 #define	MPU6050_REG_TEMP_OUT_H		0x41
 #define	MPU6050_REG_TEMP_OUT_L		0x42
 
-//½ÇËÙ¶È¼Ä´æÆ÷
+//è§’é€Ÿåº¦å¯„å­˜å™¨
 #define	MPU6050_REG_GYRO_XOUT_H		0x43
 #define	MPU6050_REG_GYRO_XOUT_L		0x44
 #define	MPU6050_REG_GYRO_YOUT_H		0x45
@@ -68,22 +68,22 @@
 #define	MPU6050_REG_GYRO_ZOUT_H		0x47
 #define	MPU6050_REG_GYRO_ZOUT_L		0x48
 
-//ÆäËü¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV0_DO		0X63	//IIC´Ó»ú0Êı¾İ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV1_DO		0X64	//IIC´Ó»ú1Êı¾İ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV2_DO		0X65	//IIC´Ó»ú2Êı¾İ¼Ä´æÆ÷
-#define MPU6050_REG_I2CSLV3_DO		0X66	//IIC´Ó»ú3Êı¾İ¼Ä´æÆ÷
+//å…¶å®ƒå¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV0_DO		0X63	//IICä»æœº0æ•°æ®å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV1_DO		0X64	//IICä»æœº1æ•°æ®å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV2_DO		0X65	//IICä»æœº2æ•°æ®å¯„å­˜å™¨
+#define MPU6050_REG_I2CSLV3_DO		0X66	//IICä»æœº3æ•°æ®å¯„å­˜å™¨
 
-#define MPU6050_REG_I2CMST_DELAY	0X67	//IICÖ÷»úÑÓÊ±¹ÜÀí¼Ä´æÆ÷
-#define MPU6050_REG_SIGPATH_RST		0X68	//ĞÅºÅÍ¨µÀ¸´Î»¼Ä´æÆ÷
-#define MPU6050_REG_MDETECT_CTRL	0X69	//ÔË¶¯¼ì²â¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_USER_CTRL		0X6A	//ÓÃ»§¿ØÖÆ¼Ä´æÆ÷
-#define MPU6050_REG_PWR_MGMT1		0X6B	//µçÔ´¹ÜÀí¼Ä´æÆ÷1
-#define MPU6050_REG_PWR_MGMT2		0X6C	//µçÔ´¹ÜÀí¼Ä´æÆ÷2
-#define MPU6050_REG_FIFO_CNTH		0X72	//FIFO¼ÆÊı¼Ä´æÆ÷¸ß°ËÎ»
-#define MPU6050_REG_FIFO_CNTL		0X73	//FIFO¼ÆÊı¼Ä´æÆ÷µÍ°ËÎ»
-#define MPU6050_REG_FIFO_RW			0X74	//FIFO¶ÁĞ´¼Ä´æÆ÷
-#define MPU6050_REG_DEVICE_ID		0X75	//Æ÷¼şID¼Ä´æÆ÷
+#define MPU6050_REG_I2CMST_DELAY	0X67	//IICä¸»æœºå»¶æ—¶ç®¡ç†å¯„å­˜å™¨
+#define MPU6050_REG_SIGPATH_RST		0X68	//ä¿¡å·é€šé“å¤ä½å¯„å­˜å™¨
+#define MPU6050_REG_MDETECT_CTRL	0X69	//è¿åŠ¨æ£€æµ‹æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_USER_CTRL		0X6A	//ç”¨æˆ·æ§åˆ¶å¯„å­˜å™¨
+#define MPU6050_REG_PWR_MGMT1		0X6B	//ç”µæºç®¡ç†å¯„å­˜å™¨1
+#define MPU6050_REG_PWR_MGMT2		0X6C	//ç”µæºç®¡ç†å¯„å­˜å™¨2
+#define MPU6050_REG_FIFO_CNTH		0X72	//FIFOè®¡æ•°å¯„å­˜å™¨é«˜å…«ä½
+#define MPU6050_REG_FIFO_CNTL		0X73	//FIFOè®¡æ•°å¯„å­˜å™¨ä½å…«ä½
+#define MPU6050_REG_FIFO_RW			0X74	//FIFOè¯»å†™å¯„å­˜å™¨
+#define MPU6050_REG_DEVICE_ID		0X75	//å™¨ä»¶IDå¯„å­˜å™¨
 
 unsigned char MPU6050_Init(void);
 unsigned int MPU6050_Get_Data(unsigned char REG_ADDR);
