@@ -13,11 +13,9 @@ n:   电机编号
 #include "control_handle.h"
 
 /*全局变量*/
-#define rate 0.95  //调试架子有阻尼，调试架测出来的参数需要给一个衰减
-
 Control_TypeDef control;
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;
-
+extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
 
 void control_handle_task(void *pvParameters); 
 void PIDSTRUCT_Init();
@@ -36,6 +34,9 @@ void Flight_control();
 void Stop_motor();
 void Check_control_mode();
 void control_para_init();
+
+float Px_zero_point;
+float Py_zero_point;
 
 
 void control_handle_task(void *pvParameters)
@@ -105,9 +106,9 @@ void PIDSTRUCT_Init()
     ////////////////////////////////////////pitch////////////////////////////////////////////////////////////////////////
     // 俯仰角外环初始化（角度环）
     pid_func.reset(&control.PID_pitch_outerloop);
-    control.PID_pitch_outerloop.Kp=2.8*rate;
-    control.PID_pitch_outerloop.Ki=0.05*rate; //-0.12
-    control.PID_pitch_outerloop.Kd=3.9*rate;  //-5.3
+    control.PID_pitch_outerloop.Kp=2.8*damp_rate;
+    control.PID_pitch_outerloop.Ki=0.05*damp_rate; //-0.12
+    control.PID_pitch_outerloop.Kd=3.9*damp_rate;  //-5.3
     control.PID_pitch_outerloop.max_iout=Angle_I_Limit;
     control.PID_pitch_outerloop.min_iout=-Angle_I_Limit;
     control.PID_pitch_outerloop.max_out=65535;
@@ -117,9 +118,9 @@ void PIDSTRUCT_Init()
 
     // 俯仰角内环初始化（角速度环）
     pid_func.reset(&control.PID_pitch_innerloop);
-    control.PID_pitch_innerloop.Kp=2.2*rate;    //2.2
-    control.PID_pitch_innerloop.Ki=0.0*rate;    //0.0
-    control.PID_pitch_innerloop.Kd=3.0*rate;    //5.7
+    control.PID_pitch_innerloop.Kp=2.2*damp_rate;    //2.2
+    control.PID_pitch_innerloop.Ki=0.0*damp_rate;    //0.0
+    control.PID_pitch_innerloop.Kd=3.0*damp_rate;    //5.7
     control.PID_pitch_innerloop.max_iout=Gyro_I_Limit;
     control.PID_pitch_innerloop.min_iout=-Gyro_I_Limit;
     control.PID_pitch_innerloop.max_out=65535;
@@ -130,9 +131,9 @@ void PIDSTRUCT_Init()
     //////////////////////////////////////////roll////////////////////////////////////////////////////////////////////////
     // 横滚角外环初始化（角度环）
     pid_func.reset(&control.PID_roll_outerloop);
-    control.PID_roll_outerloop.Kp=2.8*rate;
-    control.PID_roll_outerloop.Ki=0.05*rate;
-    control.PID_roll_outerloop.Kd=3.9*rate;
+    control.PID_roll_outerloop.Kp=2.8*damp_rate;
+    control.PID_roll_outerloop.Ki=0.05*damp_rate;
+    control.PID_roll_outerloop.Kd=3.9*damp_rate;
     control.PID_roll_outerloop.max_iout=Angle_I_Limit;
     control.PID_roll_outerloop.min_iout=-Angle_I_Limit;
     control.PID_roll_outerloop.max_out=65535;
@@ -142,9 +143,9 @@ void PIDSTRUCT_Init()
 
     // 横滚角内环初始化（角速度环）
     pid_func.reset(&control.PID_roll_innerloop);
-    control.PID_roll_innerloop.Kp=2.1*rate;
+    control.PID_roll_innerloop.Kp=2.1*damp_rate;
     control.PID_roll_innerloop.Ki=0.0f;
-    control.PID_roll_innerloop.Kd=3.7*rate;
+    control.PID_roll_innerloop.Kd=3.7*damp_rate;
     control.PID_roll_innerloop.max_iout=Gyro_I_Limit;
     control.PID_roll_innerloop.min_iout=-Gyro_I_Limit;
     control.PID_roll_innerloop.max_out=65535;
@@ -344,68 +345,57 @@ void Pitch_innerloop_ctr()
     pid_func.calc(&control.PID_pitch_innerloop, control.PID_pitch_outerloop.out, MPU6050_para_filted.av_pitch/100.0f);
 }
 
+// X轴光流控制（双环）
+void Px_outerloop_ctr()
+{
+    pid_func.calc(&control.MTF01_roll_outerloop, Px_zero_point, payload_filtered.Px);
+}
+
+void Px_innerloop_ctr()
+{
+    pid_func.calc(&control.MTF01_roll_innerloop, control.MTF01_roll_outerloop.out, payload_filtered.Vx);
+}
+
+// Y轴光流控制（双环）
+void Py_outerloop_ctr()
+{
+    pid_func.calc(&control.MTF01_pitch_outerloop, Py_zero_point, payload_filtered.Py);
+}
+
+void Py_innerloop_ctr()
+{
+    pid_func.calc(&control.MTF01_pitch_innerloop, control.MTF01_pitch_outerloop.out, payload_filtered.Vy);
+}
+
+// 高度光流控制（单位置环）
+void Pz_outerloop_ctr()
+{
+    pid_func.calc(&control.MTF01_pitch_outerloop, stable_height, payload_filtered.distance);
+}
 
 void Flight_control()
 {
     // control.Mech_zero_yaw = MPU6050_para_filted.yaw;     // 防止转向后机头回0
 
-    if(control.CONTROL_MODE == PID_CONTROL_MODE)
+
+    if(control.CONTROL_MODE == RAW_CONTROL_MODE)  // Debug模式
     {
-        Roll_outerloop_ctr(control.Roll + Mech_zero_roll);
-        Roll_innerloop_ctr();
-
-        Pitch_outerloop_ctr(control.Pitch + Mech_zero_pitch);
-        Pitch_innerloop_ctr();
-
-        Yaw_outerloop_ctr(control.Yaw + control.Mech_zero_yaw);
-        Yaw_innerloop_ctr();
-
-        control.PWM_Out1=control.Throttle+control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
-        control.PWM_Out2=control.Throttle+control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
-        control.PWM_Out3=control.Throttle-control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
-        control.PWM_Out4=control.Throttle-control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
-
-        Limit(control.PWM_Out1, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out2, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out3, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out4, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-
-        Motor_ctr(control.PWM_Out1,1);
-        Motor_ctr(control.PWM_Out2,2);
-        Motor_ctr(control.PWM_Out3,3);
-        Motor_ctr(control.PWM_Out4,4);
-
-    }
-    else if(control.CONTROL_MODE == RAW_CONTROL_MODE)
-    {
-        Roll_outerloop_ctr(control.Roll + Mech_zero_roll);
-        Roll_innerloop_ctr();
-
-        Pitch_outerloop_ctr(control.Pitch + Mech_zero_pitch);
-        Pitch_innerloop_ctr();
-
-        Yaw_outerloop_ctr(control.Yaw + control.Mech_zero_yaw);
-        Yaw_innerloop_ctr();
-
-        control.PWM_Out1=control.Throttle+control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
-        control.PWM_Out2=control.Throttle+control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
-        control.PWM_Out3=control.Throttle-control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
-        control.PWM_Out4=control.Throttle-control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
-
-        Limit(control.PWM_Out1, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out2, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out3, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
-        Limit(control.PWM_Out4, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
 
         Motor_ctr(control.Throttle,1);
         Motor_ctr(control.Throttle,2);
         Motor_ctr(control.Throttle,3);
         Motor_ctr(control.Throttle,4);
     }
-    else if(control.CONTROL_MODE == STABLE_CONTROL_MODE)
+    else if(control.CONTROL_MODE == STABLE_CONTROL_MODE && payload.tof_status == 1)  // 当雷达数据可用时，才能进入自稳模式
     {
         /*在这里补充控制程序*/
+        Px_outerloop_ctr();
+        Px_innerloop_ctr();
 
+        Py_outerloop_ctr();
+        Py_innerloop_ctr();
+
+        control.MTF01_roll_agnle = control.MTF01_roll_innerloop.out;
 
         /*end*/
 
@@ -432,6 +422,39 @@ void Flight_control()
         Motor_ctr(control.PWM_Out2,2);
         Motor_ctr(control.PWM_Out3,3);
         Motor_ctr(control.PWM_Out4,4);
+    }
+    else if(control.CONTROL_MODE == PID_CONTROL_MODE || (control.CONTROL_MODE == STABLE_CONTROL_MODE && payload.tof_status == 0))  // 正常PID模式
+    {
+        Roll_outerloop_ctr(control.Roll + Mech_zero_roll);
+        Roll_innerloop_ctr();
+
+        Pitch_outerloop_ctr(control.Pitch + Mech_zero_pitch);
+        Pitch_innerloop_ctr();
+
+        Yaw_outerloop_ctr(control.Yaw + control.Mech_zero_yaw);
+        Yaw_innerloop_ctr();
+
+        control.PWM_Out1=control.Throttle+control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
+        control.PWM_Out2=control.Throttle+control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
+        control.PWM_Out3=control.Throttle-control.PID_pitch_innerloop.out+control.PID_roll_innerloop.out+control.PID_yaw_innerloop.out;
+        control.PWM_Out4=control.Throttle-control.PID_pitch_innerloop.out-control.PID_roll_innerloop.out-control.PID_yaw_innerloop.out;
+
+        Limit(control.PWM_Out1, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+        Limit(control.PWM_Out2, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+        Limit(control.PWM_Out3, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+        Limit(control.PWM_Out4, PWM_THROTTLE_MAX, PWM_THROTTLE_MIN);
+
+        Motor_ctr(control.PWM_Out1,1);
+        Motor_ctr(control.PWM_Out2,2);
+        Motor_ctr(control.PWM_Out3,3);
+        Motor_ctr(control.PWM_Out4,4);
+
+        Px_zero_point=payload_filtered.Px;
+        Py_zero_point=payload_filtered.Py;
+    }
+    else
+    {
+        Stop_motor();
     }
 }
 

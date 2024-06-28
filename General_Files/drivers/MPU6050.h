@@ -92,7 +92,6 @@ float MPU6050_Get_Temp(void);
 void MPU6050_I2C_Mem_Write(unsigned char DEV_ADDR, unsigned char REG_ADDR, unsigned char len, unsigned char *buf);
 void MPU6050_I2C_Mem_Read(unsigned char DEV_ADDR, unsigned char REG_ADDR, unsigned char len, unsigned char *buf);
 unsigned char MPU6050_MPU_DMP_GetData(void);
-
 typedef struct
 {
 	float yaw;

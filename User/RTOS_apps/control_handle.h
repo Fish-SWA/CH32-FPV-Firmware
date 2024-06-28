@@ -124,9 +124,15 @@ typedef struct
 #define Stable  1
 #define GPS     2
 
+//调试架子有阻尼，调试架测出来的参数需要给一个衰减
+#define damp_rate   0.95
+
 // 机动，降落
 #define landing      1
 #define not_landing  0
+
+//定高（mm）
+#define stable_height 700
 
 extern Control_TypeDef control;
 

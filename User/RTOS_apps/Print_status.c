@@ -17,7 +17,7 @@ void Print_status_task(void *pvParameters)
     // Graph_print();
     String_print();
 
-    vTaskDelay(20);
+    vTaskDelay(PRINT_DELAY_TIME);
 
     }
 }
