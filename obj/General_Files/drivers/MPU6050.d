@@ -49,6 +49,8 @@ General_Files/drivers/MPU6050.o: ../General_Files/drivers/MPU6050.c \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRC.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRSF_PROTOCOL.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/IMU_handle.h \
+ c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mtf01.h \
+ c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\bsp_filter.h \
  c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\empl\inv_mpu.h
 
 ../General_Files/drivers/MPU6050.h:
@@ -150,5 +152,9 @@ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\app
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRSF_PROTOCOL.h:
 
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/IMU_handle.h:
+
+c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mtf01.h:
+
+c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\bsp_filter.h:
 
 c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\empl\inv_mpu.h:

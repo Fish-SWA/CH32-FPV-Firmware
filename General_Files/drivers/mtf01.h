@@ -1,14 +1,17 @@
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
+#include "stdint.h"
+#include "stdbool.h"
+#include "string.h"
+#include "bsp_filter.h"
 
 #define MICOLINK_MSG_HEAD            0xEF
 #define MICOLINK_MAX_PAYLOAD_LEN     64
 #define MICOLINK_MAX_LEN             MICOLINK_MAX_PAYLOAD_LEN + 7
 
 
+void calc_mtf01_filter();
+void mtf01_load_filter_data();
 void micolink_decode(uint8_t data);
 
 /*

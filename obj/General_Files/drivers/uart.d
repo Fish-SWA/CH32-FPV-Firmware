@@ -29,10 +29,7 @@ General_Files/drivers/uart.o: ../General_Files/drivers/uart.c \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User/ch32v30x_it.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\Peripheral\inc/ch32v30x_misc.h \
  ../General_Files/drivers/uart.h ../General_Files/drivers/MTF01.h \
- ../General_Files/drivers/../apps/inc/Crsf.h \
- ../General_Files/drivers/../apps/inc/CRC.h \
- ../General_Files/drivers/../apps/inc/CRSF_PROTOCOL.h \
- ../General_Files/drivers/MPU6050.h \
+ ../General_Files/drivers/bsp_filter.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/control_handle.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\FreeRTOS\include/FreeRTOS.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User/FreeRTOSConfig.h \
@@ -47,10 +44,13 @@ General_Files/drivers/uart.o: ../General_Files/drivers/uart.c \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/pwm.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/pid.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/Crsf.h \
+ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRC.h \
+ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRSF_PROTOCOL.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/IMU_handle.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/MPU6050.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/bsp_filter.h \
- ../General_Files/drivers/tim.h \
+ ../General_Files/drivers/../apps/inc/Crsf.h \
+ ../General_Files/drivers/MPU6050.h ../General_Files/drivers/tim.h \
  c:\users\86155\desktop\ËÄÐýÒí\fpv-master-git\ch32-fpv-firmware\general_files\drivers\mpu6050.h \
  C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/IMU_handle.h
 
@@ -116,13 +116,7 @@ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\Peripheral\inc/ch
 
 ../General_Files/drivers/MTF01.h:
 
-../General_Files/drivers/../apps/inc/Crsf.h:
-
-../General_Files/drivers/../apps/inc/CRC.h:
-
-../General_Files/drivers/../apps/inc/CRSF_PROTOCOL.h:
-
-../General_Files/drivers/MPU6050.h:
+../General_Files/drivers/bsp_filter.h:
 
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/control_handle.h:
 
@@ -152,11 +146,19 @@ C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\app
 
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/Crsf.h:
 
+C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRC.h:
+
+C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\apps\inc/CRSF_PROTOCOL.h:
+
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\User\RTOS_apps/IMU_handle.h:
 
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/MPU6050.h:
 
 C:\Users\86155\Desktop\ËÄÐýÒí\FPV-Master-git\CH32-FPV-Firmware\General_Files\drivers/bsp_filter.h:
+
+../General_Files/drivers/../apps/inc/Crsf.h:
+
+../General_Files/drivers/MPU6050.h:
 
 ../General_Files/drivers/tim.h:
 

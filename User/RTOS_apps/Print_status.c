@@ -8,7 +8,7 @@
 void Print_status_task(void *pvParameters);
 void Graph_print();
 void String_print();
-
+extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;
 void Print_status_task(void *pvParameters)
 {
     while(1)
@@ -38,6 +38,19 @@ void String_print()
 //            MPU6050_para_filted.yaw,
 //            MPU6050_para_filted.pitch,
 //            MPU6050_para_filted.roll);
+
+//    printf("ch1:%d\r\n",CrsfChannels[0]);
+//    printf("ch2:%d\r\n",CrsfChannels[1]);
+//    printf("ch3:%d\r\n",CrsfChannels[2]);
+//    printf("ch4:%d\r\n",CrsfChannels[3]);
+//    printf("ch5:%d\r\n",CrsfChannels[4]);
+//    printf("ch6:%d\r\n",CrsfChannels[5]);
+//    printf("ch7:%d\r\n",CrsfChannels[6]);
+//    printf("ch8:%d\r\n",CrsfChannels[7]);
+//    printf("ch9:%d\r\n",CrsfChannels[8]);
+//    printf("ch10:%d\r\n",CrsfChannels[9]);
+//    printf("ch11:%d\r\n",CrsfChannels[10]);
+//    printf("ch12:%d\r\n\n",CrsfChannels[11]);
 //    return;
     // printf("yaw=%f\r\n",MPU6050_para.yaw);
     // printf("pitch=%f\r\n",MPU6050_para.pitch);
@@ -46,29 +59,32 @@ void String_print()
     // printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
     // printf("av_roll=%d\r\n",MPU6050_para.av_roll);
     printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //剩余堆空间
+
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
     printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
     printf("roll_filted=%f\r\n",MPU6050_para_filted.roll);
+
     printf("av_yaw_filted=%d\r\n",MPU6050_para_filted.av_yaw);
     printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
     printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
+
     printf("yaw_outer=%f\r\n",control.PID_yaw_innerloop.out);
     printf("roll_outer=%f\r\n",control.PID_roll_innerloop.out);
     printf("pitch_outer=%f\r\n",control.PID_pitch_innerloop.out);
-//    printf("temp=%f\r\n\n",MPU6050_Get_Temp());
+
     printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际的2号电机
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
     printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4
-    if(control.flight_mode==GPS){
-        printf("flight_mode:GPS\r\n");
-    }
-    else if(control.flight_mode==Stable){
-        printf("flight_mode:Stable\r\n");
-    }
-    else{
-        printf("flight_mode:Free\r\n");
-    }
+//    if(control.flight_mode==GPS){
+//        printf("flight_mode:GPS\r\n");
+//    }
+//    else if(control.flight_mode==Stable){
+//        printf("flight_mode:Stable\r\n");
+//    }
+//    else{
+//        printf("flight_mode:Free\r\n");
+//    }
 
     if(control.is_locked == Unlocked){
         printf("Throttle Unlocked\r\n");
@@ -76,26 +92,19 @@ void String_print()
     else{
         printf("Throttle Locked\r\n");
     }
-    printf("distance:%d\r\n",payload.distance);
+    printf("distance:%d\r\n",payload_filtered.distance);
+    printf("Vx:%d\r\n",payload_filtered.flow_vel_x);
+    printf("Vy:%d\r\n",payload_filtered.flow_vel_y);
     if(control.CONTROL_MODE == PID_CONTROL_MODE){
         printf("Control_mode:PID\r\n\n");
     }else if(control.CONTROL_MODE == RAW_CONTROL_MODE){
         printf("Control_mode:RAW\r\n\n");
+    }else if(control.CONTROL_MODE == STABLE_CONTROL_MODE){
+        printf("Control_mode:Stable\r\n\n");
     }
 
 
 //        Delay_Ms(100);
-    //    printf("ch1:%d\r\n",CrsfChannels[0]);
-    //    printf("ch2:%d\r\n",CrsfChannels[1]);
-    //    printf("ch3:%d\r\n",CrsfChannels[2]);
-    //    printf("ch4:%d\r\n",CrsfChannels[3]);
-    //    printf("ch5:%d\r\n",CrsfChannels[4]);
-    //    printf("ch6:%d\r\n",CrsfChannels[5]);
-    //    printf("ch7:%d\r\n",CrsfChannels[6]);
-    //    printf("ch8:%d\r\n",CrsfChannels[7]);
-    //    printf("ch9:%d\r\n",CrsfChannels[8]);
-    //    printf("ch10:%d\r\n",CrsfChannels[9]);
-    //    printf("ch11:%d\r\n",CrsfChannels[10]);
-    //    printf("ch12:%d\r\n\n",CrsfChannels[11]);
+
 
 }
