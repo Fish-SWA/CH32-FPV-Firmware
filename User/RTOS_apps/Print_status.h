@@ -1,5 +1,5 @@
 #ifndef  PRINT_STATUS
-#define PRINT_STATUS
+#define  PRINT_STATUS
 #include "debug.h"
 #include "uart.h"
 #include "stdio.h"
@@ -10,6 +10,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "IMU_handle.h"
+#include "MTF01.h"
 
 #define PRINT_DELAY_TIME 10 //两次输出的间隔
 

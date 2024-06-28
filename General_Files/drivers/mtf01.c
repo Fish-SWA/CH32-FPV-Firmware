@@ -1,14 +1,19 @@
-#include "mtf01.h"
+#include <MTF01.h>
 
 /*
 说明： 用户使用micolink_decode作为串口数据处理函数即可
 距离有效值最小为10(mm),为0说明此时距离值不可用
-光流速度值单位：cm/s@1m
+光流速度值单位：cm/s
 飞控中只需要将光流速度值*高度，即可得到真实水平位移速度
 计算公式：实际速度(cm/s)=光流速度*高度(m)
 */
-
+#define sample_time  0.008
 bool micolink_parse_char(MICOLINK_MSG_t* msg, uint8_t data);
+
+FilterBuf_STRUCT mtf01_filter[5];                    // 光流计和雷达平均值滤波结构体
+MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;            // 光流计和雷达的数据都存在这里
+MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;    // 均值滤波后光流计和雷达的数据都存在这里
+
 
 void micolink_decode(uint8_t data)
 {
@@ -21,7 +26,6 @@ void micolink_decode(uint8_t data)
     {
         case MICOLINK_MSG_ID_RANGE_SENSOR:
         {
-            MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
             memcpy(&payload, msg.payload, msg.len);
 
             /*
@@ -42,6 +46,12 @@ void micolink_decode(uint8_t data)
         default:
             break;
         }
+    payload.Vx=payload.flow_vel_x*(int16_t)payload.distance/100.0f;
+    payload.Vy=payload.flow_vel_y*(int16_t)payload.distance/100.0f;
+    payload.Px=payload.Px+sample_time*payload.Vx;
+    payload.Py=payload.Py+sample_time*payload.Vy;
+    mtf01_load_filter_data();
+    calc_mtf01_filter();
 }
 
 bool micolink_check_sum(MICOLINK_MSG_t* msg)
@@ -130,4 +140,25 @@ bool micolink_parse_char(MICOLINK_MSG_t* msg, uint8_t data)
 
     return false;
 }
+
+void mtf01_load_filter_data()
+{
+    FilterSample(&mtf01_filter[0], payload.distance);
+    FilterSample(&mtf01_filter[1], payload.Vx);
+    FilterSample(&mtf01_filter[2], payload.Vy);
+    FilterSample(&mtf01_filter[3], payload.Px);
+    FilterSample(&mtf01_filter[4], payload.Py);
+}
+
+void calc_mtf01_filter()
+{
+    payload_filtered.distance = FilterAverage(&mtf01_filter[0]);
+    payload_filtered.Vx = FilterAverage(&mtf01_filter[1]);
+    payload_filtered.Vy = FilterAverage(&mtf01_filter[2]);
+    payload_filtered.Px = FilterAverage(&mtf01_filter[3]);
+    payload_filtered.Py = FilterAverage(&mtf01_filter[4]);
+}
+
+
+
 

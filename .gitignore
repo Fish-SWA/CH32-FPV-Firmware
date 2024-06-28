@@ -1,3 +1,12 @@
+.vscode/
+debug-*
+dkms.conf
+gdb-*
+modules.order
+Module.symvers
+Mkfile.old
+obj/
+
 # Prerequisites
 *.d
 
@@ -17,10 +26,10 @@
 *.pch
 
 # Libraries
-# *.lib
-# *.a
-# *.la
-# *.lo
+*.lib
+*.a
+*.la
+*.lo
 
 # Shared objects (inc. Windows DLLs)
 *.dll
@@ -46,37 +55,7 @@
 *.mod*
 *.cmd
 .tmp_versions/
-
-# dot files
-.vscode/
-.settings
-.eide/
-.eide.usr.ctx.json
-
-# project out
-build/
-bin/
-obj/
-out/
-
-# eide template
-*.ept
-*.eide-template
-
-# others
-.aux/
-.cache/
-.clangd
-.DS_Store
-.mxproject
-.nvim.lua
-.settings/
-.tech-ref/
-.vscode/
-debug-*
-dkms.conf
-gdb-*
 modules.order
 Module.symvers
 Mkfile.old
-obj/
+dkms.conf

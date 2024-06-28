@@ -16,7 +16,7 @@
 #include "RTOS_apps/control_handle.h"
 #include "RTOS_apps/IMU_handle.h"
 
-TaskHandle_t TESTTask_Handler;
+
 TaskHandle_t PrintTask_Handler;
 TaskHandle_t Motor_SoftStart_Handler;
 TaskHandle_t Control_task_Handler;
@@ -67,7 +67,6 @@ void RTOS_init()
                 (void*          )NULL,
                 (UBaseType_t    )IMU_PRIO,
                 (TaskHandle_t*  )&IMU_Task_Handler);
-    
     vTaskStartScheduler();
 }
 

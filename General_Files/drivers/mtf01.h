@@ -1,12 +1,18 @@
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
+#include "stdint.h"
+#include "stdbool.h"
+#include "string.h"
+#include "bsp_filter.h"
 
 #define MICOLINK_MSG_HEAD            0xEF
 #define MICOLINK_MAX_PAYLOAD_LEN     64
 #define MICOLINK_MAX_LEN             MICOLINK_MAX_PAYLOAD_LEN + 7
+
+
+void calc_mtf01_filter();
+void mtf01_load_filter_data();
+void micolink_decode(uint8_t data);
 
 /*
     消息ID定义
@@ -49,6 +55,10 @@ typedef struct
     uint8_t  reserved1;			    // 预留
     int16_t   flow_vel_x;	        // 光流速度x轴
     int16_t   flow_vel_y;	        // 光流速度y轴
+    float     Vx;                   // 真实的x轴速度cm/s
+    float     Vy;                   // 真实的y轴速度cm/s
+    float     Px;                   // 真实的x轴位置cm
+    float     Py;                   // 真实的y轴位置cm
     uint8_t   flow_quality;	        // 光流质量
     uint8_t   flow_status;	        // 光流状态
     uint16_t  reserved2;	        // 预留

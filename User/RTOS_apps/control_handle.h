@@ -8,13 +8,15 @@
 #include "pid.h"
 #include "Crsf.h"
 #include "IMU_handle.h"
+#include "../General_Files/drivers/MTF01.h"
 
 /*调度参数*/
-#define CONRTOL_PERIOD  5  //控制周期，单位ms
+#define CONRTOL_PERIOD  8  //控制周期，单位ms
+
 extern void control_handle_task(void *pvParameters);
 
-/*控制参数*/
 
+/*控制参数*/
 
 #define single_Fly_Pitch_Zero  0.0f
 #define single_Fly_Roll_Zero   0.0f
@@ -28,6 +30,7 @@ extern void control_handle_task(void *pvParameters);
 #define ELRS_Roll           CrsfChannels[0]
 
 #define ELRS_mode           CrsfChannels[6]
+#define ELRS_Control_mode   CrsfChannels[5]
 #define ELRS_Throttle_lock  CrsfChannels[4]
 //#define ELRS_XXX            CrsfChannels[5]
 //#define ELRX_XXX            CrsfChannels[7]
@@ -36,7 +39,8 @@ extern void control_handle_task(void *pvParameters);
 enum
 {
     PID_CONTROL_MODE = 1,   //电机转速为PID输出
-    RAW_CONTROL_MODE        //电机转速直接为油门输入（debug模式）
+    RAW_CONTROL_MODE,       //电机转速直接为油门输入（debug模式）
+    STABLE_CONTROL_MODE     //不可控，自稳模式
 };
 
 //电机模式
@@ -60,6 +64,11 @@ typedef struct
     PID_STRUCT PID_pitch_innerloop;
     PID_STRUCT PID_roll_outerloop;
     PID_STRUCT PID_roll_innerloop;
+    PID_STRUCT MTF01_roll_outerloop;
+    PID_STRUCT MTF01_roll_innerloop;
+    PID_STRUCT MTF01_pitch_outerloop;
+    PID_STRUCT MTF01_pitch_innerloop;
+    PID_STRUCT MTF01_height_positionloop;
 
     uint16_t PWM_Out1;         // 最终作用到电机1的PWM
     uint16_t PWM_Out2;         // 最终作用到电机2的PWM
@@ -69,9 +78,11 @@ typedef struct
     float Yaw;
     float Pitch;
     float Roll;
+    float MTF01_roll_agnle;
+    float MTF01_pitch_agnle;
     uint16_t Throttle;
     int CONTROL_MODE;    //控制模式设定
-    int MOTOR_MODE;  //电机模式设定
+    int MOTOR_MODE;      //电机模式设定
 }Control_TypeDef;
 
 
