@@ -17,7 +17,7 @@ void Print_status_task(void *pvParameters)
     // Graph_print();
     String_print();
 
-    vTaskDelay(5);
+    vTaskDelay(20);
 
     }
 }
@@ -76,15 +76,15 @@ void String_print()
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
     printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
     printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4
-//    if(control.flight_mode==GPS){
-//        printf("flight_mode:GPS\r\n");
-//    }
-//    else if(control.flight_mode==Stable){
-//        printf("flight_mode:Stable\r\n");
-//    }
-//    else{
-//        printf("flight_mode:Free\r\n");
-//    }
+    if(control.flight_mode==GPS){
+        printf("flight_mode:GPS\r\n");
+    }
+    else if(control.flight_mode==Stable){
+        printf("flight_mode:Stable\r\n");
+    }
+    else{
+        printf("flight_mode:Free\r\n");
+    }
 
     if(control.is_locked == Unlocked){
         printf("Throttle Unlocked\r\n");
@@ -92,9 +92,13 @@ void String_print()
     else{
         printf("Throttle Locked\r\n");
     }
+
     printf("distance:%d\r\n",payload_filtered.distance);
-    printf("Vx:%d\r\n",payload_filtered.flow_vel_x);
-    printf("Vy:%d\r\n",payload_filtered.flow_vel_y);
+    printf("Px:%f\r\n",payload_filtered.Px);
+    printf("Py:%f\r\n",payload_filtered.Py);
+    printf("Vx:%f\r\n",payload_filtered.Vx);
+    printf("Vy:%f\r\n",payload_filtered.Vy);
+
     if(control.CONTROL_MODE == PID_CONTROL_MODE){
         printf("Control_mode:PID\r\n\n");
     }else if(control.CONTROL_MODE == RAW_CONTROL_MODE){
@@ -102,9 +106,6 @@ void String_print()
     }else if(control.CONTROL_MODE == STABLE_CONTROL_MODE){
         printf("Control_mode:Stable\r\n\n");
     }
-
-
-//        Delay_Ms(100);
 
 
 }

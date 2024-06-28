@@ -68,6 +68,7 @@ typedef struct
     PID_STRUCT MTF01_roll_innerloop;
     PID_STRUCT MTF01_pitch_outerloop;
     PID_STRUCT MTF01_pitch_innerloop;
+    PID_STRUCT MTF01_height_positionloop;
 
     uint16_t PWM_Out1;         // 最终作用到电机1的PWM
     uint16_t PWM_Out2;         // 最终作用到电机2的PWM

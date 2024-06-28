@@ -203,6 +203,18 @@ void PIDSTRUCT_Init()
     control.MTF01_pitch_innerloop.min_out=-65535;
     control.MTF01_pitch_innerloop.DeadBand=1;
     pid_func.init(&control.MTF01_pitch_innerloop);
+
+    //////////////////////////////////////////MTF01 pitch///////////////////////////////////////////////////////////////////
+    pid_func.reset(&control.MTF01_height_positionloop);
+    control.MTF01_height_positionloop.Kp=2.1;
+    control.MTF01_height_positionloop.Ki=0.0f;
+    control.MTF01_height_positionloop.Kd=3.7;
+    control.MTF01_height_positionloop.max_iout=Gyro_I_Limit;
+    control.MTF01_height_positionloop.min_iout=-Gyro_I_Limit;
+    control.MTF01_height_positionloop.max_out=65535;
+    control.MTF01_height_positionloop.min_out=-65535;
+    control.MTF01_height_positionloop.DeadBand=1;
+    pid_func.init(&control.MTF01_height_positionloop);
 }
 //***********************************************************************
 // 将摇杆值转化为角度，映射为±30°
@@ -392,8 +404,11 @@ void Flight_control()
     }
     else if(control.CONTROL_MODE == STABLE_CONTROL_MODE)
     {
-
         /*在这里补充控制程序*/
+
+
+        /*end*/
+
         Roll_outerloop_ctr(control.Roll + Mech_zero_roll + control.MTF01_roll_agnle);
         Roll_innerloop_ctr();
 
