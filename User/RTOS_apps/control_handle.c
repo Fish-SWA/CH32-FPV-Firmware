@@ -158,9 +158,9 @@ void PIDSTRUCT_Init()
     // 采用角度控制，也即把光流计引入的控制量作为飞机pitch和roll来补偿
     // MTF01横滚角外环初始化（位置环）
     pid_func.reset(&control.MTF01_roll_outerloop);
-    control.MTF01_roll_outerloop.Kp=2.8;
-    control.MTF01_roll_outerloop.Ki=0.05;
-    control.MTF01_roll_outerloop.Kd=3.9;
+    control.MTF01_roll_outerloop.Kp=0.1f;
+    control.MTF01_roll_outerloop.Ki=0.0f;
+    control.MTF01_roll_outerloop.Kd=0.0f;
     control.MTF01_roll_outerloop.max_iout=Angle_I_Limit;
     control.MTF01_roll_outerloop.min_iout=-Angle_I_Limit;
     control.MTF01_roll_outerloop.max_out=65535;
@@ -170,22 +170,22 @@ void PIDSTRUCT_Init()
 
     // MTF01横滚角内环初始化（速度环）
     pid_func.reset(&control.MTF01_roll_innerloop);
-    control.MTF01_roll_innerloop.Kp=2.1;
+    control.MTF01_roll_innerloop.Kp=0.1;
     control.MTF01_roll_innerloop.Ki=0.0f;
-    control.MTF01_roll_innerloop.Kd=3.7;
+    control.MTF01_roll_innerloop.Kd=0.0;
     control.MTF01_roll_innerloop.max_iout=Gyro_I_Limit;
     control.MTF01_roll_innerloop.min_iout=-Gyro_I_Limit;
-    control.MTF01_roll_innerloop.max_out=65535;
-    control.MTF01_roll_innerloop.min_out=-65535;
+    control.MTF01_roll_innerloop.max_out=10;
+    control.MTF01_roll_innerloop.min_out=-10;
     control.MTF01_roll_innerloop.DeadBand=1;
     pid_func.init(&control.MTF01_roll_innerloop);
 
     //////////////////////////////////////////MTF01 pitch///////////////////////////////////////////////////////////////////
     // MTF01俯仰角外环初始化（位置环）
     pid_func.reset(&control.MTF01_pitch_outerloop);
-    control.MTF01_pitch_outerloop.Kp=2.8;
-    control.MTF01_pitch_outerloop.Ki=0.05;
-    control.MTF01_pitch_outerloop.Kd=3.9;
+    control.MTF01_pitch_outerloop.Kp=0.1f;
+    control.MTF01_pitch_outerloop.Ki=0.0f;
+    control.MTF01_pitch_outerloop.Kd=3.9f;
     control.MTF01_pitch_outerloop.max_iout=Angle_I_Limit;
     control.MTF01_pitch_outerloop.min_iout=-Angle_I_Limit;
     control.MTF01_pitch_outerloop.max_out=65535;
@@ -195,21 +195,21 @@ void PIDSTRUCT_Init()
 
     // MTF01俯仰角内环初始化（速度环）
     pid_func.reset(&control.MTF01_pitch_innerloop);
-    control.MTF01_pitch_innerloop.Kp=2.1;
+    control.MTF01_pitch_innerloop.Kp=0.1f;
     control.MTF01_pitch_innerloop.Ki=0.0f;
-    control.MTF01_pitch_innerloop.Kd=3.7;
+    control.MTF01_pitch_innerloop.Kd=0.0f;
     control.MTF01_pitch_innerloop.max_iout=Gyro_I_Limit;
     control.MTF01_pitch_innerloop.min_iout=-Gyro_I_Limit;
-    control.MTF01_pitch_innerloop.max_out=65535;
-    control.MTF01_pitch_innerloop.min_out=-65535;
+    control.MTF01_pitch_innerloop.max_out=10;
+    control.MTF01_pitch_innerloop.min_out=-10;
     control.MTF01_pitch_innerloop.DeadBand=1;
     pid_func.init(&control.MTF01_pitch_innerloop);
 
     //////////////////////////////////////////MTF01 pitch///////////////////////////////////////////////////////////////////
     pid_func.reset(&control.MTF01_height_positionloop);
-    control.MTF01_height_positionloop.Kp=2.1;
+    control.MTF01_height_positionloop.Kp=3.1;
     control.MTF01_height_positionloop.Ki=0.0f;
-    control.MTF01_height_positionloop.Kd=3.7;
+    control.MTF01_height_positionloop.Kd=0.0;
     control.MTF01_height_positionloop.max_iout=Gyro_I_Limit;
     control.MTF01_height_positionloop.min_iout=-Gyro_I_Limit;
     control.MTF01_height_positionloop.max_out=65535;
@@ -396,6 +396,7 @@ void Flight_control()
         Py_innerloop_ctr();
 
         control.MTF01_roll_agnle = control.MTF01_roll_innerloop.out;
+        control.MTF01_pitch_agnle = control.MTF01_pitch_innerloop.out;
 
         /*end*/
 
@@ -425,10 +426,10 @@ void Flight_control()
     }
     else if(control.CONTROL_MODE == PID_CONTROL_MODE || (control.CONTROL_MODE == STABLE_CONTROL_MODE && payload.tof_status == 0))  // 正常PID模式
     {
-        Roll_outerloop_ctr(control.Roll + Mech_zero_roll);
+        Roll_outerloop_ctr(-control.Roll + Mech_zero_roll);
         Roll_innerloop_ctr();
 
-        Pitch_outerloop_ctr(control.Pitch + Mech_zero_pitch);
+        Pitch_outerloop_ctr(-control.Pitch + Mech_zero_pitch);
         Pitch_innerloop_ctr();
 
         Yaw_outerloop_ctr(control.Yaw + control.Mech_zero_yaw);

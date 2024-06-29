@@ -9,6 +9,7 @@ void Print_status_task(void *pvParameters);
 void Graph_print();
 void String_print();
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;
+extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
 void Print_status_task(void *pvParameters)
 {
     while(1)
@@ -31,33 +32,11 @@ void Graph_print()
 
 void String_print()
 {
-//    printf("d: %d, %d, %d, %d, %f, %f, %f\r\n", TIM_GetCapture2(TIM9),
-//            TIM_GetCapture3(TIM9),
-//            TIM_GetCapture1(TIM9),
-//            TIM_GetCapture4(TIM9),
-//            MPU6050_para_filted.yaw,
-//            MPU6050_para_filted.pitch,
-//            MPU6050_para_filted.roll);
 
-//    printf("ch1:%d\r\n",CrsfChannels[0]);
-//    printf("ch2:%d\r\n",CrsfChannels[1]);
-//    printf("ch3:%d\r\n",CrsfChannels[2]);
-//    printf("ch4:%d\r\n",CrsfChannels[3]);
-//    printf("ch5:%d\r\n",CrsfChannels[4]);
-//    printf("ch6:%d\r\n",CrsfChannels[5]);
-//    printf("ch7:%d\r\n",CrsfChannels[6]);
-//    printf("ch8:%d\r\n",CrsfChannels[7]);
-//    printf("ch9:%d\r\n",CrsfChannels[8]);
-//    printf("ch10:%d\r\n",CrsfChannels[9]);
-//    printf("ch11:%d\r\n",CrsfChannels[10]);
-//    printf("ch12:%d\r\n\n",CrsfChannels[11]);
-//    return;
-    // printf("yaw=%f\r\n",MPU6050_para.yaw);
-    // printf("pitch=%f\r\n",MPU6050_para.pitch);
-    // printf("roll=%f\r\n",MPU6050_para.roll);
-    // printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
-    // printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
-    // printf("av_roll=%d\r\n",MPU6050_para.av_roll);
+    printf("MTF01_roll_agnle:%f\r\n",control.MTF01_roll_agnle);
+    printf("MTF01_pitch_agnle:%f\r\n",control.MTF01_pitch_agnle);
+    printf("statues:%d\r\n",payload.tof_status);
+
     printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   // £”‡∂—ø’º‰
 
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
@@ -106,6 +85,36 @@ void String_print()
     }else if(control.CONTROL_MODE == STABLE_CONTROL_MODE){
         printf("Control_mode:Stable\r\n\n");
     }
-
-
 }
+
+//    printf("d: %d, %d, %d, %d, %f, %f, %f\r\n", TIM_GetCapture2(TIM9),
+//            TIM_GetCapture3(TIM9),
+//            TIM_GetCapture1(TIM9),
+//            TIM_GetCapture4(TIM9),
+//            MPU6050_para_filted.yaw,
+//            MPU6050_para_filted.pitch,
+//            MPU6050_para_filted.roll);
+
+
+//    printf("ch1:%d\r\n",CrsfChannels[0]);
+//    printf("ch2:%d\r\n",CrsfChannels[1]);
+//    printf("ch3:%d\r\n",CrsfChannels[2]);
+//    printf("ch4:%d\r\n",CrsfChannels[3]);
+//    printf("ch5:%d\r\n",CrsfChannels[4]);
+//    printf("ch6:%d\r\n",CrsfChannels[5]);
+//    printf("ch7:%d\r\n",CrsfChannels[6]);
+//    printf("ch8:%d\r\n",CrsfChannels[7]);
+//    printf("ch9:%d\r\n",CrsfChannels[8]);
+//    printf("ch10:%d\r\n",CrsfChannels[9]);
+//    printf("ch11:%d\r\n",CrsfChannels[10]);
+//    printf("ch12:%d\r\n\n",CrsfChannels[11]);
+
+// printf("yaw=%f\r\n",MPU6050_para.yaw);
+// printf("pitch=%f\r\n",MPU6050_para.pitch);
+// printf("roll=%f\r\n",MPU6050_para.roll);
+// printf("av_yaw=%d\r\n",MPU6050_para.av_yaw);
+// printf("av_pitch=%d\r\n",MPU6050_para.av_pitch);
+// printf("av_roll=%d\r\n",MPU6050_para.av_roll);
+
+
+
