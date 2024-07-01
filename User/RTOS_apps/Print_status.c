@@ -10,6 +10,7 @@ void Graph_print();
 void String_print();
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
+extern float compensate_factor;
 void Print_status_task(void *pvParameters)
 {
     while(1)
@@ -25,18 +26,26 @@ void Print_status_task(void *pvParameters)
 
 void Graph_print()
 {
-    printf("%f, %f, %f\n", MPU6050_para_filted.yaw,
-                MPU6050_para_filted.pitch,
-                MPU6050_para_filted.roll); //yaw, pitch, roll
+
+
+    printf("d: %d, %d, %d, %d, %f, %f, %f\r\n", TIM_GetCapture2(TIM9),
+            TIM_GetCapture3(TIM9),
+            TIM_GetCapture1(TIM9),
+            TIM_GetCapture4(TIM9),
+            MPU6050_para_filted.yaw,
+            MPU6050_para_filted.pitch,
+            MPU6050_para_filted.roll);
 }
 
 void String_print()
 {
 
+//    return;
     printf("MTF01_roll_agnle:%f\r\n",control.MTF01_roll_agnle);
     printf("MTF01_pitch_agnle:%f\r\n",control.MTF01_pitch_agnle);
     printf("statues:%d\r\n",payload.tof_status);
 
+    printf("compensate_factor=%f\r\n",compensate_factor);
     printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //剩余堆空间
 
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
@@ -47,14 +56,19 @@ void String_print()
     printf("av_pitch_filted=%d\r\n",MPU6050_para_filted.av_pitch);
     printf("av_roll_filted=%d\r\n",MPU6050_para_filted.av_roll);
 
-    printf("yaw_outer=%f\r\n",control.PID_yaw_innerloop.out);
-    printf("roll_outer=%f\r\n",control.PID_roll_innerloop.out);
-    printf("pitch_outer=%f\r\n",control.PID_pitch_innerloop.out);
+    printf("yaw_outer_loop=%f\r\n",control.PID_yaw_outerloop.out);
+    printf("roll_outer_loop=%f\r\n",control.PID_roll_outerloop.out);
+    printf("pitch_outer_loop=%f\r\n",control.PID_pitch_outerloop.out);
+
+    printf("yaw_out=%f\r\n",control.PID_yaw_innerloop.out);
+    printf("roll_out=%f\r\n",control.PID_roll_innerloop.out);
+    printf("pitch_out=%f\r\n",control.PID_pitch_innerloop.out);
+
 
     printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际的2号电机
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
-    printf("PWM3:%d\r\n",TIM_GetCapture1(TIM9));    //1
-    printf("PWM4:%d\r\n",TIM_GetCapture4(TIM9));    //4
+    printf("PWM3:%d\r\n",TIM_GetCapture4(TIM9));    //4
+    printf("PWM4:%d\r\n",TIM_GetCapture1(TIM9));    //1
     if(control.flight_mode==GPS){
         printf("flight_mode:GPS\r\n");
     }

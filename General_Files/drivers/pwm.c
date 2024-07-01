@@ -3,7 +3,7 @@
 #include "../apps/inc/Crsf.h"
 #include "control_handle.h"
 
-int Motor_pos[4] = {2, 3, 1, 4}; //电机的ID映射
+int Motor_pos[4] = {2, 3, 4, 1}; //电机的ID映射
 
 void TIM9_PWMOut_Init( u16 arr, u16 psc, u16 ccp )
 {

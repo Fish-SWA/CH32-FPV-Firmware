@@ -11,7 +11,7 @@
 #include "../General_Files/drivers/MTF01.h"
 
 /*调度参数*/
-#define CONRTOL_PERIOD  8  //控制周期，单位ms
+#define CONRTOL_PERIOD  20  //控制周期，单位ms
 
 extern void control_handle_task(void *pvParameters);
 
@@ -87,13 +87,13 @@ typedef struct
 
 
 //电机缓启动相关
-#define SOFT_START_TIME 500 //缓启动时间，ms
+#define SOFT_START_TIME 600 //缓启动时间，ms
 
-#define IMU_SAMPLE_SIZE 2 //IMU平均值滤波器大小
+#define IMU_SAMPLE_SIZE 5 //IMU平均值滤波器大小
 
 // 积分
-#define Angle_I_Limit 5000
-#define Gyro_I_Limit  3000
+#define Angle_I_Limit 200
+#define Gyro_I_Limit  200
 
 // ELRS数据转换到角度数据：ELRS_data*ELRS2angle=angle，30/(1811-1000)=0.037
 #define ELRS2angle    0.037
@@ -103,8 +103,8 @@ typedef struct
 
 
 // 最大倾斜角度，还未换算
-#define MAX_ROLL_ANGLE  20
-#define MAX_PITCH_ANGLE 20
+#define MAX_ROLL_ANGLE  40
+#define MAX_PITCH_ANGLE 40
 
 // 机械零点，需要调
 #define Mech_zero_pitch  0
@@ -125,7 +125,7 @@ typedef struct
 #define GPS     2
 
 //调试架子有阻尼，调试架测出来的参数需要给一个衰减
-#define damp_rate   0.95
+#define damp_rate   0.60
 
 // 机动，降落
 #define landing      1
@@ -137,6 +137,27 @@ typedef struct
 extern Control_TypeDef control;
 
 extern void Stop_motor();
+
+
+void control_handle_task(void *pvParameters);
+void PIDSTRUCT_Init();
+float ELRS_Convert_angle(int ELRS_data);
+u16 ELRS_Convert_throttle(unsigned ELRS_data);
+void ELRS_Convert_flight_mode();
+void ELRS_Convert_lock();
+void Update_ELRS();
+void Roll_outerloop_ctr(float angle_num);
+void Roll_innerloop_ctr();
+void Yaw_outerloop_ctr(float angle_num);
+void Yaw_innerloop_ctr();
+void Pitch_outerloop_ctr(float angle_num);
+void Pitch_innerloop_ctr();
+void Flight_control();
+void Stop_motor();
+void Check_control_mode();
+void control_para_init();
+float angle2rad(float angle);
+
 
 
 #endif
