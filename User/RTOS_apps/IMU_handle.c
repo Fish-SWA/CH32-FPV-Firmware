@@ -58,4 +58,13 @@ void calc_IMU_filter()
     MPU6050_para_filted.av_yaw = FilterAverage(&gyro_filter[3]);
     MPU6050_para_filted.av_pitch = FilterAverage(&gyro_filter[4]);
     MPU6050_para_filted.av_roll = FilterAverage(&gyro_filter[5]);
+    if(MPU6050_para_filted.av_roll<=15&&MPU6050_para_filted.av_roll>=-15)
+    {
+        MPU6050_para_filted.av_roll=0;
+    }
+    if(MPU6050_para_filted.av_pitch<=15&&MPU6050_para_filted.av_pitch>=-15)
+    {
+        MPU6050_para_filted.av_pitch=0;
+    }
+
 }

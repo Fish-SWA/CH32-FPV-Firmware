@@ -11,7 +11,7 @@
 #include "../General_Files/drivers/MTF01.h"
 
 /*调度参数*/
-#define CONRTOL_PERIOD  8  //控制周期，单位ms
+#define CONRTOL_PERIOD  10  //控制周期，单位ms
 
 extern void control_handle_task(void *pvParameters);
 
@@ -38,9 +38,9 @@ extern void control_handle_task(void *pvParameters);
 //控制模式
 enum
 {
-    PID_CONTROL_MODE = 1,   //电机转速为PID输出
-    RAW_CONTROL_MODE,       //电机转速直接为油门输入（debug模式）
-    STABLE_CONTROL_MODE     //不可控，自稳模式
+    PID_CONTROL_MODE = 1,   //电机�?速为PID输出
+    RAW_CONTROL_MODE,       //电机�?速直接为油门输入（debug模式�?
+    STABLE_CONTROL_MODE     //不可控，�?稳模�?
 };
 
 //电机模式
@@ -54,9 +54,9 @@ enum
 typedef struct
 {
     float Mech_zero_yaw;    // yaw轴机械零点，因为需要更新所以是变量
-    u8 is_locked;           // 电机锁
-    u8 flight_mode;         //飞行模式
-    u8 is_landing;          //自动降落
+    u8 is_locked;           // 电机�?
+    u8 flight_mode;         //飞�?�模�?
+    u8 is_landing;          //�?动降�?
 
     PID_STRUCT PID_yaw_outerloop;
     PID_STRUCT PID_yaw_innerloop;
@@ -86,51 +86,78 @@ typedef struct
 }Control_TypeDef;
 
 
-//电机缓启动相关
-#define SOFT_START_TIME 500 //缓启动时间，ms
+//电机缓启动相�?
+#define SOFT_START_TIME 300 //缓启动时间，ms
 
-#define IMU_SAMPLE_SIZE 2 //IMU平均值滤波器大小
+#define IMU_SAMPLE_SIZE 4 //IMU平均值滤波器大小
 
-// 积分
-#define Angle_I_Limit 5000
-#define Gyro_I_Limit  3000
+// �?�?
+#define Angle_I_Limit 200
+#define Gyro_I_Limit  200
 
-// ELRS数据转换到角度数据：ELRS_data*ELRS2angle=angle，30/(1811-1000)=0.037
-#define ELRS2angle    0.037
-// ELRS数据转换到油门数据：ELRS_data*ELRS2throttle=throttle，1440/1711=0.8416
-#define ELRS2throttle 0.5  // 不是0.8419是因为留一点油门给飞机调整姿态
-//#define ELRS2throttle 0.92  // 不是0.8419是因为留一点油门给飞机调整姿态
+// ELRS数据�?换到角度数据：ELRS_data*ELRS2angle=angle�?30/(1811-1000)=0.037
+#define ELRS2angle    0.06
+// ELRS数据�?换到油门数据：ELRS_data*ELRS2throttle=throttle�?1440/1711=0.8416
+#define ELRS2throttle 0.55  // 不是0.8419�?因为留一点油门给飞机调整姿�?
+//#define ELRS2throttle 0.92  // 不是0.8419�?因为留一点油门给飞机调整姿�?
 
 
-// 最大倾斜角度，还未换算
+// 最大倾斜角度，还�?换算
 #define MAX_ROLL_ANGLE  20
 #define MAX_PITCH_ANGLE 20
 
-// 机械零点，需要调
+// 机�?�零点，需要调
 #define Mech_zero_pitch  0
 #define Mech_zero_roll   0
 
 
-// 需要给飞机姿态调整预留PWM，所以油门为100时不能达到7200占空比
-// 油门达到100时，PWM为 100*PWM_OIL
+// 需要给飞机姿态调整�?�留PWM，所以油门为100时不能达�?7200占空�?
+// 油门达到100时，PWM�? 100*PWM_OIL
 #define PWM_OIL 45
 
-// 处于Locked状态时，油门和pid被禁用
+// 处于Locked状态时，油门和pid�?禁用
 #define Locked    1
 #define Unlocked  0
 
-// 飞行模式，无控制，自稳，GPS模式
+// 飞�?�模式，无控制，�?稳，GPS模式
 #define Free    0
 #define Stable  1
 #define GPS     2
 
-// 机动，降落
+//调试架子有阻尼，调试架测出来的参数需要给一�?衰减
+#define damp_rate   0.55
+
+// 机动，降�?
 #define landing      1
 #define not_landing  0
+
+//定高（mm�?
+#define stable_height 700
 
 extern Control_TypeDef control;
 
 extern void Stop_motor();
+
+
+void control_handle_task(void *pvParameters);
+void PIDSTRUCT_Init();
+float ELRS_Convert_angle(int ELRS_data);
+u16 ELRS_Convert_throttle(unsigned ELRS_data);
+void ELRS_Convert_flight_mode();
+void ELRS_Convert_lock();
+void Update_ELRS();
+void Roll_outerloop_ctr(float angle_num);
+void Roll_innerloop_ctr();
+void Yaw_outerloop_ctr(float angle_num);
+void Yaw_innerloop_ctr();
+void Pitch_outerloop_ctr(float angle_num);
+void Pitch_innerloop_ctr();
+void Flight_control();
+void Stop_motor();
+void Check_control_mode();
+void control_para_init();
+float angle2rad(float angle);
+
 
 
 #endif

@@ -5,7 +5,7 @@
 #include "debug.h"
 #include "control_handle.h"
 
-#define FilterBuf_MaxLen 3
+#define FilterBuf_MaxLen 5
 
 typedef struct{
 
