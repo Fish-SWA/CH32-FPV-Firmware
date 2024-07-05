@@ -8,7 +8,7 @@
 extern uint8_t RxBuf[CRSF_MAX_PACKET_SIZE];
 extern uint8_t RxBuf_Index;
 
-extern int CrsfChannels[CRSF_NUM_CHANNELS];        //CrsfÍ¨µÀÖµ
+extern int CrsfChannels[CRSF_NUM_CHANNELS];        //Crsfé€šé“å€¼
 
 #define PACKED __attribute__((packed))
 
@@ -49,7 +49,7 @@ void PacketChannelsPacked(const Crsf_Header_t *p);
 void PacketLinkStatistics(const Crsf_Header_t *p);
 
 
-void onPacketLinkStatistics(CrsfLinkStatistics_t *link);	//»Ø´«ĞÅºÅÖÊÁ¿£¬µçÑ¹...
+void onPacketLinkStatistics(CrsfLinkStatistics_t *link);	//å›ä¼ ä¿¡å·è´¨é‡ï¼Œç”µå‹...
 
 
 #endif

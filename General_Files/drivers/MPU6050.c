@@ -11,18 +11,18 @@ static void I2C2_HARD_Init(u32 bound,u16 host_addr)
     GPIO_InitTypeDef GPIO_InitStructure = {0};
     I2C_InitTypeDef  I2C_InitTSturcture = {0};
 
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C2,ENABLE);     //Ê¹ÄÜAPB1 I2C2ÍâÉèÊ±ÖÓ
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);    //Ê¹ÄÜAPB2 GPIOÍâÉèÊ±ÖÓ
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C2,ENABLE);     //ä½¿èƒ½APB1 I2C2å¤–è®¾æ—¶é’Ÿ
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);    //ä½¿èƒ½APB2 GPIOå¤–è®¾æ—¶é’Ÿ
 
     GPIO_InitStructure.GPIO_Pin = I2C_SCL_PIN | I2C_SDA_PIN;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;         //ÉèÖÃÎª¸´ÓÃ¿ªÂ©Êä³öÄ£Ê½
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;         //è®¾ç½®ä¸ºå¤ç”¨å¼€æ¼è¾“å‡ºæ¨¡å¼
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(I2C_PORT, &GPIO_InitStructure);
 
-    I2C_InitTSturcture.I2C_ClockSpeed = bound;     //ÉèÖÃI2CËÙÂÊ
+    I2C_InitTSturcture.I2C_ClockSpeed = bound;     //è®¾ç½®I2Cé€Ÿç‡
     I2C_InitTSturcture.I2C_Mode = I2C_Mode_I2C;
     I2C_InitTSturcture.I2C_DutyCycle = I2C_DutyCycle_2;
-    I2C_InitTSturcture.I2C_OwnAddress1 = host_addr;     //Ö¸¶¨Ö÷Éè±¸µØÖ·
+    I2C_InitTSturcture.I2C_OwnAddress1 = host_addr;     //æŒ‡å®šä¸»è®¾å¤‡åœ°å€
     I2C_InitTSturcture.I2C_Ack = I2C_Ack_Enable;
     I2C_InitTSturcture.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
     I2C_Init(I2C2, &I2C_InitTSturcture);
@@ -35,15 +35,15 @@ static void I2C2_HARD_Init(u32 bound,u16 host_addr)
 
 void MPU6050_I2C_Mem_Write(unsigned char DEV_ADDR, unsigned char REG_ADDR, unsigned char len, unsigned char *buf)
 {
-    //²úÉúÆğÊ¼ĞÅºÅ
+    //äº§ç”Ÿèµ·å§‹ä¿¡å·
 
     while(I2C_GetFlagStatus(I2C2, I2C_FLAG_BUSY) != RESET);
     I2C_GenerateSTART(I2C2, ENABLE);
-    //·¢ËÍµØÖ·&Ğ´
+    //å‘é€åœ°å€&å†™
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT));
     I2C_Send7bitAddress(I2C2, DEV_ADDR, I2C_Direction_Transmitter);
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-    //·¢ËÍÊı¾İ
+    //å‘é€æ•°æ®
     I2C_SendData(I2C2, REG_ADDR);
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
@@ -62,7 +62,7 @@ static void MPU6050_WriteByte(unsigned char REG_ADDR,unsigned char _data)
 
 static void MPU6050_SetRate(int rate)
 {
-    MPU6050_WriteByte(MPU6050_REG_SMPLRT_DIV, 1000/rate-1);//ÉèÖÃÊı×ÖµÍÍ¨ÂË²¨Æ÷
+    MPU6050_WriteByte(MPU6050_REG_SMPLRT_DIV, 1000/rate-1);//è®¾ç½®æ•°å­—ä½é€šæ»¤æ³¢å™¨
 
     if(rate/2>=188)MPU6050_WriteByte(MPU6050_REG_CONFIG, 0);
     else if(rate/2>=98)MPU6050_WriteByte(MPU6050_REG_CONFIG, 2);
@@ -74,23 +74,23 @@ static void MPU6050_SetRate(int rate)
 
 unsigned char MPU6050_Init()
 {
-//=============================¡¾³õÊ¼»¯¡¿=================================
-//·µ»ØÖµ£º³õÊ¼»¯mpu_dmp_init()µÄ´íÎóÂë£¬0±íÊ¾³õÊ¼»¯³É¹¦
+//=============================ã€åˆå§‹åŒ–ã€‘=================================
+//è¿”å›å€¼ï¼šåˆå§‹åŒ–mpu_dmp_init()çš„é”™è¯¯ç ï¼Œ0è¡¨ç¤ºåˆå§‹åŒ–æˆåŠŸ
 //=======================================================================
     u8 res;
 
     I2C2_HARD_Init(400000, 0x00);
-	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x80);//¸´Î»
+	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x80);//å¤ä½
 	Delay_Ms(100);
-	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x00);//½â³ıĞİÃß×´Ì¬
-	MPU6050_SetRate(400);//ÉèÖÃ²ÉÑùÂÊ
+	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0x00);//è§£é™¤ä¼‘çœ çŠ¶æ€
+	MPU6050_SetRate(400);//è®¾ç½®é‡‡æ ·ç‡
 	MPU6050_WriteByte(MPU6050_REG_ACCEL_CONFIG, 0x00 << 3);//0x00 = 2g;0x01 = 4g;0x02 = 8g;0x03 = 16g
-	MPU6050_WriteByte(MPU6050_REG_GYRO_CONFIG, 0x03 << 3);//0x00 = ¡À250dps;0x01 = ¡À500dps;0x02 = ¡À1000dps;0x03 = ¡À2000dps
-	MPU6050_WriteByte(MPU6050_REG_INT_EN, 0X00);	//¹Ø±ÕËùÓĞÖĞ¶Ï
-	MPU6050_WriteByte(MPU6050_REG_USER_CTRL, 0X00);	//I2CÖ÷Ä£Ê½¹Ø±Õ
-	MPU6050_WriteByte(MPU6050_REG_FIFO_EN, 0X00);	//¹Ø±ÕFIFO
-	MPU6050_WriteByte(MPU6050_REG_INTBP_CFG, 0X80);	//INTÒı½ÅµÍµçÆ½ÓĞĞ§
-	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0X01);//ÉèÖÃCLKSEL,PLL XÖáÎª²Î¿¼
+	MPU6050_WriteByte(MPU6050_REG_GYRO_CONFIG, 0x03 << 3);//0x00 = Â±250dps;0x01 = Â±500dps;0x02 = Â±1000dps;0x03 = Â±2000dps
+	MPU6050_WriteByte(MPU6050_REG_INT_EN, 0X00);	//å…³é—­æ‰€æœ‰ä¸­æ–­
+	MPU6050_WriteByte(MPU6050_REG_USER_CTRL, 0X00);	//I2Cä¸»æ¨¡å¼å…³é—­
+	MPU6050_WriteByte(MPU6050_REG_FIFO_EN, 0X00);	//å…³é—­FIFO
+	MPU6050_WriteByte(MPU6050_REG_INTBP_CFG, 0X80);	//INTå¼•è„šä½ç”µå¹³æœ‰æ•ˆ
+	MPU6050_WriteByte(MPU6050_REG_PWR_MGMT1, 0X01);//è®¾ç½®CLKSEL,PLL Xè½´ä¸ºå‚è€ƒ
 
 #ifdef DMP
 	res = mpu_dmp_init();
@@ -102,20 +102,20 @@ unsigned char MPU6050_Init()
 
 void MPU6050_I2C_Mem_Read(unsigned char DEV_ADDR, unsigned char REG_ADDR, unsigned char len, unsigned char *buf)
 {
-    //²úÉúÆğÊ¼ĞÅºÅ
+    //äº§ç”Ÿèµ·å§‹ä¿¡å·
     while(I2C_GetFlagStatus(I2C2, I2C_FLAG_BUSY) != RESET);
     I2C_GenerateSTART(I2C2, ENABLE);
-    //·¢ËÍµØÖ·&Ğ´
+    //å‘é€åœ°å€&å†™
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT));
     I2C_Send7bitAddress(I2C2, DEV_ADDR, I2C_Direction_Transmitter);
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-    //·¢ËÍÊı¾İ
+    //å‘é€æ•°æ®
     I2C_SendData(I2C2, REG_ADDR);
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 
-    //²úÉúÆğÊ¼ĞÅºÅ
+    //äº§ç”Ÿèµ·å§‹ä¿¡å·
     I2C_GenerateSTART(I2C2, ENABLE);
-    //·¢ËÍµØÖ·&¶Á
+    //å‘é€åœ°å€&è¯»
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_MODE_SELECT));
     I2C_Send7bitAddress(I2C2, DEV_ADDR, I2C_Direction_Receiver);
     while(!I2C_CheckEvent(I2C2, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
@@ -133,10 +133,10 @@ void MPU6050_I2C_Mem_Read(unsigned char DEV_ADDR, unsigned char REG_ADDR, unsign
 
 unsigned int MPU6050_Get_Data(u8 REG_ADDR)
 {
-//============================¡¾¶Á¸ßµÍ¼Ä´æÆ÷Öµ¡¿================================
-//²ÎÊı£º
-//REG_ADDR:¼Ä´æÆ÷¸ßÎ»µØÖ·
-//·µ»ØÖµ:»ñÈ¡µ½µÄ16Î»Êı¾İ
+//============================ã€è¯»é«˜ä½å¯„å­˜å™¨å€¼ã€‘================================
+//å‚æ•°ï¼š
+//REG_ADDR:å¯„å­˜å™¨é«˜ä½åœ°å€
+//è¿”å›å€¼:è·å–åˆ°çš„16ä½æ•°æ®
 //===========================================================================
 	unsigned char dataH, dataL;
 
@@ -147,8 +147,8 @@ unsigned int MPU6050_Get_Data(u8 REG_ADDR)
 
 float MPU6050_Get_Temp()
 {
-//============================¡¾»ñÈ¡ÎÂ¶È¡¿================================
-//·µ»ØÖµ:»ñÈ¡µ½µÄÎÂ¶È
+//============================ã€è·å–æ¸©åº¦ã€‘================================
+//è¿”å›å€¼:è·å–åˆ°çš„æ¸©åº¦
 //======================================================================
     return (36.53 + (short)MPU6050_Get_Data(MPU6050_REG_TEMP_OUT_H) / 340.0);
 }
@@ -156,8 +156,8 @@ float MPU6050_Get_Temp()
 #ifdef DMP
 unsigned char MPU6050_MPU_DMP_GetData(void)
 {
-//============================¡¾»ñÈ¡DMPÖµ¡¿================================
-//·µ»ØÖµ:mpu_dmp_get_data()µÄ´íÎóÂë£¬0±íÊ¾»ñÈ¡³É¹¦
+//============================ã€è·å–DMPå€¼ã€‘================================
+//è¿”å›å€¼:mpu_dmp_get_data()çš„é”™è¯¯ç ï¼Œ0è¡¨ç¤ºè·å–æˆåŠŸ
 //========================================================================
 	float a,b,c;
 	u8 res;

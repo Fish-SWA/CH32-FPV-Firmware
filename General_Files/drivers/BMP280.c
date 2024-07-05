@@ -4,7 +4,7 @@
 #include "MYI2C.h"
 
 BMP280 bmp280_inst;
-BMP280* bmp280 = &bmp280_inst;		//Õâ¸öÈ«¾Ö½á¹¹Ìå±äÁ¿ÓÃÀ´±£´æ´æÔÚĞ¾Æ¬ÄÚROM²¹³¥²ÎÊı
+BMP280* bmp280 = &bmp280_inst;		//è¿™ä¸ªå…¨å±€ç»“æ„ä½“å˜é‡ç”¨æ¥ä¿å­˜å­˜åœ¨èŠ¯ç‰‡å†…ROMè¡¥å¿å‚æ•°
 
 
 
@@ -15,11 +15,11 @@ void Bmp_Init(void)
     MyI2C_Init();
 	u8 Lsb,Msb;
 	
-	/********************½ÓÏÂÀ´¶Á³ö½ÃÕı²ÎÊı*********************/
-	//ÎÂ¶È´«¸ĞÆ÷µÄ½ÃÕıÖµ
+	/********************æ¥ä¸‹æ¥è¯»å‡ºçŸ«æ­£å‚æ•°*********************/
+	//æ¸©åº¦ä¼ æ„Ÿå™¨çš„çŸ«æ­£å€¼
 	Lsb = BMP280_Read_Byte(BMP280_DIG_T1_LSB_REG);
 	Msb = BMP280_Read_Byte(BMP280_DIG_T1_MSB_REG);
-	bmp280->T1 = (((u16)Msb)<<8) + Lsb;			//¸ßÎ»¼ÓµÍÎ»
+	bmp280->T1 = (((u16)Msb)<<8) + Lsb;			//é«˜ä½åŠ ä½ä½
 	Lsb = BMP280_Read_Byte(BMP280_DIG_T2_LSB_REG);
 	Msb = BMP280_Read_Byte(BMP280_DIG_T2_MSB_REG);
 	bmp280->T2 = (((u16)Msb)<<8) + Lsb;		
@@ -27,7 +27,7 @@ void Bmp_Init(void)
 	Msb = BMP280_Read_Byte(BMP280_DIG_T3_MSB_REG);
 	bmp280->T3 = (((u16)Msb)<<8) + Lsb;		
 	
-	//´óÆøÑ¹´«¸ĞÆ÷µÄ½ÃÕıÖµ
+	//å¤§æ°”å‹ä¼ æ„Ÿå™¨çš„çŸ«æ­£å€¼
 	Lsb = BMP280_Read_Byte(BMP280_DIG_P1_LSB_REG);
 	Msb = BMP280_Read_Byte(BMP280_DIG_P1_MSB_REG);
 	bmp280->P1 = (((u16)Msb)<<8) + Lsb;		
@@ -56,7 +56,7 @@ void Bmp_Init(void)
 	Msb = BMP280_Read_Byte(BMP280_DIG_P9_MSB_REG);
 	bmp280->P9 = (((u16)Msb)<<8) + Lsb;	
 	/******************************************************/
-	BMP280_Write_Byte(BMP280_RESET_REG,BMP280_RESET_VALUE);	//Íù¸´Î»¼Ä´æÆ÷Ğ´Èë¸ø¶¨Öµ
+	BMP280_Write_Byte(BMP280_RESET_REG,BMP280_RESET_VALUE);	//å¾€å¤ä½å¯„å­˜å™¨å†™å…¥ç»™å®šå€¼
 	
 	BMP_OVERSAMPLE_MODE			BMP_OVERSAMPLE_MODEStructure;
 	BMP_OVERSAMPLE_MODEStructure.P_Osample = BMP280_P_MODE_3;
@@ -72,24 +72,24 @@ void Bmp_Init(void)
 	BMP280_Set_Standby_FILTER(&BMP_CONFIGStructure);
 }
 
-// Ó²¼şI2C²»ÄÜÓÃ£¬²»ÖªµÀÎªÊ²Ã´£¡£¡
+// ç¡¬ä»¶I2Cä¸èƒ½ç”¨ï¼Œä¸çŸ¥é“ä¸ºä»€ä¹ˆï¼ï¼
 //void BMP_I2C1_Init(u32 bound,u16 host_addr)
 //{
 //    GPIO_InitTypeDef GPIO_InitStructure = {0};
 //    I2C_InitTypeDef  I2C_InitTSturcture = {0};
 //
-//    RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1,ENABLE);     //Ê¹ÄÜAPB1 I2C1ÍâÉèÊ±ÖÓ
-//    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);    //Ê¹ÄÜAPB2 GPIOÍâÉèÊ±ÖÓ
+//    RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1,ENABLE);     //ä½¿èƒ½APB1 I2C1å¤–è®¾æ—¶é’Ÿ
+//    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB,ENABLE);    //ä½¿èƒ½APB2 GPIOå¤–è®¾æ—¶é’Ÿ
 //
 //    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;  //PB7:SDA, PB6:SCL
-//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;         //ÉèÖÃÎª¸´ÓÃ¿ªÂ©Êä³öÄ£Ê½
+//    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_OD;         //è®¾ç½®ä¸ºå¤ç”¨å¼€æ¼è¾“å‡ºæ¨¡å¼
 //    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 //    GPIO_Init(GPIOB, &GPIO_InitStructure);
 //
-//    I2C_InitTSturcture.I2C_ClockSpeed = bound;     //ÉèÖÃI2CËÙÂÊ
+//    I2C_InitTSturcture.I2C_ClockSpeed = bound;     //è®¾ç½®I2Cé€Ÿç‡
 //    I2C_InitTSturcture.I2C_Mode = I2C_Mode_I2C;
 //    I2C_InitTSturcture.I2C_DutyCycle = I2C_DutyCycle_2;
-//    I2C_InitTSturcture.I2C_OwnAddress1 = host_addr;     //Ö¸¶¨Ö÷Éè±¸µØÖ·
+//    I2C_InitTSturcture.I2C_OwnAddress1 = host_addr;     //æŒ‡å®šä¸»è®¾å¤‡åœ°å€
 //    I2C_InitTSturcture.I2C_Ack = I2C_Ack_Enable;
 //    I2C_InitTSturcture.I2C_AcknowledgedAddress = I2C_AcknowledgedAddress_7bit;
 //    I2C_Init(I2C1, &I2C_InitTSturcture);
@@ -101,7 +101,7 @@ void Bmp_Init(void)
 //}
 
 
-//ÉèÖÃBMP¹ı²ÉÑùÒò×Ó MODE 
+//è®¾ç½®BMPè¿‡é‡‡æ ·å› å­ MODE 
 //BMP280_SLEEP_MODE||BMP280_FORCED_MODE||BMP280_NORMAL_MODE
 void BMP280_Set_TemOversamp(BMP_OVERSAMPLE_MODE * Oversample_Mode)
 {
@@ -114,7 +114,7 @@ void BMP280_Set_TemOversamp(BMP_OVERSAMPLE_MODE * Oversample_Mode)
 }
 
 
-//ÉèÖÃ±£³ÖÊ±¼äºÍÂË²¨Æ÷·ÖÆµÒò×Ó
+//è®¾ç½®ä¿æŒæ—¶é—´å’Œæ»¤æ³¢å™¨åˆ†é¢‘å› å­
 void BMP280_Set_Standby_FILTER(BMP_CONFIG * BMP_Config)
 {
 	u8 Regtmp;
@@ -125,7 +125,7 @@ void BMP280_Set_Standby_FILTER(BMP_CONFIG * BMP_Config)
 	BMP280_Write_Byte(BMP280_CONFIG_REG,Regtmp);
 }
 
-//»ñÈ¡BMPµ±Ç°×´Ì¬ Ô­Ê¼Öµ
+//è·å–BMPå½“å‰çŠ¶æ€ åŸå§‹å€¼
 //status_flag = BMP280_MEASURING ||
 //			 	BMP280_IM_UPDATE
 u8  BMP280_GetStatus(u8 status_flag)
@@ -140,21 +140,21 @@ u8  BMP280_GetStatus(u8 status_flag)
 
 //uint8_t BMP280_Read_Byte(u8 REG_ADDR)
 //{
-//    //²úÉúÆğÊ¼ĞÅºÅ
+//    //äº§ç”Ÿèµ·å§‹ä¿¡å·
 //    while(I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY) != RESET);
 //    I2C_GenerateSTART(I2C1, ENABLE);
-//    //·¢ËÍµØÖ·&Ğ´
+//    //å‘é€åœ°å€&å†™
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
 //    I2C_Send7bitAddress(I2C1, BMP280_ADDRESS, I2C_Direction_Transmitter);
 //    Delay_Ms(10);
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-//    //·¢ËÍÊı¾İ
+//    //å‘é€æ•°æ®
 //    I2C_SendData(I2C1, REG_ADDR);
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 //
-//    //²úÉúÆğÊ¼ĞÅºÅ
+//    //äº§ç”Ÿèµ·å§‹ä¿¡å·
 //    I2C_GenerateSTART(I2C1, ENABLE);
-//    //·¢ËÍµØÖ·&¶Á
+//    //å‘é€åœ°å€&è¯»
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
 //    I2C_Send7bitAddress(I2C1, BMP280_ADDRESS, I2C_Direction_Receiver);
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_RECEIVER_MODE_SELECTED));
@@ -170,15 +170,15 @@ u8  BMP280_GetStatus(u8 status_flag)
 //
 //void BMP280_Write_Byte(unsigned char REG_ADDR, u8 DATA)
 //{
-//    //²úÉúÆğÊ¼ĞÅºÅ
+//    //äº§ç”Ÿèµ·å§‹ä¿¡å·
 //
 //    while(I2C_GetFlagStatus(I2C1, I2C_FLAG_BUSY) != RESET);
 //    I2C_GenerateSTART(I2C1, ENABLE);
-//    //·¢ËÍµØÖ·&Ğ´
+//    //å‘é€åœ°å€&å†™
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_MODE_SELECT));
 //    I2C_Send7bitAddress(I2C1, BMP280_ADDRESS, I2C_Direction_Transmitter);
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_TRANSMITTER_MODE_SELECTED));
-//    //·¢ËÍÊı¾İ
+//    //å‘é€æ•°æ®
 //    I2C_SendData(I2C1, REG_ADDR);
 //    while(!I2C_CheckEvent(I2C1, I2C_EVENT_MASTER_BYTE_TRANSMITTED));
 //    I2C_SendData(I2C1, DATA);
@@ -200,7 +200,7 @@ uint8_t BMP280_Read_Byte(u8 reg)
 	MyI2C_Start();
 	MyI2C_SendByte(BMP280_ADDRESS<<1|1);
 	MyI2C_ReceiveAck();
-	rec_data = MyI2C_ReceiveByte();	//²»Ó¦´ğ
+	rec_data = MyI2C_ReceiveByte();	//ä¸åº”ç­”
 	MyI2C_Stop();
 	return rec_data;
 }
@@ -221,14 +221,14 @@ uint8_t BMP280_ReadID(void)
 {
 	return BMP280_Read_Byte(BMP280_CHIPID_REG);
 }
-/*******************Ö÷Òª²¿·Ö*********************/
-/****************»ñÈ¡´«¸ĞÆ÷¾«È·Öµ****************/
-//´óÆøÑ¹Öµ-Pa
-/**************************´«¸ĞÆ÷Öµ×ª¶¨µãÖµ*************************************/
-BMP280_S32_t t_fine;			//ÓÃÓÚ¼ÆËã²¹³¥
-//ÎÒÓÃ¸¡µã²¹³¥
+/*******************ä¸»è¦éƒ¨åˆ†*********************/
+/****************è·å–ä¼ æ„Ÿå™¨ç²¾ç¡®å€¼****************/
+//å¤§æ°”å‹å€¼-Pa
+/**************************ä¼ æ„Ÿå™¨å€¼è½¬å®šç‚¹å€¼*************************************/
+BMP280_S32_t t_fine;			//ç”¨äºè®¡ç®—è¡¥å¿
+//æˆ‘ç”¨æµ®ç‚¹è¡¥å¿
 #ifdef USE_FIXED_POINT_COMPENSATE
-// Returns temperature in DegC, resolution is 0.01 DegC. Output value of ¡°5123¡± equals 51.23 DegC. 
+// Returns temperature in DegC, resolution is 0.01 DegC. Output value of â€œ5123â€ equals 51.23 DegC. 
 // t_fine carries fine temperature as global value
 BMP280_S32_t bmp280_compensate_T_int32(BMP280_S32_t adc_T)
 {
@@ -242,7 +242,7 @@ BMP280_S32_t bmp280_compensate_T_int32(BMP280_S32_t adc_T)
 }
 
 // Returns pressure in Pa as unsigned 32 bit integer in Q24.8 format (24 integer bits and 8 fractional bits).
-// Output value of ¡°24674867¡± represents 24674867/256 = 96386.2 Pa = 963.862 hPa
+// Output value of â€œ24674867â€ represents 24674867/256 = 96386.2 Pa = 963.862 hPa
 BMP280_U32_t bmp280_compensate_P_int64(BMP280_S32_t adc_P)
 {
 	BMP280_S64_t var1, var2, p;
@@ -267,8 +267,8 @@ BMP280_U32_t bmp280_compensate_P_int64(BMP280_S32_t adc_P)
 
 /***********************************CUT*************************************/
 #else
-/**************************´«¸ĞÆ÷Öµ×ª¶¨µãÖµ*************************************/
-// Returns temperature in DegC, double precision. Output value of ¡°51.23¡± equals 51.23 DegC.
+/**************************ä¼ æ„Ÿå™¨å€¼è½¬å®šç‚¹å€¼*************************************/
+// Returns temperature in DegC, double precision. Output value of â€œ51.23â€ equals 51.23 DegC.
 // t_fine carries fine temperature as global value
 double bmp280_compensate_T_double(BMP280_S32_t adc_T)
 {
@@ -281,7 +281,7 @@ double bmp280_compensate_T_double(BMP280_S32_t adc_T)
 	return T;
 }
 
-// Returns pressure in Pa as double. Output value of ¡°96386.2¡± equals 96386.2 Pa = 963.862 hPa
+// Returns pressure in Pa as double. Output value of â€œ96386.2â€ equals 96386.2 Pa = 963.862 hPa
 double bmp280_compensate_P_double(BMP280_S32_t adc_P)
 {
 	double var1, var2, p;
@@ -311,12 +311,12 @@ double BMP280_Get_Pressure(void)
 	XLsb = BMP280_Read_Byte(BMP280_PRESSURE_XLSB_REG);
 	Lsb	 = BMP280_Read_Byte(BMP280_PRESSURE_LSB_REG);
 	Msb	 = BMP280_Read_Byte(BMP280_PRESSURE_MSB_REG);
-	Bit32 = ((long)(Msb << 12))|((long)(Lsb << 4))|(XLsb>>4);	//¼Ä´æÆ÷µÄÖµ,×é³ÉÒ»¸ö¸¡µãÊı
+	Bit32 = ((long)(Msb << 12))|((long)(Lsb << 4))|(XLsb>>4);	//å¯„å­˜å™¨çš„å€¼,ç»„æˆä¸€ä¸ªæµ®ç‚¹æ•°
 	pressure = bmp280_compensate_P_double(Bit32);
 	return pressure;
 }
 
-//ÎÂ¶ÈÖµ-¡æ
+//æ¸©åº¦å€¼-â„ƒ
 double BMP280_Get_Temperature(void)
 {
 	uint8_t XLsb,Lsb, Msb;
@@ -325,7 +325,7 @@ double BMP280_Get_Temperature(void)
 	XLsb = BMP280_Read_Byte(BMP280_TEMPERATURE_XLSB_REG);
 	Lsb	 = BMP280_Read_Byte(BMP280_TEMPERATURE_LSB_REG);
 	Msb	 = BMP280_Read_Byte(BMP280_TEMPERATURE_MSB_REG);
-	Bit32 = ((long)(Msb << 12))|((long)(Lsb << 4))|(XLsb>>4);	//¼Ä´æÆ÷µÄÖµ,×é³ÉÒ»¸ö¸¡µãÊı
+	Bit32 = ((long)(Msb << 12))|((long)(Lsb << 4))|(XLsb>>4);	//å¯„å­˜å™¨çš„å€¼,ç»„æˆä¸€ä¸ªæµ®ç‚¹æ•°
 	temperature = bmp280_compensate_T_double(Bit32);
 	return temperature;
 }

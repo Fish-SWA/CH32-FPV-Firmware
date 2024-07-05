@@ -11,12 +11,12 @@
 #include "task.h"
 #include "IMU_handle.h"
 
-//extern u8 is_locked;           // µç»úËø
-//extern u8 flight_mode;         //·ÉĞĞÄ£Ê½
-//extern u8 is_landing;          //×Ô¶¯½µÂä
+//extern u8 is_locked;           // ç”µæœºé”
+//extern u8 flight_mode;         //é£è¡Œæ¨¡å¼
+//extern u8 is_landing;          //è‡ªåŠ¨é™è½
 
 void USART2_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
-void UART5_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));      // ´®¿ÚÖĞ¶Ï±ØĞëÅäÖÃÕâ¸ö£¬·ñÔòÖ»»á½øÒ»´ÎÖĞ¶Ï
+void UART5_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));      // ä¸²å£ä¸­æ–­å¿…é¡»é…ç½®è¿™ä¸ªï¼Œå¦åˆ™åªä¼šè¿›ä¸€æ¬¡ä¸­æ–­
 
 void USARTx_CFG(void)
 {
@@ -28,11 +28,11 @@ void USARTx_CFG(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2 , ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART5 , ENABLE);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO, ENABLE);    // ×¢ÒâÖØÓ³ÉäÊ±²»½ö½öĞèÒªÊ¹ÄÜÍâÉèºÍGPIOµÄÊ±ÖÓ£¬»¹ÒªÊ¹ÄÜAFIOµÄÊ±ÖÓ
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE|RCC_APB2Periph_AFIO, ENABLE);    // æ³¨æ„é‡æ˜ å°„æ—¶ä¸ä»…ä»…éœ€è¦ä½¿èƒ½å¤–è®¾å’ŒGPIOçš„æ—¶é’Ÿï¼Œè¿˜è¦ä½¿èƒ½AFIOçš„æ—¶é’Ÿ
 
-    GPIO_PinRemapConfig(GPIO_FullRemap_USART5, ENABLE);   //´®¿Ú5µÄÍêÈ«ÖØÓ³Éä
+    GPIO_PinRemapConfig(GPIO_FullRemap_USART5, ENABLE);   //ä¸²å£5çš„å®Œå…¨é‡æ˜ å°„
 
-    // ´®¿Ú2
+    // ä¸²å£2
     /* USART2 TX-->A.2   RX-->A.3 */
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -42,7 +42,7 @@ void USARTx_CFG(void)
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-    // ´®¿Ú5
+    // ä¸²å£5
     /* UART5 TX-->E.8  RX-->E.9 */
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -135,7 +135,7 @@ void USART2_RxCpltCallback(USART_TypeDef *USARTx)
     {
         RxBuf_Index = 0;
     }
-    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //½öÔÚIMU²»¶ÁĞ´Ê±½â°ü
+    if(IMU_IO_STATUS == IMU_IO_IDLE) HandleByteReceived();  //ä»…åœ¨IMUä¸è¯»å†™æ—¶è§£åŒ…
     USART_ClearFlag(USARTx, USART_IT_RXNE);
 //    USART_ITConfig(USARTx, USART_IT_RXNE, ENABLE);
 }

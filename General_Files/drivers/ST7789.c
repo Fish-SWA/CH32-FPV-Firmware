@@ -59,7 +59,7 @@ static void ST7789_BL_Init()
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE );
 
     GPIO_InitStructure.GPIO_Pin = ST7789_BL_PIN;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//ÉèÖÃÎªÍÆÍì£¨±³¹â£©Êä³öÄ£Ê½
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//è®¾ç½®ä¸ºæ¨æŒ½ï¼ˆèƒŒå…‰ï¼‰è¾“å‡ºæ¨¡å¼
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(ST7789_BL_PORT, &GPIO_InitStructure);
 
@@ -85,30 +85,30 @@ static void ST7789_SetWindows(unsigned int x, unsigned int y, unsigned int width
 {
 	if(ST7789_DIR == 2 || ST7789_DIR == 4)
 	{
-		I8080_Write_Byte(0x2a,ST7789_CMD);//ÁĞµØÖ·ÉèÖÃ
+		I8080_Write_Byte(0x2a,ST7789_CMD);//åˆ—åœ°å€è®¾ç½®
 		I8080_Write_Byte16(x+34);
 		I8080_Write_Byte16(x + width - 1 + 34);
 		
-		I8080_Write_Byte(0x2b,ST7789_CMD);//ĞĞµØÖ·ÉèÖÃ
+		I8080_Write_Byte(0x2b,ST7789_CMD);//è¡Œåœ°å€è®¾ç½®
 		I8080_Write_Byte16(y);
 		I8080_Write_Byte16(y + height - 1);
 	}
 	else
 	{
-		I8080_Write_Byte(0x2a,ST7789_CMD);//ÁĞµØÖ·ÉèÖÃ
+		I8080_Write_Byte(0x2a,ST7789_CMD);//åˆ—åœ°å€è®¾ç½®
 		I8080_Write_Byte16(x);
 		I8080_Write_Byte16(x + width - 1);
 		
-		I8080_Write_Byte(0x2b,ST7789_CMD);//ĞĞµØÖ·ÉèÖÃ
+		I8080_Write_Byte(0x2b,ST7789_CMD);//è¡Œåœ°å€è®¾ç½®
 		I8080_Write_Byte16(y+34);
 		I8080_Write_Byte16(y + height - 1 + 34);
 	}
-    I8080_Write_Byte(0x2c,ST7789_CMD);//´¢´æÆ÷Ğ´
+    I8080_Write_Byte(0x2c,ST7789_CMD);//å‚¨å­˜å™¨å†™
 }
 
 void ST7789_Init()
 {
-//=============================¡¾³õÊ¼»¯¡¿=================================
+//=============================ã€åˆå§‹åŒ–ã€‘=================================
 
     SPI3_HARD_Init();
 
@@ -205,29 +205,29 @@ void ST7789_Init()
 
 void ST7789_FillColor(unsigned int x, unsigned int y, unsigned int width, unsigned int height, color_t color)
 {
-//============================¡¾Ìî³äÆÁÄ»¡¿================================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//width:´°¿Ú¿í¶È
-//height:´°¿Ú¸ß¶È
-//color:ÒªÌî³äµÄÑÕÉ«(RGB565)
+//============================ã€å¡«å……å±å¹•ã€‘================================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//width:çª—å£å®½åº¦
+//height:çª—å£é«˜åº¦
+//color:è¦å¡«å……çš„é¢œè‰²(RGB565)
 //======================================================================
     unsigned int i,j;
-    ST7789_SetWindows(x,y,width,height);//ÉèÖÃÏÔÊ¾·¶Î§
+    ST7789_SetWindows(x,y,width,height);//è®¾ç½®æ˜¾ç¤ºèŒƒå›´
     for(i = y; i < height; i++)
         for(j = x; j < width; j++)I8080_Write_Byte16(color);
 }
 
 void ST7789_DrawPic(unsigned int x, unsigned int y, unsigned int width, unsigned int height, const unsigned char *_data)
 {
-//============================¡¾»­Í¼¡¿================================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//width:´°¿Ú¿í¶È
-//height:´°¿Ú¸ß¶È
-//*_data:°üº¬×ÖÄ£µÄÒ»Î¬Êı×éµØÖ·
+//============================ã€ç”»å›¾ã€‘================================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//width:çª—å£å®½åº¦
+//height:çª—å£é«˜åº¦
+//*_data:åŒ…å«å­—æ¨¡çš„ä¸€ç»´æ•°ç»„åœ°å€
 //===================================================================
     uint32_t i;
     ST7789_SetWindows(x, y, width, height);
@@ -236,12 +236,12 @@ void ST7789_DrawPic(unsigned int x, unsigned int y, unsigned int width, unsigned
 
 void ST7789_DrawDot(unsigned int x, unsigned int y, color_t color, unsigned char bold)
 {
-//============================¡¾»­µã¡¿=============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//color:ÑÕÉ«(RGB565)
-//bold:´ÖÏ¸(ÏñËØ)
+//============================ã€ç”»ç‚¹ã€‘=============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//color:é¢œè‰²(RGB565)
+//bold:ç²—ç»†(åƒç´ )
 //================================================================
     uint16_t var;
     if(x < ST7789_WIDTH && y <  ST7789_HEIGHT)
@@ -253,23 +253,23 @@ void ST7789_DrawDot(unsigned int x, unsigned int y, color_t color, unsigned char
 
 void ST7789_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2, color_t color, unsigned char bold)
 {
-//============================¡¾»­Ïß¡¿=============================
-//²ÎÊı£º
-//x1:ÆğÊ¼x×ø±ê
-//y1:ÆğÊ¼y×ø±ê
-//x2:ÖÕÖ¹x×ø±ê
-//y2:ÖÕÖ¹y×ø±ê
-//color:ÑÕÉ«(RGB565)
-//bold:´ÖÏ¸(ÏñËØ)
+//============================ã€ç”»çº¿ã€‘=============================
+//å‚æ•°ï¼š
+//x1:èµ·å§‹xåæ ‡
+//y1:èµ·å§‹yåæ ‡
+//x2:ç»ˆæ­¢xåæ ‡
+//y2:ç»ˆæ­¢yåæ ‡
+//color:é¢œè‰²(RGB565)
+//bold:ç²—ç»†(åƒç´ )
 //================================================================
     uint16_t i, x, y;
     int16_t sError_X=0,sError_Y=0,sDelta_X,sDelta_Y,sDistance;
     int16_t sIncrease_X, sIncrease_Y;
 
-    //¼ÆËã×ø±êÔöÁ¿
+    //è®¡ç®—åæ ‡å¢é‡
     sDelta_X = x2 - x1;
     sDelta_Y = y2 - y1;
-    //µ±Ç°×ø±êÎ»ÖÃ
+    //å½“å‰åæ ‡ä½ç½®
     x = x1;
     y = y1;
 
@@ -289,11 +289,11 @@ void ST7789_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned
         sDelta_Y = -sDelta_Y;
     }
 
-    //Ñ¡È¡»ù±¾ÔöÁ¿×ø±êÖá
+    //é€‰å–åŸºæœ¬å¢é‡åæ ‡è½´
     if(sDelta_X > sDelta_Y)sDistance = sDelta_X;
     else sDistance = sDelta_Y;
 
-    //»­ÏßÊä³ö
+    //ç”»çº¿è¾“å‡º
     for(i = 0; i <= sDistance + 1; i++)
     {
         ST7789_DrawDot(x, y, color, bold);
@@ -314,15 +314,15 @@ void ST7789_DrawLine(unsigned int x1, unsigned int y1, unsigned int x2, unsigned
 
 void ST7789_DrawRectangle(unsigned int x, unsigned int y, unsigned int width, unsigned int height, color_t color, unsigned char bold, FunctionalState fill)
 {
-//============================¡¾»­¾ØĞÎ¡¿=============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//width:¿í¶È
-//height:¸ß¶È
-//color:ÑÕÉ«(RGB565)
-//bold:´ÖÏ¸(ÏñËØ)
-//fill:ÊÇ·ñÌî³ä(ENABLE OR DISABLE)
+//============================ã€ç”»çŸ©å½¢ã€‘=============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//width:å®½åº¦
+//height:é«˜åº¦
+//color:é¢œè‰²(RGB565)
+//bold:ç²—ç»†(åƒç´ )
+//fill:æ˜¯å¦å¡«å……(ENABLE OR DISABLE)
 //==================================================================
     if(fill)ST7789_FillColor(x, y, width, height, color);
     else
@@ -336,21 +336,21 @@ void ST7789_DrawRectangle(unsigned int x, unsigned int y, unsigned int width, un
 
 void ST7789_DrawCircle(unsigned int x, unsigned int y, unsigned int radius, color_t color, unsigned char bold, FunctionalState fill)
 {
-//============================¡¾»­Ô²¡¿=============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//radius:°ë¾¶(ÏñËØ)
-//color:ÑÕÉ«(RGB565)
-//bold:´ÖÏ¸(ÏñËØ)
-//fill:ÊÇ·ñÌî³ä(ENABLE OR DISABLE)
+//============================ã€ç”»åœ†ã€‘=============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//radius:åŠå¾„(åƒç´ )
+//color:é¢œè‰²(RGB565)
+//bold:ç²—ç»†(åƒç´ )
+//fill:æ˜¯å¦å¡«å……(ENABLE OR DISABLE)
 //================================================================
     int16_t sCurrentX, sCurrentY;
     int16_t sError;
 
     sCurrentX = 0;
     sCurrentY = radius;
-    sError = 3 - (radius << 1);   //ÅĞ¶ÏÏÂ¸öµãÎ»ÖÃµÄ±êÖ¾
+    sError = 3 - (radius << 1);   //åˆ¤æ–­ä¸‹ä¸ªç‚¹ä½ç½®çš„æ ‡å¿—
 
     while(sCurrentX <= sCurrentY)
     {
@@ -359,7 +359,7 @@ void ST7789_DrawCircle(unsigned int x, unsigned int y, unsigned int radius, colo
         {
             for(sCountY = sCurrentX; sCountY <= sCurrentY; sCountY++)
             {
-                ST7789_DrawDot(x + sCurrentX, y + sCountY, color, bold);     //1£¬ÑĞ¾¿¶ÔÏó
+                ST7789_DrawDot(x + sCurrentX, y + sCountY, color, bold);     //1ï¼Œç ”ç©¶å¯¹è±¡
                 ST7789_DrawDot(x - sCurrentX, y + sCountY, color, bold);     //2
                 ST7789_DrawDot(x - sCountY,   y + sCurrentX, color, bold);   //3
                 ST7789_DrawDot(x - sCountY,   y - sCurrentX, color, bold);   //4
@@ -371,7 +371,7 @@ void ST7789_DrawCircle(unsigned int x, unsigned int y, unsigned int radius, colo
     }
         else
         {
-            ST7789_DrawDot(x + sCurrentX, y + sCurrentY, color, bold);     //1£¬ÑĞ¾¿¶ÔÏó
+            ST7789_DrawDot(x + sCurrentX, y + sCurrentY, color, bold);     //1ï¼Œç ”ç©¶å¯¹è±¡
             ST7789_DrawDot(x - sCurrentX, y + sCurrentY, color, bold);     //2
             ST7789_DrawDot(x - sCurrentY, y + sCurrentX, color, bold);   //3
             ST7789_DrawDot(x - sCurrentY, y - sCurrentX, color, bold);   //4
@@ -412,7 +412,7 @@ static void GT30L32S4W_SendADDR(u32 addr)
 static unsigned char GT30L32S4W_Read_Byte(unsigned char _data)
 {
     while(SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE) == RESET);
-    SPI_I2S_SendData(SPI3, _data);//ÎªÁË²úÉú8¸öSCLK
+    SPI_I2S_SendData(SPI3, _data);//ä¸ºäº†äº§ç”Ÿ8ä¸ªSCLK
     while(SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_BSY));
     while(SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
     return (uint8_t)SPI_I2S_ReceiveData(SPI3);
@@ -510,14 +510,14 @@ static void GT30L32S4W_ReadData(GT30L32S4W_BaseADDR_t BaseAdd, unsigned char ASC
 
 void ST7789_ShowCHN(unsigned int x, unsigned int y, unsigned char *chr, color_t color_background, color_t color_foreground, GT30L32S4W_BaseADDR_t SIZE)
 {
-//============================¡¾ÏÔÊ¾ÖĞÎÄ×Ö·û´®¡¿=============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//*chr:ÒªÏÔÊ¾µÄ×Ö·û´®
-//color_background:±³¾°É«(RGB565)
-//color_foreground:Ç°¾°É«(RGB565)
-//SIZE:×ÖÌå´óĞ¡
+//============================ã€æ˜¾ç¤ºä¸­æ–‡å­—ç¬¦ä¸²ã€‘=============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//*chr:è¦æ˜¾ç¤ºçš„å­—ç¬¦ä¸²
+//color_background:èƒŒæ™¯è‰²(RGB565)
+//color_foreground:å‰æ™¯è‰²(RGB565)
+//SIZE:å­—ä½“å¤§å°
 //=========================================================================
     u8 page, col, step;
 
@@ -622,14 +622,14 @@ void ST7789_ShowCHN(unsigned int x, unsigned int y, unsigned char *chr, color_t 
 
 void ST7789_ShowChar(unsigned int x, unsigned int y, unsigned char chr, color_t color_background, color_t color_foreground, GT30L32S4W_BaseADDR_t SIZE)
 {
-//=========================¡¾ÏÔÊ¾ASCII×Ö·û¡¿==============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//chr:ÒªÏÔÊ¾µÄ×Ö·û
-//color_background:±³¾°É«(RGB565)
-//color_foreground:Ç°¾°É«(RGB565)
-//SIZE:×ÖÌå´óĞ¡
+//=========================ã€æ˜¾ç¤ºASCIIå­—ç¬¦ã€‘==============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//chr:è¦æ˜¾ç¤ºçš„å­—ç¬¦
+//color_background:èƒŒæ™¯è‰²(RGB565)
+//color_foreground:å‰æ™¯è‰²(RGB565)
+//SIZE:å­—ä½“å¤§å°
 //======================================================================
     u8 page, col;
 
@@ -731,7 +731,7 @@ void ST7789_ShowChar(unsigned int x, unsigned int y, unsigned char chr, color_t 
     }
 }
 
-static unsigned long Math_Pow(unsigned char y)//¼ÆËã10µÄy´Î·½£¨10^y£©º¯Êı
+static unsigned long Math_Pow(unsigned char y)//è®¡ç®—10çš„yæ¬¡æ–¹ï¼ˆ10^yï¼‰å‡½æ•°
 {
     unsigned long result = 1;
     while(y--)result *= 10;
@@ -740,16 +740,16 @@ static unsigned long Math_Pow(unsigned char y)//¼ÆËã10µÄy´Î·½£¨10^y£©º¯Êı
 
 void ST7789_ShowNum(unsigned int x, unsigned int y, signed long num, unsigned char len, color_t color_background, color_t color_foreground, GT30L32S4W_BaseADDR_t SIZE)
 {
-//==============================¡¾ÏÔÊ¾Êı×Ö¡¿==============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//num:ÒªÏÔÊ¾µÄÊı×Ö£¬Ö§³Ö¸ºÊı
-//len:Êı×ÖÎ»Êı
-//color_background:±³¾°É«(RGB565)
-//color_foreground:Ç°¾°É«(RGB565)
-//SIZE:×ÖÌå´óĞ¡
-//×¢ÒâÒç³öÎÊÌâ
+//==============================ã€æ˜¾ç¤ºæ•°å­—ã€‘==============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//num:è¦æ˜¾ç¤ºçš„æ•°å­—ï¼Œæ”¯æŒè´Ÿæ•°
+//len:æ•°å­—ä½æ•°
+//color_background:èƒŒæ™¯è‰²(RGB565)
+//color_foreground:å‰æ™¯è‰²(RGB565)
+//SIZE:å­—ä½“å¤§å°
+//æ³¨æ„æº¢å‡ºé—®é¢˜
 //======================================================================
     unsigned char i, temp, step = 0, zero_flag = 0;
     if(SIZE == SIZE_ASCII_12x24)step = 12;
@@ -758,24 +758,24 @@ void ST7789_ShowNum(unsigned int x, unsigned int y, signed long num, unsigned ch
     {
         num = -num;
         ST7789_ShowChar(x, y, '-', color_background, color_foreground, SIZE);
-        x += step;//Ö¸ÕëÒÆ¶¯
+        x += step;//æŒ‡é’ˆç§»åŠ¨
     }
     else
     {
         ST7789_ShowChar(x, y, ' ', color_background, color_foreground, SIZE);
-        x += step;//Ö¸ÕëÒÆ¶¯
+        x += step;//æŒ‡é’ˆç§»åŠ¨
     }
-    for(i = 0;i < len;i++)//Ñ­»·ÏÔÊ¾Ã¿Ò»¸ö×Ö·û
+    for(i = 0;i < len;i++)//å¾ªç¯æ˜¾ç¤ºæ¯ä¸€ä¸ªå­—ç¬¦
     {
-        temp = (num / Math_Pow(len - i - 1)) % 10;//Çó³öµ±Ç°Î»µÄÊıÖµ£¬¼ÙÈçÊı×ÖÎª25£¬lenÎª3£¬µ±iÎª0Ê±temp = 0£¬µ±iÎª1Ê±temp = 2£¬£¬µ±iÎª2Ê±temp = 5
-        if(zero_flag == 0 && i < (len - 1))//Î´½øÈë¹ı¸ÃÅĞ¶ÏÓï¾äÇÒi²»ÊÇ×îºóÒ»Î»Ê±
+        temp = (num / Math_Pow(len - i - 1)) % 10;//æ±‚å‡ºå½“å‰ä½çš„æ•°å€¼ï¼Œå‡å¦‚æ•°å­—ä¸º25ï¼Œlenä¸º3ï¼Œå½“iä¸º0æ—¶temp = 0ï¼Œå½“iä¸º1æ—¶temp = 2ï¼Œï¼Œå½“iä¸º2æ—¶temp = 5
+        if(zero_flag == 0 && i < (len - 1))//æœªè¿›å…¥è¿‡è¯¥åˆ¤æ–­è¯­å¥ä¸”iä¸æ˜¯æœ€åä¸€ä½æ—¶
         {
             if(temp == 0)
             {
                 ST7789_ShowChar(x + step * i, y, ' ', color_background, color_foreground, SIZE);
-                continue;//Ìø³ö±¾´ÎÑ­»·
+                continue;//è·³å‡ºæœ¬æ¬¡å¾ªç¯
             }
-            else zero_flag = 1;//´Ó´Ë²»½øÈë¸ÃÅĞ¶ÏÓï¾ä
+            else zero_flag = 1;//ä»æ­¤ä¸è¿›å…¥è¯¥åˆ¤æ–­è¯­å¥
         }
         ST7789_ShowChar(x + step * i, y, temp + '0', color_background, color_foreground, SIZE);
     }
@@ -783,16 +783,16 @@ void ST7789_ShowNum(unsigned int x, unsigned int y, signed long num, unsigned ch
 
 void ST7789_ShowNumf(unsigned int x, unsigned int y, float num, unsigned char len, color_t color_background, color_t color_foreground, GT30L32S4W_BaseADDR_t SIZE)
 {
-//==============================¡¾ÏÔÊ¾Ğ¡Êı¡¿==============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//num:ÒªÏÔÊ¾µÄÊı×Ö£¬Á½Î»Ğ¡Êı£¬Ö§³Ö¸ºÊı
-//len:Êı×ÖÎ»Êı£¬°üÀ¨Ğ¡ÊıÎ»
-//color_background:±³¾°É«(RGB565)
-//color_foreground:Ç°¾°É«(RGB565)
-//SIZE:×ÖÌå´óĞ¡
-//×¢ÒâÒç³öÎÊÌâ
+//==============================ã€æ˜¾ç¤ºå°æ•°ã€‘==============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//num:è¦æ˜¾ç¤ºçš„æ•°å­—ï¼Œä¸¤ä½å°æ•°ï¼Œæ”¯æŒè´Ÿæ•°
+//len:æ•°å­—ä½æ•°ï¼ŒåŒ…æ‹¬å°æ•°ä½
+//color_background:èƒŒæ™¯è‰²(RGB565)
+//color_foreground:å‰æ™¯è‰²(RGB565)
+//SIZE:å­—ä½“å¤§å°
+//æ³¨æ„æº¢å‡ºé—®é¢˜
 //======================================================================
     unsigned char i, temp, step = 0, zero_flag = 0;
     unsigned long num1;
@@ -802,12 +802,12 @@ void ST7789_ShowNumf(unsigned int x, unsigned int y, float num, unsigned char le
     {
         num = -num;
         ST7789_ShowChar(x, y, '-', color_background, color_foreground, SIZE);
-        x += step;//Ö¸ÕëÒÆ¶¯
+        x += step;//æŒ‡é’ˆç§»åŠ¨
     }
     else
     {
         ST7789_ShowChar(x, y, ' ', color_background, color_foreground, SIZE);
-        x += step;//Ö¸ÕëÒÆ¶¯
+        x += step;//æŒ‡é’ˆç§»åŠ¨
     }
     num1 = num * 100;
     for(i = 0;i < len;i++)
@@ -818,9 +818,9 @@ void ST7789_ShowNumf(unsigned int x, unsigned int y, float num, unsigned char le
             if(temp == 0)
             {
                 ST7789_ShowChar(x + step * i, y, ' ', color_background, color_foreground, SIZE);
-                continue;//Ìø³ö±¾´ÎÑ­»·
+                continue;//è·³å‡ºæœ¬æ¬¡å¾ªç¯
             }
-            else zero_flag = 1;//´Ó´Ë²»½øÈë¸ÃÅĞ¶ÏÓï¾ä
+            else zero_flag = 1;//ä»æ­¤ä¸è¿›å…¥è¯¥åˆ¤æ–­è¯­å¥
         }
         if(i == (len - 2))
         {
@@ -834,14 +834,14 @@ void ST7789_ShowNumf(unsigned int x, unsigned int y, float num, unsigned char le
 
 void ST7789_ShowString(unsigned int x, unsigned int y, const char *chr, color_t color_background, color_t color_foreground, GT30L32S4W_BaseADDR_t SIZE)
 {
-//=========================¡¾ÏÔÊ¾ASCII×Ö·û´®¡¿============================
-//²ÎÊı£º
-//x:ÆğÊ¼x×ø±ê
-//y:ÆğÊ¼y×ø±ê
-//*chr:ÒªÏÔÊ¾µÄ×Ö·û´®
-//color_background:±³¾°É«(RGB565)
-//color_foreground:Ç°¾°É«(RGB565)
-//SIZE:×ÖÌå´óĞ¡
+//=========================ã€æ˜¾ç¤ºASCIIå­—ç¬¦ä¸²ã€‘============================
+//å‚æ•°ï¼š
+//x:èµ·å§‹xåæ ‡
+//y:èµ·å§‹yåæ ‡
+//*chr:è¦æ˜¾ç¤ºçš„å­—ç¬¦ä¸²
+//color_background:èƒŒæ™¯è‰²(RGB565)
+//color_foreground:å‰æ™¯è‰²(RGB565)
+//SIZE:å­—ä½“å¤§å°
 //======================================================================
     u8 step;
     if(SIZE == SIZE_ASCII_5x7)step = 5;

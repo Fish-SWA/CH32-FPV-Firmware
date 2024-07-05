@@ -2,9 +2,9 @@
 #define _CRSF_PROTOCOL_H__
 
 
-#define CRSF_BAUDRATE           420000		//²¨ÌØÂÊ
-#define CRSF_NUM_CHANNELS 16							//Í¨µÀÊı
-#define CRSF_CHANNEL_VALUE_MIN  172 // 		//Í¨µÀ×îĞ¡ÖµÏŞÖÆ	987us - actual CRSF min is 0 with E.Limits on 
+#define CRSF_BAUDRATE           420000		//æ³¢ç‰¹ç‡
+#define CRSF_NUM_CHANNELS 16							//é€šé“æ•°
+#define CRSF_CHANNEL_VALUE_MIN  172 // 		//é€šé“æœ€å°å€¼é™åˆ¶	987us - actual CRSF min is 0 with E.Limits on 
 #define CRSF_CHANNEL_VALUE_1000 191
 #define CRSF_CHANNEL_VALUE_MID  992
 #define CRSF_CHANNEL_VALUE_2000 1792

@@ -12,7 +12,7 @@
 #include "IMU_handle.h"
 #include "MTF01.h"
 
-#define PRINT_DELAY_TIME 80 //Á½´ÎÊä³öµÄ¼ä¸ô
+#define PRINT_DELAY_TIME 80 //ä¸¤æ¬¡è¾“å‡ºçš„é—´éš”
 
 extern void Print_status_task(void *pvParameters);
 

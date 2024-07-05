@@ -1,23 +1,23 @@
 /****************************IMU_handle.c***************************************
-¸ºÔğÎ¬»¤IMU
+è´Ÿè´£ç»´æŠ¤IMU
 
-¶ÁÈ¡IMUµÄÊı¾İ£¬ÂË²¨Ö®ºó½«Æä´æ´¢ÔÚMPU6050_para_filtedÖĞ
+è¯»å–IMUçš„æ•°æ®ï¼Œæ»¤æ³¢ä¹‹åå°†å…¶å­˜å‚¨åœ¨MPU6050_para_filtedä¸­
 
 *******************************************************************************/
 #include "IMU_handle.h"
 
-FilterBuf_STRUCT gyro_filter[6];    //IMUÆ½¾ùÖµÂË²¨½á¹¹Ìå
-MPU6050_para_t MPU6050_para =       //´ÓIMU»ñÈ¡µ½µÄÔ­Ê¼Êı¾İ
+FilterBuf_STRUCT gyro_filter[6];    //IMUå¹³å‡å€¼æ»¤æ³¢ç»“æ„ä½“
+MPU6050_para_t MPU6050_para =       //ä»IMUè·å–åˆ°çš„åŸå§‹æ•°æ®
 {
 	0,//yaw
 	0,//pitch
 	0,//row
-	0,//av_yaw ½ÇËÙ¶È
+	0,//av_yaw è§’é€Ÿåº¦
 	0,//av_pitch
 	0,//av_roll
 };
-MPU6050_para_t MPU6050_para_filted; //ÂË²¨Ö®ºóµÄIMUÊı¾İ
-int IMU_IO_STATUS = IMU_IO_IDLE;    //IMUµÄ¶ÁĞ´×´Ì¬£¬ÔÚ²Ù×÷IMUÊ±½ûÓÃÖĞ¶Ï²Ù×÷
+MPU6050_para_t MPU6050_para_filted; //æ»¤æ³¢ä¹‹åçš„IMUæ•°æ®
+int IMU_IO_STATUS = IMU_IO_IDLE;    //IMUçš„è¯»å†™çŠ¶æ€ï¼Œåœ¨æ“ä½œIMUæ—¶ç¦ç”¨ä¸­æ–­æ“ä½œ
 
 void IMU_task(void *pvParameters);
 void load_filter_data();
@@ -27,18 +27,18 @@ void IMU_task(void *pvParameters)
 {
     while(1)
     {
-        IMU_IO_STATUS = IMU_IO_BUSY;    //¸üĞÂ×´Ì¬
+        IMU_IO_STATUS = IMU_IO_BUSY;    //æ›´æ–°çŠ¶æ€
         if(MPU6050_MPU_DMP_GetData() == RESET)
         {
             load_filter_data();
             calc_IMU_filter();
         }
-        IMU_IO_STATUS = IMU_IO_IDLE;    //¸üĞÂ×´Ì¬
+        IMU_IO_STATUS = IMU_IO_IDLE;    //æ›´æ–°çŠ¶æ€
         vTaskDelay(IMU_READ_DELAY);
     }
 }
 
-/*IMUÂË²¨Ïà¹Ø*/
+/*IMUæ»¤æ³¢ç›¸å…³*/
 void load_filter_data()
 {
     FilterSample(&gyro_filter[0], MPU6050_para.yaw);
@@ -51,7 +51,7 @@ void load_filter_data()
 
 void calc_IMU_filter()
 {
-    /*!Debug µ÷»»ÁËPitchºÍRoll*/
+    /*!Debug è°ƒæ¢äº†Pitchå’ŒRoll*/
     MPU6050_para_filted.yaw = FilterAverage(&gyro_filter[0]);
     MPU6050_para_filted.pitch = FilterAverage(&gyro_filter[2]);
     MPU6050_para_filted.roll = FilterAverage(&gyro_filter[1]);

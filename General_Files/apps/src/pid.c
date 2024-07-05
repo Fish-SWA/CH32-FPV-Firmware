@@ -37,10 +37,10 @@ void pid_reset( PID_STRUCT  *p)
     p->min_iout     = 0;
     p->max_iout     = 0;
 
-    p->out          = 0;     //ÖÜÆÚ
-    p->Pout         = 0;     //±ÈÀýÏµÊýP
-    p->Iout         = 0;     //»ý·ÖÊ±¼äI
-    p->Dout         = 0;     //Î¢·ÖÊ±¼äD
+    p->out          = 0;     //å‘¨æœŸ
+    p->Pout         = 0;     //æ¯”ä¾‹ç³»æ•°P
+    p->Iout         = 0;     //ç§¯åˆ†æ—¶é—´I
+    p->Dout         = 0;     //å¾®åˆ†æ—¶é—´D
 
 }
 
@@ -63,7 +63,7 @@ void pid_clc( PID_STRUCT *pid)
 }
 
 
-// setÊÇÉè¶¨Öµ£¬fdbÊÇµ±Ç°Öµ
+// setæ˜¯è®¾å®šå€¼ï¼Œfdbæ˜¯å½“å‰å€¼
 void pid_calc( PID_STRUCT *pid, float set, float fdb)
 {
     pid->error[2] = pid->error[1];
@@ -85,7 +85,7 @@ void pid_calc( PID_STRUCT *pid, float set, float fdb)
     Limit(pid->out,pid->max_out,pid->min_out);
 //    LimitMax(pid->out,pid->max_out);
 //    LimitMin(pid->out,pid->min_out);
-    /*Êä³öËÀÇø*/
+    /*è¾“å‡ºæ­»åŒº*/
     if(pid->error[0] <= pid->DeadBand && pid->error[0] >= -pid->DeadBand){
         pid->out = 0;
         pid->Iout = 0;
