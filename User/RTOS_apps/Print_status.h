@@ -12,7 +12,7 @@
 #include "IMU_handle.h"
 #include "MTF01.h"
 
-#define PRINT_DELAY_TIME 100 //两次输出的间隔
+#define PRINT_DELAY_TIME 10 //两次输出的间隔
 
 /*发送数据包的结构体*/
 typedef struct
@@ -43,6 +43,8 @@ typedef struct
     /*状态信息*/
     int flight_mode;
     int control_mode;
+    /*遥控器信息*/
+    int CrsfChannels[CRSF_NUM_CHANNELS];
 
     
     int end;     //0x5A

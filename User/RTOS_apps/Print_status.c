@@ -62,8 +62,10 @@ void Serial_data_send()
     SendPack.flight_mode    = control.flight_mode;
     SendPack.control_mode   = control.CONTROL_MODE;
 
-    // USART_SendData(USART1, 0xFF);
-//    printf("%d\n", sizeof(SendPack));
+    /*遥控器信息*/
+    for(int i=0; i < 16; i++){
+        SendPack.CrsfChannels[i] = CrsfChannels[i];
+    }
     Serial_send_char(USART1, (uint8_t *)&SendPack, sizeof(SendPack));
 }
 
