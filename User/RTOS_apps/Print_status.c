@@ -1,5 +1,5 @@
 /****************************Print_status.c***************************************
-从调试串口输出无人机的信�?
+从调试串口输出无人机的信�?
 
 
 *******************************************************************************/
@@ -8,21 +8,75 @@
 void Print_status_task(void *pvParameters);
 void Graph_print();
 void String_print();
+void Serial_data_send();
+void Serial_send_char(USART_TypeDef *USART, uint8_t *data, int size);
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload_filtered;
 extern MICOLINK_PAYLOAD_RANGE_SENSOR_t payload;
 extern float compensate_factor;
+SendPackType SendPack;  //向上位机发送的数据包
+
 void Print_status_task(void *pvParameters)
 {
     while(1)
     {
     
     // Graph_print();
-    String_print();
+    // String_print();
+   Serial_data_send();
 
     vTaskDelay(PRINT_DELAY_TIME);
 
     }
 }
+
+void Serial_data_send()
+{
+    SendPack.head = 0xEF;
+    SendPack.end = 0x5A;
+
+    /*IMU信息*/
+    SendPack.IMU_yaw = MPU6050_para_filted.yaw;
+    SendPack.IMU_pitch = MPU6050_para_filted.pitch;
+    SendPack.IMU_roll = MPU6050_para_filted.roll;
+    SendPack.IMU_av_yaw = MPU6050_para_filted.av_yaw;
+    SendPack.IMU_av_pitch = MPU6050_para_filted.av_pitch;
+    SendPack.IMU_av_roll = MPU6050_para_filted.av_roll;
+
+    /*光流信息*/
+    SendPack.MTF01_roll         =   control.MTF01_roll_agnle;
+    SendPack.MTF01_pitch        =   control.MTF01_pitch_agnle;
+    SendPack.MTF01_ToF_status   =   payload.tof_status;
+    SendPack.MTF01_distance     =   payload_filtered.distance;
+    SendPack.MTF01_Px           =   payload_filtered.Px;
+    SendPack.MTF01_Py           =   payload_filtered.Py;
+    SendPack.MTF01_Vx           =   payload_filtered.Vx;
+    SendPack.MTF01_Vy           =   payload_filtered.Vy;
+
+    /*油门信息*/
+    SendPack.PWM1   =   TIM_GetCapture2(TIM9);
+    SendPack.PWM2   =   TIM_GetCapture3(TIM9);
+    SendPack.PWM3   =   TIM_GetCapture4(TIM9);
+    SendPack.PWM4   =   TIM_GetCapture1(TIM9);
+
+    /*状态信息*/
+    SendPack.flight_mode    = control.flight_mode;
+    SendPack.control_mode   = control.CONTROL_MODE;
+
+    // USART_SendData(USART1, 0xFF);
+//    printf("%d\n", sizeof(SendPack));
+    Serial_send_char(USART1, (uint8_t *)&SendPack, sizeof(SendPack));
+}
+
+
+void Serial_send_char(USART_TypeDef *USART, uint8_t *data, int size)
+{
+    for(int i=0; i<size; i++){
+        while(USART_GetFlagStatus(USART, USART_FLAG_TXE) == RESET);
+        USART_SendData(USART, data[i]);
+        // printf("%d\n", i);
+    }
+}
+
 
 void Graph_print()
 {
@@ -46,7 +100,7 @@ void String_print()
     printf("statues:%d\r\n",payload.tof_status);
 
     printf("compensate_factor=%f\r\n",compensate_factor);
-    printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //剩余堆空�?
+    printf("xPortGetMinimumEverFreeHeapSize = %d\r\n",xPortGetMinimumEverFreeHeapSize());   //剩余堆空�?
 
     printf("yaw_filted=%f\r\n",MPU6050_para_filted.yaw);
     printf("pitch_filted=%f\r\n",MPU6050_para_filted.pitch);
@@ -65,7 +119,7 @@ void String_print()
     printf("pitch_out=%f\r\n",control.PID_pitch_innerloop.out);
 
 
-    printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际�?2号电�?
+    printf("PWM1:%d\r\n",TIM_GetCapture2(TIM9));    //对应实际的2号电机
     printf("PWM2:%d\r\n",TIM_GetCapture3(TIM9));    //3
     printf("PWM3:%d\r\n",TIM_GetCapture4(TIM9));    //4
     printf("PWM4:%d\r\n",TIM_GetCapture1(TIM9));    //1

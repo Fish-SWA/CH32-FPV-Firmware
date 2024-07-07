@@ -56,7 +56,7 @@ int main(void)
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	SystemCoreClockUpdate();
 	Delay_Init();
-	USART_Printf_Init(256000);
+	USART_Printf_Init(230400);
 	Crc_init(0xD5);
     	
 	printf("SystemClk:%d\r\n",SystemCoreClock);
@@ -64,7 +64,7 @@ int main(void)
 	GPIO_Toggle_INIT();
     System_Init();
 
-	Delay_Ms(200);	//等待一段时间之后再启动
+	Delay_Ms(200);	//等待一段时间之后再�?�?
     RTOS_init();
 
 	while(1)
